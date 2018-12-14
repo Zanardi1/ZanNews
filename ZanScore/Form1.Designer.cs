@@ -48,6 +48,7 @@
             this.webBrowser1.Name = "webBrowser1";
             this.webBrowser1.Size = new System.Drawing.Size(250, 250);
             this.webBrowser1.TabIndex = 1;
+            this.webBrowser1.Url = new System.Uri("", System.UriKind.Relative);
             // 
             // Form1
             // 
