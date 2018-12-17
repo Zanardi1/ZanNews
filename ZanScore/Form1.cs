@@ -15,9 +15,12 @@ namespace ZanScore
     {
         public Form1()
         {
-            RSSTools R = new RSSTools("nba_rss.xml");
+            RSSData R = new RSSData("nba_rss.xml");
             if (R.CheckRSSFile())
+            {
                 R.ReadRSSContent();
+                R.FillRSSData();
+            }
             InitializeComponent();
         }
     }
