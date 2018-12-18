@@ -18,6 +18,7 @@ namespace ZanScore
             RSSData R = new RSSData("nba_rss.xml");
             if (R.CheckRSSFile())
             {
+                R.DownloadRSSFile();
                 R.ReadRSSContent();
                 R.FillRSSData();
             }

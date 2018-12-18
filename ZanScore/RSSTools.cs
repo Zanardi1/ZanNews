@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Forms;
 using System.IO;
+using System.ComponentModel;
+using System.Xml;
 
 namespace ZanScore
 /*
@@ -35,7 +37,8 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
         private readonly string FileToProcess; //Retine numele fisierului care va fi procesat
         private string[] FileContent; //Retine liniile fisierului citit
-        private int i; //Numarator intern
+        private readonly int i; //Numarator intern
+        private readonly string RSSURL; //Retine URL-ul RSS-ului
 
         public RSSData(string File)
         {
@@ -55,6 +58,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             for (i = 0; i < NewsDescription.Length; i++)
                 NewsDescription[i] = "";
             FileToProcess = File;
+            RSSURL = "";
         }
 
         public bool CheckRSSFile()
@@ -84,6 +88,8 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
         public void FillRSSData()
         {
+            bool IsNews = false;
+            //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
             for (int i = 0; i <= FileContent.Length - 1; i++) //Verifica fiecare rand pentru a vedea ce informatii sunt. Apoi le clasifica unde trebuie
             {
                 if (FileContent[i].Contains("<rss")) //Contine versiunea de RSS
@@ -103,8 +109,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     //Nimic momentan
                 }
 
-                bool IsNews = false;
-                //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
                 if (FileContent[i].Contains("<item>"))
                 {
                     IsNews = true;
@@ -118,11 +122,12 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 if (FileContent[i].Contains("<title>"))
                 {
                     if (IsNews) //Titlu de stire
-
                     {
-                        //todo: De perfectionat ramura asta
+                        Array.Resize(ref NewsTitle, NewsTitle.Length + 1);
+                        NewsTitle[NewsTitle.Length - 1] = FileContent[i];
+                        NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), NewsTitle[NewsTitle.Length - 1].IndexOf(">") + 1);
+                        NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), 8);
                     }
-
                     else //Titlu de canal
                     {
                         ChannelTitle = FileContent[i];
@@ -135,7 +140,10 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 {
                     if (IsNews) //Link-ul stirii
                     {
-                        //todo: De lucrat la varianta asta
+                        Array.Resize(ref NewsLink, NewsLink.Length + 1);
+                        NewsLink[NewsLink.Length - 1] = FileContent[i];
+                        NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), NewsLink[NewsLink.Length - 1].IndexOf(">") + 1);
+                        NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), 7);
                     }
 
                     else //Link-ul canalului
@@ -150,7 +158,10 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 {
                     if (IsNews) //Descrierea stirii
                     {
-                        //todo: De lucrat la varianta asta
+                        Array.Resize(ref NewsDescription, NewsDescription.Length + 1);
+                        NewsDescription[NewsDescription.Length - 1] = FileContent[i];
+                        NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), NewsDescription[NewsDescription.Length - 1].IndexOf(">") + 1);
+                        NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), 14);
                     }
 
                     else //Descrierea canalului
@@ -189,6 +200,30 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     PubDate = PubDate.Remove(PubDate.IndexOf("<"), 10);
                 }
             }
+        }
+
+        public void DownloadRSSFile()
+        {
+            BackgroundWorker bw = new BackgroundWorker();
+            bw.DoWork += new DoWorkEventHandler(DoTheWork);
+            bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(RunWorkComplete);
+
+            bw.RunWorkerAsync();
+            Application.DoEvents();
+        }
+
+        private void DoTheWork(object sender, DoWorkEventArgs e)
+        //Descarca fisierul de pe internet
+        {
+            XmlDocument document = new XmlDocument();
+            document.Load("http://www.nba.com/rss/nba_rss.xml");
+            document.Save("nba_rss.xml");
+        }
+
+        private void RunWorkComplete(object sender, RunWorkerCompletedEventArgs e)
+        //Instructiunile executate dupa incheierea descarcarii
+        {
+            //todo: de perfectionat, daca e nevoie
         }
     }
 }
