@@ -106,7 +106,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 {
                     RSSVersion = FileContent[i].Trim();
                     RSSVersion = RSSVersion.Remove(RSSVersion.IndexOf("<"), RSSVersion.IndexOf("\"") + 1);
-                    RSSVersion = RSSVersion.Remove(RSSVersion.IndexOf("\""), 2);
+                    RSSVersion = RSSVersion.Remove(RSSVersion.IndexOf("\""), RSSVersion.Length - RSSVersion.IndexOf("\""));
                 }
 
                 if (FileContent[i].Contains("<channel>")) //Daca avem un canal
@@ -119,12 +119,12 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     //Nimic momentan
                 }
 
-                if (FileContent[i].Contains("<item>"))
+                if (FileContent[i].Contains("<item"))
                 {
                     IsNews = true;
                 }
 
-                if (FileContent[i].Contains("</item>"))
+                if (FileContent[i].Contains("</item"))
                 {
                     IsNews = false;
                 }
@@ -138,7 +138,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         if (NewsTitle[NewsTitle.Length - 1].Contains("CDATA")) //Daca titlul are si eticheta CDATA
                         {
                             NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), 16);
-                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("]"), 10);
+                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("]"), NewsTitle[NewsTitle.Length - 1].Length - NewsTitle[NewsTitle.Length - 1].IndexOf("]"));
                         }
                         else
                         {
@@ -163,7 +163,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         if (NewsLink[NewsLink.Length - 1].Contains("CDATA")) //Daca link-ul catre stire are si eticheta CDATA
                         {
                             NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), 15);
-                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("]"), 9);
+                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("]"), 10);
                         }
                         else
                         {
@@ -238,32 +238,13 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
         public void DownloadRSSFile()
         {
-            //BackgroundWorker bw = new BackgroundWorker();
-            //bw.DoWork += new DoWorkEventHandler(DoTheWork);
-            //bw.RunWorkerCompleted += new RunWorkerCompletedEventHandler(RunWorkComplete);
-
-            //bw.RunWorkerAsync();
-            //Application.DoEvents();
-
             XmlDocument document = new XmlDocument();
             document.Load(OnlineSource);
             FileToProcess = Path.GetFileName(OnlineSource);
+            FileToProcess = "RSS Files\\" + FileToProcess;
+            if (!Directory.Exists("RSS Files\\"))
+                Directory.CreateDirectory("RSS Files\\");
             document.Save(FileToProcess);
-        }
-
-        private void DoTheWork(object sender, DoWorkEventArgs e)
-        //Descarca fisierul de pe internet
-        {
-            XmlDocument document = new XmlDocument();
-            document.Load(OnlineSource);
-            FileToProcess = Path.GetFileName(OnlineSource);
-            document.Save(FileToProcess);
-        }
-
-        private void RunWorkComplete(object sender, RunWorkerCompletedEventArgs e)
-        //Instructiunile executate dupa incheierea descarcarii
-        {
-            //todo: de perfectionat, daca e nevoie
         }
     }
 }
