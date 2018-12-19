@@ -35,13 +35,13 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         public string[] NewsLink = new string[] { }; //Link-urile catre stiri
         public string[] NewsDescription = new string[] { }; //Descrierile stirilor
 
-        private readonly string OnlineSource; //Retine numele fisierului XML original, aflat pe internet
+        private string OnlineSource; //Retine numele fisierului XML original, aflat pe internet
         private string FileToProcess; //Retine numele fisierului care va fi descarcat si procesat
         private string[] FileContent; //Retine liniile fisierului citit
         private readonly int i; //Numarator intern
         private readonly string RSSURL; //Retine URL-ul RSS-ului
 
-        public RSSData(string File)
+        public RSSData()
         {
             RSSVersion = "";
             ChannelTitle = "";
@@ -59,11 +59,18 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             for (i = 0; i < NewsDescription.Length; i++)
                 NewsDescription[i] = "";
             FileToProcess = "";
-            OnlineSource = File;
+            OnlineSource = "";
             RSSURL = "";
         }
 
+        public void LoadRSSFile(string FileToLoad)
+        //Citeste numele fisierului RSS care va fi procesat
+        {
+            OnlineSource = FileToLoad;
+        }
+
         public bool CheckRSSFile()
+        //Verifica existenta fisierului RSS. Inca am dubii asupra utilitatii acestei functii
         {
             if (File.Exists(FileToProcess))
                 return true;
@@ -82,13 +89,14 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         }
 
         public bool ValidateRSSFile()
-        //Valideaza fisierul RSS. 
+        //Valideaza fisierul RSS. Inca am dubii daca aceasta subrutina e utila.
         //todo: De gandit si de scris detaliile subrutinei
         {
             return true;
         }
 
         public void FillRSSData()
+        //Umple proprietatile clasei cu informatiile necesare
         {
             bool IsNews = false;
             //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.

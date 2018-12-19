@@ -13,7 +13,7 @@ namespace ZanScore
 {
     public partial class Form1 : Form
     {
-        RSSData R = new RSSData("http://www.nba.com/rss/nba_rss.xml");
+        RSSData R = new RSSData();
         public Form1()
         {
             InitializeComponent();
@@ -21,6 +21,7 @@ namespace ZanScore
 
         private void DownloadNews(object sender, EventArgs e)
         {
+            R.LoadRSSFile("http://www.nba.com/rss/nba_rss.xml");
             R.DownloadRSSFile();
             R.ReadRSSContent();
             R.FillRSSData();
