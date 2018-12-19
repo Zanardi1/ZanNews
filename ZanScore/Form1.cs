@@ -21,12 +21,16 @@ namespace ZanScore
 
         private void DownloadNews(object sender, EventArgs e)
         {
-            string[] URLList = new string[5];
+            R.EmptyFields();
+            dgNewsDetails.Rows.Clear();
+            string[] URLList = new string[7];
             URLList[0] = "http://www.nba.com/rss/nba_rss.xml";
             URLList[1] = "https://www.uefa.com/rssfeed/news/rss.xml";
             URLList[2] = "https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml";
             URLList[3] = "https://www.uefa.com/rssfeed/trainingground/calendar/news.xml";
             URLList[4] = "https://www.uefa.com/rssfeed/uefaeuropaleague/rss.xml";
+            URLList[5] = "https://store.steampowered.com/feeds/news.xml";
+            URLList[6] = "http://www.romaniatv.net/rss/stiri.xml";
             for (int i = 0; i < URLList.Length; i++)
             {
                 R.LoadRSSFile(URLList[i]);
