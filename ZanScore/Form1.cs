@@ -21,10 +21,18 @@ namespace ZanScore
 
         private void DownloadNews(object sender, EventArgs e)
         {
-            R.LoadRSSFile("http://www.nba.com/rss/nba_rss.xml");
-            R.DownloadRSSFile();
-            R.ReadRSSContent();
-            R.FillRSSData();
+            string[] URLList = new string[4];
+            URLList[0] = "http://www.nba.com/rss/nba_rss.xml";
+            URLList[1] = "https://www.uefa.com/rssfeed/news/rss.xml";
+            URLList[2] = "https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml";
+            URLList[3] = "https://www.uefa.com/rssfeed/trainingground/calendar/news.xml";
+            for (int i = 0; i < URLList.Length; i++)
+            {
+                R.LoadRSSFile(URLList[i]);
+                R.DownloadRSSFile();
+                R.ReadRSSContent();
+                R.FillRSSData();
+            }
             FillGrid();
         }
 
@@ -34,7 +42,7 @@ namespace ZanScore
             for (int i = 0; i < R.NewsTitle.Length; i++)
             {
                 dgNewsDetails.Rows.Add();
-                dgNewsDetails.Rows[i].Cells[0].Value = R.NewsTitle[i];
+                dgNewsDetails.Rows[i].Cells[0].Value = (i+1).ToString()+". "+R.NewsTitle[i];
                 dgNewsDetails.Rows[i].Cells[1].Value = R.NewsLink[i];
                 dgNewsDetails.Rows[i].Cells[2].Value = R.NewsDescription[i];
             }

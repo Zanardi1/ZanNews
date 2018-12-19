@@ -135,8 +135,16 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     {
                         Array.Resize(ref NewsTitle, NewsTitle.Length + 1);
                         NewsTitle[NewsTitle.Length - 1] = FileContent[i].Trim();
-                        NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), NewsTitle[NewsTitle.Length - 1].IndexOf(">") + 1);
-                        NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), 8);
+                        if (NewsTitle[NewsTitle.Length - 1].Contains("CDATA")) //Daca titlul are si eticheta CDATA
+                        {
+                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), 16);
+                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("]"), 10);
+                        }
+                        else
+                        {
+                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), NewsTitle[NewsTitle.Length - 1].IndexOf(">") + 1);
+                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), 8);
+                        }
                     }
                     else //Titlu de canal
                     {
@@ -152,8 +160,16 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     {
                         Array.Resize(ref NewsLink, NewsLink.Length + 1);
                         NewsLink[NewsLink.Length - 1] = FileContent[i].Trim();
-                        NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), NewsLink[NewsLink.Length - 1].IndexOf(">") + 1);
-                        NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), 7);
+                        if (NewsLink[NewsLink.Length - 1].Contains("CDATA")) //Daca link-ul catre stire are si eticheta CDATA
+                        {
+                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), 15);
+                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("]"), 9);
+                        }
+                        else
+                        {
+                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), NewsLink[NewsLink.Length - 1].IndexOf(">") + 1);
+                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), 7);
+                        }
                     }
 
                     else //Link-ul canalului
@@ -170,8 +186,16 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     {
                         Array.Resize(ref NewsDescription, NewsDescription.Length + 1);
                         NewsDescription[NewsDescription.Length - 1] = FileContent[i].Trim();
-                        NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), NewsDescription[NewsDescription.Length - 1].IndexOf(">") + 1);
-                        NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), 14);
+                        if (NewsDescription[NewsDescription.Length - 1].Contains("CDATA"))
+                        {
+                            NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), 22);
+                            NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("]"), 17);
+                        }
+                        else
+                        {
+                            NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), NewsDescription[NewsDescription.Length - 1].IndexOf(">") + 1);
+                            NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), 14);
+                        }
                     }
 
                     else //Descrierea canalului
