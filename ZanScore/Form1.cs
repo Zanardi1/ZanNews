@@ -8,18 +8,21 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+//todo de facut rutina pentru redimensionarea componentelor odata cu fereastra
 
 namespace ZanScore
 {
     public partial class Form1 : Form
     {
         RSSData R = new RSSData();
+
         public Form1()
         {
             InitializeComponent();
+            StatusLabel.Text = "Welcome";
         }
 
-        private void DownloadNews(object sender, EventArgs e)
+        private void DownloadAllNews(object sender, EventArgs e)
         {
             R.EmptyFields();
             dgNewsDetails.Rows.Clear();
@@ -31,6 +34,8 @@ namespace ZanScore
             URLList[4] = "https://www.uefa.com/rssfeed/uefaeuropaleague/rss.xml";
             URLList[5] = "https://store.steampowered.com/feeds/news.xml";
             URLList[6] = "http://www.romaniatv.net/rss/stiri.xml";
+            Cursor.Current = Cursors.WaitCursor;
+            StatusLabel.Text = "Downloading RSS...";
             for (int i = 0; i < URLList.Length; i++)
             {
                 R.LoadRSSFile(URLList[i]);
@@ -38,6 +43,8 @@ namespace ZanScore
                 R.ReadRSSContent();
                 R.FillRSSData();
             }
+            StatusLabel.Text = "Download complete";
+            Cursor.Current = Cursors.Arrow;
             FillGrid();
         }
 
@@ -56,6 +63,12 @@ namespace ZanScore
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
         {
             wbNewsWebPage.Navigate(new Uri(R.NewsLink[dgNewsDetails.CurrentCell.RowIndex]));
+        }
+
+        private void SelectNewsSources(object sender, EventArgs e)
+        {
+            SelectSource S = new SelectSource();
+            S.ShowDialog();
         }
     }
 }

@@ -20,7 +20,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
     class RSSData
     //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
     //Deoarece aceste campuri sunt citire dintr-un fisier, toti membrii acestei structuri sunt readonly
-    //todo: Sa adaug si restul subcategoriilor, odata ce am o aplicatie functionala
+    //todo: Sa adaug si restul subcategoriilor din definitia unui fisier RSS, odata ce am o aplicatie functionala
     {
         public string RSSVersion; //Versiunea de RSS folosita
         public string ChannelTitle; //Titlul canalului
@@ -98,8 +98,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         public void FillRSSData()
         //Umple proprietatile clasei cu informatiile necesare
 
-        /*todo Sa tratez si cazurile de etichete fara continut:
-         Exemplu: <title></title>*/
         {
             bool IsNews = false;
             //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
@@ -142,19 +140,22 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         if (NewsTitle[NewsTitle.Length - 1].Contains("CDATA")) //Daca titlul are si eticheta CDATA
                         {
                             NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), 16);
-                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("]"), NewsTitle[NewsTitle.Length - 1].Length - NewsTitle[NewsTitle.Length - 1].IndexOf("]"));
+                            if (NewsTitle[NewsTitle.Length - 1].Length != 0) //Daca eticheta nu are continut, ci doar <title></title>
+                                NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("]"), NewsTitle[NewsTitle.Length - 1].Length - NewsTitle[NewsTitle.Length - 1].IndexOf("]"));
                         }
                         else
                         {
                             NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), NewsTitle[NewsTitle.Length - 1].IndexOf(">") + 1);
-                            NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), NewsTitle[NewsTitle.Length - 1].Length - NewsTitle[NewsTitle.Length - 1].IndexOf("<"));
+                            if (NewsTitle[NewsTitle.Length - 1].Length != 0)
+                                NewsTitle[NewsTitle.Length - 1] = NewsTitle[NewsTitle.Length - 1].Remove(NewsTitle[NewsTitle.Length - 1].IndexOf("<"), NewsTitle[NewsTitle.Length - 1].Length - NewsTitle[NewsTitle.Length - 1].IndexOf("<"));
                         }
                     }
                     else //Titlu de canal
                     {
                         ChannelTitle = FileContent[i].Trim();
                         ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"), ChannelTitle.IndexOf(">") + 1);
-                        ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"), ChannelTitle.Length - ChannelTitle.IndexOf("<"));
+                        if (ChannelTitle.Length != 0)
+                            ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"), ChannelTitle.Length - ChannelTitle.IndexOf("<"));
                     }
                 }
 
@@ -167,12 +168,14 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         if (NewsLink[NewsLink.Length - 1].Contains("CDATA")) //Daca link-ul catre stire are si eticheta CDATA
                         {
                             NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), 15);
-                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("]"), NewsLink[NewsLink.Length - 1].Length - NewsLink[NewsLink.Length - 1].IndexOf("]"));
+                            if (NewsLink[NewsLink.Length - 1].Length != 0)
+                                NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("]"), NewsLink[NewsLink.Length - 1].Length - NewsLink[NewsLink.Length - 1].IndexOf("]"));
                         }
                         else
                         {
                             NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), NewsLink[NewsLink.Length - 1].IndexOf(">") + 1);
-                            NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), NewsLink[NewsLink.Length - 1].Length - NewsLink[NewsLink.Length - 1].IndexOf("<"));
+                            if (NewsLink[NewsLink.Length - 1].Length != 0)
+                                NewsLink[NewsLink.Length - 1] = NewsLink[NewsLink.Length - 1].Remove(NewsLink[NewsLink.Length - 1].IndexOf("<"), NewsLink[NewsLink.Length - 1].Length - NewsLink[NewsLink.Length - 1].IndexOf("<"));
                         }
                     }
 
@@ -180,7 +183,8 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     {
                         ChannelLink = FileContent[i].Trim();
                         ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"), ChannelLink.IndexOf(">") + 1);
-                        ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"), ChannelLink.Length - ChannelLink.IndexOf("<"));
+                        if (ChannelLink.Length != 0)
+                            ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"), ChannelLink.Length - ChannelLink.IndexOf("<"));
                     }
                 }
 
@@ -193,12 +197,14 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         if (NewsDescription[NewsDescription.Length - 1].Contains("CDATA"))
                         {
                             NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), 22);
-                            NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("]"), NewsDescription[NewsDescription.Length - 1].Length - NewsDescription[NewsDescription.Length - 1].IndexOf("]"));
+                            if (NewsDescription[NewsDescription.Length - 1].Length != 0)
+                                NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("]"), NewsDescription[NewsDescription.Length - 1].Length - NewsDescription[NewsDescription.Length - 1].IndexOf("]"));
                         }
                         else
                         {
                             NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), NewsDescription[NewsDescription.Length - 1].IndexOf(">") + 1);
-                            NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), NewsDescription[NewsDescription.Length - 1].Length - NewsDescription[NewsDescription.Length - 1].IndexOf("<"));
+                            if (NewsDescription[NewsDescription.Length - 1].Length != 0)
+                                NewsDescription[NewsDescription.Length - 1] = NewsDescription[NewsDescription.Length - 1].Remove(NewsDescription[NewsDescription.Length - 1].IndexOf("<"), NewsDescription[NewsDescription.Length - 1].Length - NewsDescription[NewsDescription.Length - 1].IndexOf("<"));
                         }
                     }
 
@@ -215,28 +221,32 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 {
                     Copyright = FileContent[i].Trim();
                     Copyright = Copyright.Remove(Copyright.IndexOf("<"), Copyright.IndexOf(">") + 1);
-                    Copyright = Copyright.Remove(Copyright.IndexOf("<"), Copyright.Length - Copyright.IndexOf("<"));
+                    if (Copyright.Length != 0)
+                        Copyright = Copyright.Remove(Copyright.IndexOf("<"), Copyright.Length - Copyright.IndexOf("<"));
                 }
 
                 if (FileContent[i].Contains("<managingEditor>"))
                 {
                     ManagingEditor = FileContent[i].Trim();
                     ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"), ManagingEditor.IndexOf(">") + 1);
-                    ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"), ManagingEditor.Length - ManagingEditor.IndexOf("<"));
+                    if (ManagingEditor.Length != 0)
+                        ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"), ManagingEditor.Length - ManagingEditor.IndexOf("<"));
                 }
 
                 if (FileContent[i].Contains("<language>"))
                 {
                     Language = FileContent[i].Trim();
                     Language = Language.Remove(Language.IndexOf("<"), Language.IndexOf(">") + 1);
-                    Language = Language.Remove(Language.IndexOf("<"), Language.Length - Language.IndexOf("<"));
+                    if (Language.Length != 0)
+                        Language = Language.Remove(Language.IndexOf("<"), Language.Length - Language.IndexOf("<"));
                 }
 
                 if (FileContent[i].Contains("<pubDate>"))
                 {
                     PubDate = FileContent[i].Trim();
                     PubDate = PubDate.Remove(PubDate.IndexOf("<"), PubDate.IndexOf(">") + 1);
-                    PubDate = PubDate.Remove(PubDate.IndexOf("<"), PubDate.Length - PubDate.IndexOf("<"));
+                    if (PubDate.Length != 0)
+                        PubDate = PubDate.Remove(PubDate.IndexOf("<"), PubDate.Length - PubDate.IndexOf("<"));
                 }
             }
         }
