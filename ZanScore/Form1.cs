@@ -70,5 +70,29 @@ namespace ZanScore
             SelectSource S = new SelectSource();
             S.ShowDialog();
         }
+
+        private void ShowAddNewsSourcesWindow(object sender, EventArgs e)
+        {
+            AddSource A = new AddSource();
+            A.ShowDialog();
+        }
+
+        private void ShowEditSourcesWindow(object sender, EventArgs e)
+        {
+            EditSources E = new EditSources();
+            E.ShowDialog();
+        }
+
+        private void ShowOptionsWindow(object sender, EventArgs e)
+        {
+            Options O = new Options();
+            O.ShowDialog();
+        }
+
+        private void ShowAboutBoxWindow(object sender, EventArgs e)
+        {
+            AboutBox A = new AboutBox();
+            A.ShowDialog();
+        }
     }
 }

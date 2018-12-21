@@ -140,14 +140,14 @@
             // DownloadFromAllSources
             // 
             this.DownloadFromAllSources.Name = "DownloadFromAllSources";
-            this.DownloadFromAllSources.Size = new System.Drawing.Size(216, 26);
+            this.DownloadFromAllSources.Size = new System.Drawing.Size(141, 26);
             this.DownloadFromAllSources.Text = "All";
             this.DownloadFromAllSources.Click += new System.EventHandler(this.DownloadAllNews);
             // 
             // DownloadFromSelectedSources
             // 
             this.DownloadFromSelectedSources.Name = "DownloadFromSelectedSources";
-            this.DownloadFromSelectedSources.Size = new System.Drawing.Size(216, 26);
+            this.DownloadFromSelectedSources.Size = new System.Drawing.Size(141, 26);
             this.DownloadFromSelectedSources.Text = "Selected";
             this.DownloadFromSelectedSources.Click += new System.EventHandler(this.SelectNewsSources);
             // 
@@ -156,7 +156,6 @@
             this.newsSourcesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.AddNewsSources,
             this.EditNewsSources});
-            this.newsSourcesToolStripMenuItem.Enabled = false;
             this.newsSourcesToolStripMenuItem.Name = "newsSourcesToolStripMenuItem";
             this.newsSourcesToolStripMenuItem.Size = new System.Drawing.Size(112, 24);
             this.newsSourcesToolStripMenuItem.Text = "News Sources";
@@ -167,6 +166,7 @@
             this.AddNewsSources.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
             this.AddNewsSources.Size = new System.Drawing.Size(216, 26);
             this.AddNewsSources.Text = "Add";
+            this.AddNewsSources.Click += new System.EventHandler(this.ShowAddNewsSourcesWindow);
             // 
             // EditNewsSources
             // 
@@ -174,21 +174,22 @@
             this.EditNewsSources.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.EditNewsSources.Size = new System.Drawing.Size(216, 26);
             this.EditNewsSources.Text = "Edit";
+            this.EditNewsSources.Click += new System.EventHandler(this.ShowEditSourcesWindow);
             // 
             // optionsToolStripMenuItem
             // 
-            this.optionsToolStripMenuItem.Enabled = false;
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(73, 24);
             this.optionsToolStripMenuItem.Text = "Options";
+            this.optionsToolStripMenuItem.Click += new System.EventHandler(this.ShowOptionsWindow);
             // 
             // AboutProgram
             // 
-            this.AboutProgram.Enabled = false;
             this.AboutProgram.Name = "AboutProgram";
             this.AboutProgram.Size = new System.Drawing.Size(62, 24);
             this.AboutProgram.Text = "About";
+            this.AboutProgram.Click += new System.EventHandler(this.ShowAboutBoxWindow);
             // 
             // Form1
             // 
