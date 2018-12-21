@@ -14,7 +14,8 @@ namespace ZanScore
 {
     public partial class Form1 : Form
     {
-        RSSData R = new RSSData();
+        RSSData NewsSourceData = new RSSData();
+        RSSSources NewsSourcesCollection = new RSSSources();
 
         public Form1()
         {
@@ -24,8 +25,8 @@ namespace ZanScore
 
         private void DownloadAllNews(object sender, EventArgs e)
         {
-            R.EmptyFields();
-            dgNewsDetails.Rows.Clear();
+            NewsSourceData.EmptyFields();
+            NewsDetails.Rows.Clear();
             string[] URLList = new string[7];
             URLList[0] = "http://www.nba.com/rss/nba_rss.xml";
             URLList[1] = "https://www.uefa.com/rssfeed/news/rss.xml";
@@ -38,10 +39,10 @@ namespace ZanScore
             StatusLabel.Text = "Downloading RSS...";
             for (int i = 0; i < URLList.Length; i++)
             {
-                R.LoadRSSFile(URLList[i]);
-                R.DownloadRSSFile();
-                R.ReadRSSContent();
-                R.FillRSSData();
+                NewsSourceData.LoadRSSFile(URLList[i]);
+                NewsSourceData.DownloadRSSFile();
+                NewsSourceData.ReadRSSContent();
+                NewsSourceData.FillRSSData();
             }
             StatusLabel.Text = "Download complete";
             Cursor.Current = Cursors.Arrow;
@@ -51,18 +52,18 @@ namespace ZanScore
         private void FillGrid()
         //Umple tabelul cu stirile citite
         {
-            for (int i = 0; i < R.NewsTitle.Length; i++)
+            for (int i = 0; i < NewsSourceData.NewsTitle.Length; i++)
             {
-                dgNewsDetails.Rows.Add();
-                dgNewsDetails.Rows[i].Cells[0].Value = R.NewsTitle[i];
-                dgNewsDetails.Rows[i].Cells[1].Value = R.NewsLink[i];
-                dgNewsDetails.Rows[i].Cells[2].Value = R.NewsDescription[i];
+                NewsDetails.Rows.Add();
+                NewsDetails.Rows[i].Cells[0].Value = NewsSourceData.NewsTitle[i];
+                NewsDetails.Rows[i].Cells[1].Value = NewsSourceData.NewsLink[i];
+                NewsDetails.Rows[i].Cells[2].Value = NewsSourceData.NewsDescription[i];
             }
         }
 
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
         {
-            wbNewsWebPage.Navigate(new Uri(R.NewsLink[dgNewsDetails.CurrentCell.RowIndex]));
+            NewsWebPage.Navigate(new Uri(NewsSourceData.NewsLink[NewsDetails.CurrentCell.RowIndex]));
         }
 
         private void SelectNewsSources(object sender, EventArgs e)
@@ -74,7 +75,20 @@ namespace ZanScore
         private void ShowAddNewsSourcesWindow(object sender, EventArgs e)
         {
             AddSource A = new AddSource();
+            string s="", s2="";
             A.ShowDialog();
+            if (A.DialogResult == DialogResult.OK)
+            {
+                foreach (Control c in A.Controls)
+                {
+                    if (c.Name == "SourceNameText")
+                        s = c.Text;
+                    if (c.Name == "SourceNameURL")
+                        s2 = c.Text;
+                }
+                NewsSourcesCollection.AddNewSource(s, s2); //todo de reparat bug-ul de aici
+                NewsSourcesCollection.SaveSources();
+            }
         }
 
         private void ShowEditSourcesWindow(object sender, EventArgs e)
