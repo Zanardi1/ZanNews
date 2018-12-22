@@ -36,8 +36,8 @@ namespace ZanScore
             {
                 Array.Resize(ref SourceTitle, SourceTitle.Length + 1);
                 Array.Resize(ref SourceURL, SourceURL.Length + 1);
-                SourceTitle[i] = TextToRead[i].Substring(0, TextToRead[i].IndexOf(" ") + 1);
-                SourceURL[i] = TextToRead[i].Substring(TextToRead[i].IndexOf(" "), TextToRead[i].Length - 1);
+                SourceTitle[i] = TextToRead[i].Substring(0, TextToRead[i].IndexOf(" "));
+                SourceURL[i] = TextToRead[i].Substring(TextToRead[i].IndexOf(" ") + 1);
                 SourceTitle[i] = SourceTitle[i].Trim();
                 SourceURL[i] = SourceURL[i].Trim();
                 NumberofSources++;
@@ -85,7 +85,7 @@ namespace ZanScore
         public string[] GetNewsURL()
         {
             string[] List = new string[] { };
-            for (int i=0;i<NumberofSources;i++)
+            for (int i = 0; i < NumberofSources; i++)
             {
                 Array.Resize(ref List, List.Length + 1);
                 List[i] = SourceURL[i];
@@ -94,10 +94,21 @@ namespace ZanScore
         }
 
         private void CheckForRSSFile()
-            //Subrutina verifica daca exista fisierul "Sources.txt". Daca nu exista, creaza un fisier gol
+        //Subrutina verifica daca exista fisierul "Sources.txt". Daca nu exista, creaza un fisier gol
         {
+
             if (!File.Exists("Sources.txt"))
-                File.Create("Sources.txt");
+            {
+                FileStream FS = File.Create("Sources.txt");
+                FS.Close();
+            }
+        }
+
+        public void ClearSources()
+        {
+            SourceTitle = Array.Empty<string>();
+            SourceURL = Array.Empty<string>();
+            NumberofSources = 0;
         }
     }
 }

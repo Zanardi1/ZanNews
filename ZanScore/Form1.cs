@@ -27,6 +27,8 @@ namespace ZanScore
         {
             NewsSourceData.EmptyFields();
             NewsDetails.Rows.Clear();
+            NewsSourcesCollection.ClearSources();
+            NewsSourcesCollection.LoadSources();
             string[] URLList=NewsSourcesCollection.GetNewsURL();
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Downloading RSS...";
