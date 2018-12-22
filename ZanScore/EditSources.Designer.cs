@@ -59,6 +59,7 @@
             // 
             // SaveChanges
             // 
+            this.SaveChanges.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.SaveChanges.Location = new System.Drawing.Point(143, 461);
             this.SaveChanges.Name = "SaveChanges";
             this.SaveChanges.Size = new System.Drawing.Size(75, 23);

@@ -31,6 +31,7 @@ namespace ZanScore
         public void LoadSources()
         {
             string[] TextToRead = new string[] { }; //retine textul care va fi citit din fisier. E de forma <sursa> <URL>
+                                                    //todo de perfectionat modul de salvare in fisier. Imi da eroare la citire in cazul unei linii de genul: NBA News heep://... (pentru ca sunt 2 spatii)
             TextToRead = File.ReadAllLines("Sources.txt");
             for (int i = 0; i < TextToRead.Length; i++) //Imparte fiecare text in sursa si URL
             {
@@ -47,6 +48,7 @@ namespace ZanScore
         public void SaveSources()
         {
             string[] TextToWrite = new string[] { }; //retine textul care va fi scris in fisier. E de forma <sursa> <URL>
+            //todo de perfectionat modul de salvare in fisier. Imi da eroare la citire in cazul unei linii de genul: NBA News http://... (pentru ca sunt 2 spatii)
             Array.Resize(ref TextToWrite, SourceTitle.Length);
             for (int i = 0; i < SourceTitle.Length; i++)
                 TextToWrite[i] = SourceTitle[i] + " " + SourceURL[i];
