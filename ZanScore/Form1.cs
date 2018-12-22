@@ -27,14 +27,7 @@ namespace ZanScore
         {
             NewsSourceData.EmptyFields();
             NewsDetails.Rows.Clear();
-            string[] URLList = new string[7];
-            URLList[0] = "http://www.nba.com/rss/nba_rss.xml";
-            URLList[1] = "https://www.uefa.com/rssfeed/news/rss.xml";
-            URLList[2] = "https://www.uefa.com/rssfeed/uefachampionsleague/rss.xml";
-            URLList[3] = "https://www.uefa.com/rssfeed/trainingground/calendar/news.xml";
-            URLList[4] = "https://www.uefa.com/rssfeed/uefaeuropaleague/rss.xml";
-            URLList[5] = "https://store.steampowered.com/feeds/news.xml";
-            URLList[6] = "http://www.romaniatv.net/rss/stiri.xml";
+            string[] URLList=NewsSourcesCollection.GetNewsURL();
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Downloading RSS...";
             for (int i = 0; i < URLList.Length; i++)
@@ -73,19 +66,29 @@ namespace ZanScore
         }
 
         private void ShowAddNewsSourcesWindow(object sender, EventArgs e)
+        /* Liniile de cod scrise intre "//*" arata modalitatea de a citi numele si URL-ul sursei noi, introduse de catre utilizator. Deoarece acestea se afla intr-o alta fereastra si deoarece componentele sunt marcate cu private, metoda corecta de ajungere la acele valori este urmatoarea:
+         1. Se cicleaza prin fiecare component al ferestrei;
+         2. In cazul in care ajungem la un GroupBox, se cicleaza prin componentele acestuia
+         3. In cazul in care o componenta din GroupBox are numele pe care il vreau eu, atunci citeste valoarea dorita
+
+         E nevoie de doua ciclari, deoarece componentele din GroupBox sunt copii pentru acesta, iar GroupBox este copil pentru fereastra. In ambele cazuri, trebuie cautat ceea ce doresc prin toate componentele copil*/
         {
             AddSource A = new AddSource();
-            string s="", s2="";
+            string s = "", s2 = "";
             A.ShowDialog();
-            if (A.DialogResult == DialogResult.OK)
+            if (A.DialogResult == DialogResult.OK) //*
             {
                 foreach (Control c in A.Controls)
                 {
-                    if (c.Name == "SourceNameText")
-                        s = c.Text;
-                    if (c.Name == "SourceNameURL")
-                        s2 = c.Text;
-                }
+                    if (c is GroupBox)
+                        foreach (Control c2 in c.Controls)
+                        {
+                            if (c2.Name == "SourceNameText")
+                                s = c2.Text;
+                            else if (c2.Name == "SourceURLText")
+                                s2 = c2.Text;
+                        }
+                } //*
                 NewsSourcesCollection.AddNewSource(s, s2); //todo de reparat bug-ul de aici
                 NewsSourcesCollection.SaveSources();
             }
@@ -94,6 +97,9 @@ namespace ZanScore
         private void ShowEditSourcesWindow(object sender, EventArgs e)
         {
             EditSources E = new EditSources();
+            foreach (Control c in E.Controls)
+                if (c is DataGridView)
+                    NewsSourcesCollection.ShowNewsSourcesInDataGrid(c as DataGridView);
             E.ShowDialog();
         }
 

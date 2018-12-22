@@ -15,6 +15,8 @@ namespace ZanScore
         public EditSources()
         {
             InitializeComponent();
+            SourceNameToEdit.Width = AllTheSources.Width / 3;
+            SourceURLToEdit.Width = 2 * AllTheSources.Width / 3;
         }
     }
 }

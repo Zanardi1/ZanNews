@@ -39,7 +39,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         private string FileToProcess; //Retine numele fisierului care va fi descarcat si procesat
         private string[] FileContent; //Retine liniile fisierului citit
         private readonly int i; //Numarator intern
-        private string RSSURL; //Retine URL-ul RSS-ului
 
         public RSSData()
         {
@@ -60,7 +59,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 NewsDescription[i] = "";
             FileToProcess = "";
             OnlineSource = "";
-            RSSURL = "";
         }
 
         public void LoadRSSFile(string FileToLoad)
@@ -316,7 +314,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             ManagingEditor = "";
             FileToProcess = "";
             OnlineSource = "";
-            RSSURL = "";
             NewsDescription = Array.Empty<string>();
             NewsLink = Array.Empty<string>();
             NewsTitle = Array.Empty<string>();
