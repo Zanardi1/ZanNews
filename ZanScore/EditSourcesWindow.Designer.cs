@@ -1,6 +1,6 @@
 ﻿namespace ZanScore
 {
-    partial class EditSources
+    partial class EditSourcesWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -33,8 +33,8 @@
             this.SaveChanges = new System.Windows.Forms.Button();
             this.DiscardChanges = new System.Windows.Forms.Button();
             this.AllTheSources = new System.Windows.Forms.DataGridView();
-            this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SourceNameToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewsSourceSelectGroupBox = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).BeginInit();
             this.SuspendLayout();
@@ -56,6 +56,7 @@
             this.DeleteNewsButton.TabIndex = 1;
             this.DeleteNewsButton.Text = "Delete";
             this.DeleteNewsButton.UseVisualStyleBackColor = true;
+            this.DeleteNewsButton.Click += new System.EventHandler(this.DeleteSelectedNewsSources);
             // 
             // SaveChanges
             // 
@@ -80,30 +81,28 @@
             // AllTheSources
             // 
             this.AllTheSources.AllowUserToAddRows = false;
-            this.AllTheSources.AllowUserToDeleteRows = false;
             this.AllTheSources.AllowUserToResizeRows = false;
             this.AllTheSources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AllTheSources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SourceNameToEdit,
             this.SourceURLToEdit});
             this.AllTheSources.Location = new System.Drawing.Point(35, 38);
-            this.AllTheSources.MultiSelect = false;
             this.AllTheSources.Name = "AllTheSources";
             this.AllTheSources.RowTemplate.Height = 24;
             this.AllTheSources.Size = new System.Drawing.Size(615, 411);
             this.AllTheSources.TabIndex = 4;
-            // 
-            // SourceURLToEdit
-            // 
-            this.SourceURLToEdit.HeaderText = "Source RSS URL";
-            this.SourceURLToEdit.Name = "SourceURLToEdit";
-            this.SourceURLToEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SourceNameToEdit
             // 
             this.SourceNameToEdit.HeaderText = "Source Name";
             this.SourceNameToEdit.Name = "SourceNameToEdit";
             this.SourceNameToEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // SourceURLToEdit
+            // 
+            this.SourceURLToEdit.HeaderText = "Source RSS URL";
+            this.SourceURLToEdit.Name = "SourceURLToEdit";
+            this.SourceURLToEdit.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // NewsSourceSelectGroupBox
             // 
@@ -114,7 +113,7 @@
             this.NewsSourceSelectGroupBox.TabStop = false;
             this.NewsSourceSelectGroupBox.Text = "Select the news source to edit or delete";
             // 
-            // EditSources
+            // EditSourcesWindow
             // 
             this.AcceptButton = this.SaveChanges;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -131,7 +130,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "EditSources";
+            this.Name = "EditSourcesWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit News Sources";
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).EndInit();

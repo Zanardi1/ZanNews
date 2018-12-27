@@ -1,21 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 //todo de facut rutina pentru redimensionarea componentelor odata cu fereastra
+
+
 
 namespace ZanScore
 {
     public partial class Form1 : Form
     {
         RSSData NewsSourceData = new RSSData();
-        RSSSources NewsSourcesCollection = new RSSSources();
+        public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
 
         public Form1()
         {
@@ -98,11 +93,11 @@ namespace ZanScore
 
         private void ShowEditSourcesWindow(object sender, EventArgs e)
         {
-            EditSources E = new EditSources();
+            EditSourcesWindow E = new EditSourcesWindow();
             foreach (Control c in E.Controls)
                 if (c is DataGridView)
                     NewsSourcesCollection.ShowNewsSourcesInDataGrid(c as DataGridView);
-            E.ShowDialog();
+            E.ShowDialog(this);
             if (E.DialogResult==DialogResult.OK)
             {
                 NewsSourcesCollection.SaveSources();

@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace ZanScore
 {
-    class RSSSources
+    public class RSSSourcesLibrary
     //Aceasta clasa se ocupa de gestionarea surselor de stiri. 
     //Operatiuni:
     // 1. Citirea lor din fisier;
@@ -21,7 +18,7 @@ namespace ZanScore
         string[] SourceURL = new string[] { };
         public int NumberofSources;
 
-        public RSSSources()
+        public RSSSourcesLibrary()
         {
             NumberofSources = 0;
             CheckForRSSFile();
@@ -53,7 +50,6 @@ namespace ZanScore
         Forma fisierului este: 
         <name>numele sursei (dat de utilizator></name>
         <URL>Adresa fisierului XML</URL>*/
-
         {
             string[] TextToWrite = new string[] { }; //retine textele care vor fi scrise in fisier. 
             int j = 0;
@@ -73,6 +69,7 @@ namespace ZanScore
             Array.Resize(ref SourceURL, SourceURL.Length + 1);
             SourceTitle[SourceTitle.Length - 1] = NewSourceName;
             SourceURL[SourceURL.Length - 1] = NewSourceURL;
+            NumberofSources++;
         }
 
         public void EditSource()
@@ -80,9 +77,20 @@ namespace ZanScore
 
         }
 
-        public void RemoveSource()
+        public void RemoveSource(List<int> NewsNumbers)
+        //Elimina una sau mai multe surse de stiri. Numerele lor de ordine sunt transmise ca parametri
         {
-
+            List<string> TempSourceTitle = new List<string>(SourceTitle);
+            List<string> TempSourceURL = new List<string>(SourceURL);
+            for (int i = 0; i < NewsNumbers.Count; i++)
+            {
+                TempSourceTitle.RemoveAt(NewsNumbers[i]);
+                TempSourceURL.RemoveAt(NewsNumbers[i]);
+                NumberofSources--;
+            }
+            SourceTitle = TempSourceTitle.ToArray();
+            SourceURL = TempSourceURL.ToArray();
+            SaveSources();
         }
 
         public void ShowNewsSourcesInDataGrid(DataGridView Grid)
