@@ -36,7 +36,9 @@
             this.SourceNameToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewsSourceSelectGroupBox = new System.Windows.Forms.GroupBox();
+            this.SortNewsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).BeginInit();
+            this.NewsSourceSelectGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // EditNewsButton
@@ -106,12 +108,22 @@
             // 
             // NewsSourceSelectGroupBox
             // 
+            this.NewsSourceSelectGroupBox.Controls.Add(this.SortNewsButton);
             this.NewsSourceSelectGroupBox.Location = new System.Drawing.Point(27, 12);
             this.NewsSourceSelectGroupBox.Name = "NewsSourceSelectGroupBox";
             this.NewsSourceSelectGroupBox.Size = new System.Drawing.Size(738, 443);
             this.NewsSourceSelectGroupBox.TabIndex = 5;
             this.NewsSourceSelectGroupBox.TabStop = false;
             this.NewsSourceSelectGroupBox.Text = "Select the news source to edit or delete";
+            // 
+            // SortNewsButton
+            // 
+            this.SortNewsButton.Location = new System.Drawing.Point(645, 110);
+            this.SortNewsButton.Name = "SortNewsButton";
+            this.SortNewsButton.Size = new System.Drawing.Size(75, 23);
+            this.SortNewsButton.TabIndex = 0;
+            this.SortNewsButton.Text = "Sort";
+            this.SortNewsButton.UseVisualStyleBackColor = true;
             // 
             // EditSourcesWindow
             // 
@@ -134,6 +146,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit News Sources";
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).EndInit();
+            this.NewsSourceSelectGroupBox.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -148,5 +161,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceNameToEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceURLToEdit;
         private System.Windows.Forms.GroupBox NewsSourceSelectGroupBox;
+        private System.Windows.Forms.Button SortNewsButton;
     }
 }

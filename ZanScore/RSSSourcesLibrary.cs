@@ -12,7 +12,9 @@ namespace ZanScore
     // 2. Scrierea lor in fisier;
     // 3. Adaugarea unei surse;
     // 4. Editarea unei surse;
-    // 5. Stergerea unei surse
+    // 5. Stergerea unei surse;
+    // 6. Sortarea surselor;
+
     {
         string[] SourceTitle = new string[] { };
         string[] SourceURL = new string[] { };
@@ -131,6 +133,11 @@ namespace ZanScore
             SourceTitle = Array.Empty<string>();
             SourceURL = Array.Empty<string>();
             NumberofSources = 0;
+        }
+
+        public void SortSources()
+        {
+
         }
     }
 }
