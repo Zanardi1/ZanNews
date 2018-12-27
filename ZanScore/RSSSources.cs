@@ -30,28 +30,40 @@ namespace ZanScore
 
         public void LoadSources()
         {
-            string[] TextToRead = new string[] { }; //retine textul care va fi citit din fisier. E de forma <sursa> <URL>
-                                                    //todo de perfectionat modul de salvare in fisier. Imi da eroare la citire in cazul unei linii de genul: NBA News heep://... (pentru ca sunt 2 spatii)
+            string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
+            int j = 0;
             TextToRead = File.ReadAllLines("Sources.txt");
-            for (int i = 0; i < TextToRead.Length; i++) //Imparte fiecare text in sursa si URL
+            for (int i = 0; i < TextToRead.Length; i += 2) //Imparte fiecare text in sursa si URL
             {
                 Array.Resize(ref SourceTitle, SourceTitle.Length + 1);
                 Array.Resize(ref SourceURL, SourceURL.Length + 1);
-                SourceTitle[i] = TextToRead[i].Substring(0, TextToRead[i].IndexOf(" "));
-                SourceURL[i] = TextToRead[i].Substring(TextToRead[i].IndexOf(" ") + 1);
-                SourceTitle[i] = SourceTitle[i].Trim();
-                SourceURL[i] = SourceURL[i].Trim();
+                SourceTitle[j] = TextToRead[i];
+                SourceURL[j] = TextToRead[i + 1];
+                SourceTitle[j] = SourceTitle[j].Remove(0, SourceTitle[j].IndexOf(">") + 1); //Elimina "<name">
+                SourceTitle[j] = SourceTitle[j].Remove(SourceTitle[j].IndexOf("<")); //Elimina "</name>"
+                SourceURL[j] = SourceURL[j].Remove(0, SourceURL[j].IndexOf(">") + 1); //Elimina "<URL>"
+                SourceURL[j] = SourceURL[j].Remove(SourceURL[j].IndexOf("<")); //Elimina "</URL>"
+                j++;
                 NumberofSources++;
             }
         }
 
         public void SaveSources()
+        /*Functia salveaza sursele de stiri in fisier. 
+        Forma fisierului este: 
+        <name>numele sursei (dat de utilizator></name>
+        <URL>Adresa fisierului XML</URL>*/
+
         {
-            string[] TextToWrite = new string[] { }; //retine textul care va fi scris in fisier. E de forma <sursa> <URL>
-            //todo de perfectionat modul de salvare in fisier. Imi da eroare la citire in cazul unei linii de genul: NBA News http://... (pentru ca sunt 2 spatii)
-            Array.Resize(ref TextToWrite, SourceTitle.Length);
+            string[] TextToWrite = new string[] { }; //retine textele care vor fi scrise in fisier. 
+            int j = 0;
+            Array.Resize(ref TextToWrite, SourceTitle.Length * 2);
             for (int i = 0; i < SourceTitle.Length; i++)
-                TextToWrite[i] = SourceTitle[i] + " " + SourceURL[i];
+            {
+                TextToWrite[j] = "<name>" + SourceTitle[i] + "</name>";
+                TextToWrite[j + 1] = "<URL>" + SourceURL[i] + "</URL>";
+                j += 2;
+            }
             File.WriteAllLines("Sources.txt", TextToWrite);
         }
 

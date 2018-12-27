@@ -91,7 +91,7 @@ namespace ZanScore
                                 s2 = c2.Text;
                         }
                 } //*
-                NewsSourcesCollection.AddNewSource(s, s2); //todo de reparat bug-ul de aici
+                NewsSourcesCollection.AddNewSource(s, s2); 
                 NewsSourcesCollection.SaveSources();
             }
         }
