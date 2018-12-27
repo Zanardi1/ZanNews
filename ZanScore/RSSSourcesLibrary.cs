@@ -129,6 +129,7 @@ namespace ZanScore
         }
 
         public void ClearSources()
+        //Goleste datele legate de sursele de stiri. Utila in cazul in care nu vreau ca aceleasi stiri sa apara de 2+ ori
         {
             SourceTitle = Array.Empty<string>();
             SourceURL = Array.Empty<string>();
