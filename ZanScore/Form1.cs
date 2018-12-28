@@ -92,12 +92,13 @@ namespace ZanScore
         }
 
         private void ShowEditSourcesWindow(object sender, EventArgs e)
+            //todo Bug: Daca sterg o sursa, apas pe Cancel apoi revin in fereastra de editare, sursa stearsa nu mai revine in lista din fereastra ci ramane stearsa. Questia nu se aplica la repornirea programului
         {
             EditSourcesWindow E = new EditSourcesWindow();
             foreach (Control c in E.Controls)
                 if (c is DataGridView)
                     NewsSourcesCollection.ShowNewsSourcesInDataGrid(c as DataGridView);
-            E.ShowDialog(this);
+            E.ShowDialog(owner: this);
             if (E.DialogResult==DialogResult.OK)
             {
                 NewsSourcesCollection.SaveSources();

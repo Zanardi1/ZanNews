@@ -92,7 +92,6 @@ namespace ZanScore
             }
             SourceTitle = TempSourceTitle.ToArray();
             SourceURL = TempSourceURL.ToArray();
-            SaveSources();
         }
 
         public void ShowNewsSourcesInDataGrid(DataGridView Grid)

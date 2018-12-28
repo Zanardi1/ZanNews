@@ -19,8 +19,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 {
     class RSSData
     //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
-    //Deoarece aceste campuri sunt citire dintr-un fisier, toti membrii acestei structuri sunt readonly
-    //todo: Sa adaug si restul subcategoriilor din definitia unui fisier RSS, odata ce am o aplicatie functionala
+    //todo Sa adaug si restul subcategoriilor din definitia unui fisier RSS, odata ce am o aplicatie functionala
     {
         public string RSSVersion; //Versiunea de RSS folosita
         public string ChannelTitle; //Titlul canalului
@@ -87,15 +86,15 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         }
 
         public bool ValidateRSSFile()
-        //Valideaza fisierul RSS. Inca am dubii daca aceasta subrutina e utila.
-        //todo: De gandit si de scris detaliile subrutinei
+        //Valideaza fisierul RSS.
+        //todo De gandit si de scris detaliile subrutinei
         {
             return true;
         }
 
         public void FillRSSData()
         //Umple proprietatile clasei cu informatiile necesare
-
+        //todo Bug: atunci cand in RSS, textul dintre <description> si </description> e pe 2+ randuri, rutina imi afiseaza un mesaj de eroare, caci da peste cap indecsii din sirurile de caractere citite din fisier
         {
             bool IsNews = false;
             //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
