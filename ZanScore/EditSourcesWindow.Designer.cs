@@ -36,13 +36,13 @@
             this.SourceNameToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewsSourceSelectGroupBox = new System.Windows.Forms.GroupBox();
-            this.SortNewsButton = new System.Windows.Forms.Button();
-            this.NewSourceNameText = new System.Windows.Forms.TextBox();
-            this.NewSourceURLText = new System.Windows.Forms.TextBox();
-            this.NewSourceNameLabel = new System.Windows.Forms.Label();
-            this.NewSourceURLLabel = new System.Windows.Forms.Label();
-            this.SaveNewsEditButton = new System.Windows.Forms.Button();
             this.DiscardNewsEditButton = new System.Windows.Forms.Button();
+            this.SaveNewsEditButton = new System.Windows.Forms.Button();
+            this.NewSourceURLLabel = new System.Windows.Forms.Label();
+            this.NewSourceNameLabel = new System.Windows.Forms.Label();
+            this.NewSourceURLText = new System.Windows.Forms.TextBox();
+            this.NewSourceNameText = new System.Windows.Forms.TextBox();
+            this.ReorderNewsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).BeginInit();
             this.NewsSourceSelectGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -123,7 +123,7 @@
             this.NewsSourceSelectGroupBox.Controls.Add(this.NewSourceNameLabel);
             this.NewsSourceSelectGroupBox.Controls.Add(this.NewSourceURLText);
             this.NewsSourceSelectGroupBox.Controls.Add(this.NewSourceNameText);
-            this.NewsSourceSelectGroupBox.Controls.Add(this.SortNewsButton);
+            this.NewsSourceSelectGroupBox.Controls.Add(this.ReorderNewsButton);
             this.NewsSourceSelectGroupBox.Location = new System.Drawing.Point(27, 12);
             this.NewsSourceSelectGroupBox.Name = "NewsSourceSelectGroupBox";
             this.NewsSourceSelectGroupBox.Size = new System.Drawing.Size(909, 443);
@@ -131,40 +131,27 @@
             this.NewsSourceSelectGroupBox.TabStop = false;
             this.NewsSourceSelectGroupBox.Text = "Select the news source to edit or delete";
             // 
-            // SortNewsButton
+            // DiscardNewsEditButton
             // 
-            this.SortNewsButton.Location = new System.Drawing.Point(645, 110);
-            this.SortNewsButton.Name = "SortNewsButton";
-            this.SortNewsButton.Size = new System.Drawing.Size(75, 23);
-            this.SortNewsButton.TabIndex = 0;
-            this.SortNewsButton.Text = "Sort";
-            this.SortNewsButton.UseVisualStyleBackColor = true;
+            this.DiscardNewsEditButton.Enabled = false;
+            this.DiscardNewsEditButton.Location = new System.Drawing.Point(806, 320);
+            this.DiscardNewsEditButton.Name = "DiscardNewsEditButton";
+            this.DiscardNewsEditButton.Size = new System.Drawing.Size(75, 23);
+            this.DiscardNewsEditButton.TabIndex = 6;
+            this.DiscardNewsEditButton.Text = "Discard";
+            this.DiscardNewsEditButton.UseVisualStyleBackColor = true;
+            this.DiscardNewsEditButton.Click += new System.EventHandler(this.DiscardEditingChanges);
             // 
-            // NewSourceNameText
+            // SaveNewsEditButton
             // 
-            this.NewSourceNameText.Enabled = false;
-            this.NewSourceNameText.Location = new System.Drawing.Point(645, 198);
-            this.NewSourceNameText.Name = "NewSourceNameText";
-            this.NewSourceNameText.Size = new System.Drawing.Size(236, 22);
-            this.NewSourceNameText.TabIndex = 1;
-            // 
-            // NewSourceURLText
-            // 
-            this.NewSourceURLText.Enabled = false;
-            this.NewSourceURLText.Location = new System.Drawing.Point(645, 278);
-            this.NewSourceURLText.Name = "NewSourceURLText";
-            this.NewSourceURLText.Size = new System.Drawing.Size(236, 22);
-            this.NewSourceURLText.TabIndex = 2;
-            // 
-            // NewSourceNameLabel
-            // 
-            this.NewSourceNameLabel.AutoSize = true;
-            this.NewSourceNameLabel.Enabled = false;
-            this.NewSourceNameLabel.Location = new System.Drawing.Point(642, 178);
-            this.NewSourceNameLabel.Name = "NewSourceNameLabel";
-            this.NewSourceNameLabel.Size = new System.Drawing.Size(125, 17);
-            this.NewSourceNameLabel.TabIndex = 3;
-            this.NewSourceNameLabel.Text = "New source name:";
+            this.SaveNewsEditButton.Enabled = false;
+            this.SaveNewsEditButton.Location = new System.Drawing.Point(645, 320);
+            this.SaveNewsEditButton.Name = "SaveNewsEditButton";
+            this.SaveNewsEditButton.Size = new System.Drawing.Size(75, 23);
+            this.SaveNewsEditButton.TabIndex = 5;
+            this.SaveNewsEditButton.Text = "Save";
+            this.SaveNewsEditButton.UseVisualStyleBackColor = true;
+            this.SaveNewsEditButton.Click += new System.EventHandler(this.SaveEditChanges);
             // 
             // NewSourceURLLabel
             // 
@@ -176,25 +163,40 @@
             this.NewSourceURLLabel.TabIndex = 4;
             this.NewSourceURLLabel.Text = "New source URL:";
             // 
-            // SaveNewsEditButton
+            // NewSourceNameLabel
             // 
-            this.SaveNewsEditButton.Enabled = false;
-            this.SaveNewsEditButton.Location = new System.Drawing.Point(645, 320);
-            this.SaveNewsEditButton.Name = "SaveNewsEditButton";
-            this.SaveNewsEditButton.Size = new System.Drawing.Size(75, 23);
-            this.SaveNewsEditButton.TabIndex = 5;
-            this.SaveNewsEditButton.Text = "Save";
-            this.SaveNewsEditButton.UseVisualStyleBackColor = true;
+            this.NewSourceNameLabel.AutoSize = true;
+            this.NewSourceNameLabel.Enabled = false;
+            this.NewSourceNameLabel.Location = new System.Drawing.Point(642, 178);
+            this.NewSourceNameLabel.Name = "NewSourceNameLabel";
+            this.NewSourceNameLabel.Size = new System.Drawing.Size(125, 17);
+            this.NewSourceNameLabel.TabIndex = 3;
+            this.NewSourceNameLabel.Text = "New source name:";
             // 
-            // DiscardNewsEditButton
+            // NewSourceURLText
             // 
-            this.DiscardNewsEditButton.Enabled = false;
-            this.DiscardNewsEditButton.Location = new System.Drawing.Point(806, 320);
-            this.DiscardNewsEditButton.Name = "DiscardNewsEditButton";
-            this.DiscardNewsEditButton.Size = new System.Drawing.Size(75, 23);
-            this.DiscardNewsEditButton.TabIndex = 6;
-            this.DiscardNewsEditButton.Text = "Discard";
-            this.DiscardNewsEditButton.UseVisualStyleBackColor = true;
+            this.NewSourceURLText.Enabled = false;
+            this.NewSourceURLText.Location = new System.Drawing.Point(645, 278);
+            this.NewSourceURLText.Name = "NewSourceURLText";
+            this.NewSourceURLText.Size = new System.Drawing.Size(236, 22);
+            this.NewSourceURLText.TabIndex = 2;
+            // 
+            // NewSourceNameText
+            // 
+            this.NewSourceNameText.Enabled = false;
+            this.NewSourceNameText.Location = new System.Drawing.Point(645, 198);
+            this.NewSourceNameText.Name = "NewSourceNameText";
+            this.NewSourceNameText.Size = new System.Drawing.Size(236, 22);
+            this.NewSourceNameText.TabIndex = 1;
+            // 
+            // ReorderNewsButton
+            // 
+            this.ReorderNewsButton.Location = new System.Drawing.Point(645, 110);
+            this.ReorderNewsButton.Name = "ReorderNewsButton";
+            this.ReorderNewsButton.Size = new System.Drawing.Size(75, 23);
+            this.ReorderNewsButton.TabIndex = 0;
+            this.ReorderNewsButton.Text = "Reorder";
+            this.ReorderNewsButton.UseVisualStyleBackColor = true;
             // 
             // EditSourcesWindow
             // 
@@ -233,7 +235,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceNameToEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceURLToEdit;
         private System.Windows.Forms.GroupBox NewsSourceSelectGroupBox;
-        private System.Windows.Forms.Button SortNewsButton;
+        private System.Windows.Forms.Button ReorderNewsButton;
         private System.Windows.Forms.Label NewSourceURLLabel;
         private System.Windows.Forms.Label NewSourceNameLabel;
         private System.Windows.Forms.TextBox NewSourceURLText;

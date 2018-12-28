@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 //todo de facut rutina pentru redimensionarea componentelor odata cu fereastra
 
@@ -24,10 +25,11 @@ namespace ZanScore
             NewsDetails.Rows.Clear();
             NewsSourcesCollection.ClearSources();
             NewsSourcesCollection.LoadSources();
-            string[] URLList=NewsSourcesCollection.GetNewsURL();
+            List<string> URLList = new List<string>();
+            URLList = NewsSourcesCollection.GetNewsURL();
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Downloading RSS...";
-            for (int i = 0; i < URLList.Length; i++)
+            for (int i = 0; i < URLList.Count; i++)
             {
                 NewsSourceData.LoadRSSFile(URLList[i]);
                 NewsSourceData.DownloadRSSFile();
@@ -42,7 +44,7 @@ namespace ZanScore
         private void FillGrid()
         //Umple tabelul cu stirile citite
         {
-            for (int i = 0; i < NewsSourceData.NewsTitle.Length; i++)
+            for (int i = 0; i < NewsSourceData.NewsTitle.Count; i++)
             {
                 NewsDetails.Rows.Add();
                 NewsDetails.Rows[i].Cells[0].Value = NewsSourceData.NewsTitle[i];
@@ -86,24 +88,20 @@ namespace ZanScore
                                 s2 = c2.Text;
                         }
                 } //*
-                NewsSourcesCollection.AddNewSource(s, s2); 
+                NewsSourcesCollection.AddNewSource(s, s2);
                 NewsSourcesCollection.SaveSources();
             }
         }
 
         private void ShowEditSourcesWindow(object sender, EventArgs e)
-            //todo Bug: Daca sterg o sursa, apas pe Cancel apoi revin in fereastra de editare, sursa stearsa nu mai revine in lista din fereastra ci ramane stearsa. Questia nu se aplica la repornirea programului
         {
             EditSourcesWindow E = new EditSourcesWindow();
             foreach (Control c in E.Controls)
                 if (c is DataGridView)
                     NewsSourcesCollection.ShowNewsSourcesInDataGrid(c as DataGridView);
             E.ShowDialog(owner: this);
-            if (E.DialogResult==DialogResult.OK)
-            {
+            if (E.DialogResult == DialogResult.OK)
                 NewsSourcesCollection.SaveSources();
-                NewsSourcesCollection.ClearSources();
-            }
         }
 
         private void ShowOptionsWindow(object sender, EventArgs e)
