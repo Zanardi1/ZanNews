@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 //todo de facut rutina pentru redimensionarea componentelor odata cu fereastra
 
-
-
 namespace ZanScore
 {
     public partial class Form1 : Form
@@ -72,7 +70,7 @@ namespace ZanScore
 
          E nevoie de doua ciclari, deoarece componentele din GroupBox sunt copii pentru acesta, iar GroupBox este copil pentru fereastra. In ambele cazuri, trebuie cautat ceea ce doresc prin toate componentele copil*/
         {
-            AddSource A = new AddSource();
+            AddSourceWindow A = new AddSourceWindow();
             string s = "", s2 = "";
             A.ShowDialog();
             if (A.DialogResult == DialogResult.OK) //*
@@ -106,7 +104,7 @@ namespace ZanScore
 
         private void ShowOptionsWindow(object sender, EventArgs e)
         {
-            Options O = new Options();
+            OptionsWindow O = new OptionsWindow();
             O.ShowDialog();
         }
 

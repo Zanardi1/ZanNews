@@ -133,13 +133,13 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         {
                             NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"), 16);
                             if (NewsTitle[NewsTitle.Count - 1].Length != 0) //Daca eticheta nu are continut, ci doar <title></title>
-                                NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("]"), NewsTitle[NewsTitle.Count - 1].Length - NewsTitle[NewsTitle.Count - 1].IndexOf("]"));
+                                NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("]"));
                         }
                         else
                         {
                             NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"), NewsTitle[NewsTitle.Count - 1].IndexOf(">") + 1);
                             if (NewsTitle[NewsTitle.Count - 1].Length != 0)
-                                NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"), NewsTitle[NewsTitle.Count - 1].Length - NewsTitle[NewsTitle.Count - 1].IndexOf("<"));
+                                NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"));
                         }
                     }
                     else //Titlu de canal
@@ -147,7 +147,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         ChannelTitle = FileContent[i].Trim();
                         ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"), ChannelTitle.IndexOf(">") + 1);
                         if (ChannelTitle.Length != 0)
-                            ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"), ChannelTitle.Length - ChannelTitle.IndexOf("<"));
+                            ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"));
                     }
                 }
 
@@ -160,13 +160,13 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         {
                             NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"), 15);
                             if (NewsLink[NewsLink.Count - 1].Length != 0)
-                                NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("]"), NewsLink[NewsLink.Count - 1].Length - NewsLink[NewsLink.Count - 1].IndexOf("]"));
+                                NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("]"));
                         }
                         else
                         {
                             NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"), NewsLink[NewsLink.Count - 1].IndexOf(">") + 1);
                             if (NewsLink[NewsLink.Count - 1].Length != 0)
-                                NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"), NewsLink[NewsLink.Count - 1].Length - NewsLink[NewsLink.Count - 1].IndexOf("<"));
+                                NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"));
                         }
                     }
 
@@ -175,7 +175,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         ChannelLink = FileContent[i].Trim();
                         ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"), ChannelLink.IndexOf(">") + 1);
                         if (ChannelLink.Length != 0)
-                            ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"), ChannelLink.Length - ChannelLink.IndexOf("<"));
+                            ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"));
                     }
                 }
 
@@ -188,13 +188,13 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         {
                             NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"), 22);
                             if (NewsDescription[NewsDescription.Count - 1].Length != 0)
-                                NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("]"), NewsDescription[NewsDescription.Count - 1].Length - NewsDescription[NewsDescription.Count - 1].IndexOf("]"));
+                                NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("]"));
                         }
                         else
                         {
                             NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"), NewsDescription[NewsDescription.Count - 1].IndexOf(">") + 1);
                             if (NewsDescription[NewsDescription.Count - 1].Length != 0)
-                                NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"), NewsDescription[NewsDescription.Count - 1].Length - NewsDescription[NewsDescription.Count - 1].IndexOf("<"));
+                                NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"));
                         }
                     }
 
@@ -203,7 +203,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         ChannelDescription = FileContent[i].Trim();
                         ChannelDescription = ChannelDescription.Remove(ChannelDescription.IndexOf("<"), ChannelDescription.IndexOf(">") + 1);
                         if (ChannelDescription.Length != 0)
-                            ChannelDescription = ChannelDescription.Remove(ChannelDescription.IndexOf("<"), ChannelDescription.Length - ChannelDescription.IndexOf("<"));
+                            ChannelDescription = ChannelDescription.Remove(ChannelDescription.IndexOf("<"));
                     }
                 }
 
@@ -212,7 +212,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     Copyright = FileContent[i].Trim();
                     Copyright = Copyright.Remove(Copyright.IndexOf("<"), Copyright.IndexOf(">") + 1);
                     if (Copyright.Length != 0)
-                        Copyright = Copyright.Remove(Copyright.IndexOf("<"), Copyright.Length - Copyright.IndexOf("<"));
+                        Copyright = Copyright.Remove(Copyright.IndexOf("<"));
                 }
 
                 if (FileContent[i].Contains("<managingEditor>"))
@@ -220,7 +220,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     ManagingEditor = FileContent[i].Trim();
                     ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"), ManagingEditor.IndexOf(">") + 1);
                     if (ManagingEditor.Length != 0)
-                        ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"), ManagingEditor.Length - ManagingEditor.IndexOf("<"));
+                        ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"));
                 }
 
                 if (FileContent[i].Contains("<language>"))
@@ -228,7 +228,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     Language = FileContent[i].Trim();
                     Language = Language.Remove(Language.IndexOf("<"), Language.IndexOf(">") + 1);
                     if (Language.Length != 0)
-                        Language = Language.Remove(Language.IndexOf("<"), Language.Length - Language.IndexOf("<"));
+                        Language = Language.Remove(Language.IndexOf("<"));
                 }
 
                 if (FileContent[i].Contains("<pubDate>"))
@@ -236,7 +236,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                     PubDate = FileContent[i].Trim();
                     PubDate = PubDate.Remove(PubDate.IndexOf("<"), PubDate.IndexOf(">") + 1);
                     if (PubDate.Length != 0)
-                        PubDate = PubDate.Remove(PubDate.IndexOf("<"), PubDate.Length - PubDate.IndexOf("<"));
+                        PubDate = PubDate.Remove(PubDate.IndexOf("<"));
                 }
             }
         }

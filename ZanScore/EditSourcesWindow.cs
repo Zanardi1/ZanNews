@@ -104,5 +104,99 @@ namespace ZanScore
             NewSourceNameText.Text = "";
             NewSourceURLText.Text = "";
         }
+
+        private void DisableReorderingControls()
+        {
+            MoveUpOnePositionButton.Enabled = false;
+            MoveDownOnePositionButton.Enabled = false;
+            MoveToFirstPositionButton.Enabled = false;
+            MoveToLastPositionButton.Enabled = false;
+            EditNewsButton.Enabled = true;
+            DeleteNewsButton.Enabled = true;
+        }
+
+        private void EnableReorderingControls()
+        //Activeaza controalele ce permit reordonarea surselor
+        {
+            MoveUpOnePositionButton.Enabled = true;
+            MoveDownOnePositionButton.Enabled = true;
+            MoveToFirstPositionButton.Enabled = true;
+            MoveToLastPositionButton.Enabled = true;
+            EditNewsButton.Enabled = false;
+            DeleteNewsButton.Enabled = false;
+        }
+
+        private void ReorderSelectedNewsSources(object sender, EventArgs e)
+        {
+            EnableReorderingControls();
+        }
+
+        private void MoveSelectedSourceUpOnePosition(object sender, EventArgs e)
+        //Subrutina muta sursa aleasa cu o pozitie mai sus
+        {
+            int i = 0;
+            string buffer;
+            while (AllTheSources.Rows[i].Selected == false)
+                i++; //Cauta prima sursa selectata si-i retine pozitia
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 1);
+            if (i > 0)
+            {
+                buffer = AllTheSources.Rows[i - 1].Cells[0].Value.ToString();
+                AllTheSources.Rows[i - 1].Cells[0].Value = AllTheSources.Rows[i].Cells[0].Value;
+                AllTheSources.Rows[i].Cells[0].Value = buffer;
+
+                buffer = AllTheSources.Rows[i - 1].Cells[1].Value.ToString();
+                AllTheSources.Rows[i - 1].Cells[1].Value = AllTheSources.Rows[i].Cells[1].Value;
+                AllTheSources.Rows[i].Cells[1].Value = buffer;
+
+                AllTheSources.Rows[i - 1].Selected = true;
+                AllTheSources.Rows[i].Selected = false;
+            }
+        }
+
+        private void MoveSelectedSourceDownOnePosition(object sender, EventArgs e)
+        //Subrutina muta sursa aleasa cu o pozitie mai jos
+        {
+            int i = 0;
+            string buffer;
+            while (AllTheSources.Rows[i].Selected == false)
+                i++; //Cauta prima sursa selectata si-i retine pozitia
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 2);
+            if (i < AllTheSources.RowCount)
+            {
+                buffer = AllTheSources.Rows[i + 1].Cells[0].Value.ToString();
+                AllTheSources.Rows[i + 1].Cells[0].Value = AllTheSources.Rows[i].Cells[0].Value;
+                AllTheSources.Rows[i].Cells[0].Value = buffer;
+
+                buffer = AllTheSources.Rows[i + 1].Cells[1].Value.ToString();
+                AllTheSources.Rows[i + 1].Cells[1].Value = AllTheSources.Rows[i].Cells[1].Value;
+                AllTheSources.Rows[i].Cells[1].Value = buffer;
+
+                AllTheSources.Rows[i + 1].Selected = true;
+                AllTheSources.Rows[i].Selected = false;
+            }
+        }
+
+        private void MoveSelectedSourceToFirstPosition(object sender, EventArgs e)
+        //Subrutina muta sursa aleasa pe prima pozitie
+        {
+            int i = 0;
+            string buffer;
+            while (AllTheSources.Rows[i].Selected == false)
+                i++; //Cauta prima sursa selectata si-i retine pozitia
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
+            if (i > 0) //todo Eroare de depasire la aceasta secventa
+            {
+                buffer = AllTheSources.Rows[0].Cells[0].Value.ToString();
+                for (int j = 0; j < AllTheSources.RowCount; j++)
+                    AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j + 1].Cells[0].Value;
+                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[0].Value = buffer;
+
+                buffer = AllTheSources.Rows[0].Cells[1].Value.ToString();
+                for (int j = 0; j < AllTheSources.RowCount; j++)
+                    AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j + 1].Cells[1].Value;
+                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[1].Value = buffer;
+            }
+        }
     }
 }

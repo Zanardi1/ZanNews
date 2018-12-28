@@ -36,6 +36,10 @@
             this.SourceNameToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewsSourceSelectGroupBox = new System.Windows.Forms.GroupBox();
+            this.MoveToLastPositionButton = new System.Windows.Forms.Button();
+            this.MoveToFirstPositionButton = new System.Windows.Forms.Button();
+            this.MoveDownOnePositionButton = new System.Windows.Forms.Button();
+            this.MoveUpOnePositionButton = new System.Windows.Forms.Button();
             this.DiscardNewsEditButton = new System.Windows.Forms.Button();
             this.SaveNewsEditButton = new System.Windows.Forms.Button();
             this.NewSourceURLLabel = new System.Windows.Forms.Label();
@@ -117,6 +121,10 @@
             // 
             // NewsSourceSelectGroupBox
             // 
+            this.NewsSourceSelectGroupBox.Controls.Add(this.MoveToLastPositionButton);
+            this.NewsSourceSelectGroupBox.Controls.Add(this.MoveToFirstPositionButton);
+            this.NewsSourceSelectGroupBox.Controls.Add(this.MoveDownOnePositionButton);
+            this.NewsSourceSelectGroupBox.Controls.Add(this.MoveUpOnePositionButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.DiscardNewsEditButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.SaveNewsEditButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.NewSourceURLLabel);
@@ -131,10 +139,53 @@
             this.NewsSourceSelectGroupBox.TabStop = false;
             this.NewsSourceSelectGroupBox.Text = "Select the news source to edit or delete";
             // 
+            // MoveToLastPositionButton
+            // 
+            this.MoveToLastPositionButton.Enabled = false;
+            this.MoveToLastPositionButton.Location = new System.Drawing.Point(775, 408);
+            this.MoveToLastPositionButton.Name = "MoveToLastPositionButton";
+            this.MoveToLastPositionButton.Size = new System.Drawing.Size(115, 23);
+            this.MoveToLastPositionButton.TabIndex = 10;
+            this.MoveToLastPositionButton.Text = "Move last";
+            this.MoveToLastPositionButton.UseVisualStyleBackColor = true;
+            // 
+            // MoveToFirstPositionButton
+            // 
+            this.MoveToFirstPositionButton.Enabled = false;
+            this.MoveToFirstPositionButton.Location = new System.Drawing.Point(645, 408);
+            this.MoveToFirstPositionButton.Name = "MoveToFirstPositionButton";
+            this.MoveToFirstPositionButton.Size = new System.Drawing.Size(115, 23);
+            this.MoveToFirstPositionButton.TabIndex = 9;
+            this.MoveToFirstPositionButton.Text = "Move first";
+            this.MoveToFirstPositionButton.UseVisualStyleBackColor = true;
+            this.MoveToFirstPositionButton.Click += new System.EventHandler(this.MoveSelectedSourceToFirstPosition);
+            // 
+            // MoveDownOnePositionButton
+            // 
+            this.MoveDownOnePositionButton.Enabled = false;
+            this.MoveDownOnePositionButton.Location = new System.Drawing.Point(775, 366);
+            this.MoveDownOnePositionButton.Name = "MoveDownOnePositionButton";
+            this.MoveDownOnePositionButton.Size = new System.Drawing.Size(115, 23);
+            this.MoveDownOnePositionButton.TabIndex = 8;
+            this.MoveDownOnePositionButton.Text = "Down 1";
+            this.MoveDownOnePositionButton.UseVisualStyleBackColor = true;
+            this.MoveDownOnePositionButton.Click += new System.EventHandler(this.MoveSelectedSourceDownOnePosition);
+            // 
+            // MoveUpOnePositionButton
+            // 
+            this.MoveUpOnePositionButton.Enabled = false;
+            this.MoveUpOnePositionButton.Location = new System.Drawing.Point(645, 366);
+            this.MoveUpOnePositionButton.Name = "MoveUpOnePositionButton";
+            this.MoveUpOnePositionButton.Size = new System.Drawing.Size(115, 23);
+            this.MoveUpOnePositionButton.TabIndex = 7;
+            this.MoveUpOnePositionButton.Text = "Up 1";
+            this.MoveUpOnePositionButton.UseVisualStyleBackColor = true;
+            this.MoveUpOnePositionButton.Click += new System.EventHandler(this.MoveSelectedSourceUpOnePosition);
+            // 
             // DiscardNewsEditButton
             // 
             this.DiscardNewsEditButton.Enabled = false;
-            this.DiscardNewsEditButton.Location = new System.Drawing.Point(806, 320);
+            this.DiscardNewsEditButton.Location = new System.Drawing.Point(806, 292);
             this.DiscardNewsEditButton.Name = "DiscardNewsEditButton";
             this.DiscardNewsEditButton.Size = new System.Drawing.Size(75, 23);
             this.DiscardNewsEditButton.TabIndex = 6;
@@ -145,7 +196,7 @@
             // SaveNewsEditButton
             // 
             this.SaveNewsEditButton.Enabled = false;
-            this.SaveNewsEditButton.Location = new System.Drawing.Point(645, 320);
+            this.SaveNewsEditButton.Location = new System.Drawing.Point(645, 292);
             this.SaveNewsEditButton.Name = "SaveNewsEditButton";
             this.SaveNewsEditButton.Size = new System.Drawing.Size(75, 23);
             this.SaveNewsEditButton.TabIndex = 5;
@@ -157,7 +208,7 @@
             // 
             this.NewSourceURLLabel.AutoSize = true;
             this.NewSourceURLLabel.Enabled = false;
-            this.NewSourceURLLabel.Location = new System.Drawing.Point(642, 258);
+            this.NewSourceURLLabel.Location = new System.Drawing.Point(642, 230);
             this.NewSourceURLLabel.Name = "NewSourceURLLabel";
             this.NewSourceURLLabel.Size = new System.Drawing.Size(118, 17);
             this.NewSourceURLLabel.TabIndex = 4;
@@ -176,7 +227,7 @@
             // NewSourceURLText
             // 
             this.NewSourceURLText.Enabled = false;
-            this.NewSourceURLText.Location = new System.Drawing.Point(645, 278);
+            this.NewSourceURLText.Location = new System.Drawing.Point(645, 250);
             this.NewSourceURLText.Name = "NewSourceURLText";
             this.NewSourceURLText.Size = new System.Drawing.Size(236, 22);
             this.NewSourceURLText.TabIndex = 2;
@@ -197,6 +248,7 @@
             this.ReorderNewsButton.TabIndex = 0;
             this.ReorderNewsButton.Text = "Reorder";
             this.ReorderNewsButton.UseVisualStyleBackColor = true;
+            this.ReorderNewsButton.Click += new System.EventHandler(this.ReorderSelectedNewsSources);
             // 
             // EditSourcesWindow
             // 
@@ -242,5 +294,9 @@
         private System.Windows.Forms.TextBox NewSourceNameText;
         private System.Windows.Forms.Button DiscardNewsEditButton;
         private System.Windows.Forms.Button SaveNewsEditButton;
+        private System.Windows.Forms.Button MoveToLastPositionButton;
+        private System.Windows.Forms.Button MoveToFirstPositionButton;
+        private System.Windows.Forms.Button MoveDownOnePositionButton;
+        private System.Windows.Forms.Button MoveUpOnePositionButton;
     }
 }

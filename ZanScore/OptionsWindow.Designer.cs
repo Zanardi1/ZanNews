@@ -1,6 +1,6 @@
 ﻿namespace ZanScore
 {
-    partial class Options
+    partial class OptionsWindow
     {
         /// <summary>
         /// Required designer variable.

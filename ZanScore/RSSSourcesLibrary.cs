@@ -131,9 +131,81 @@ namespace ZanScore
             NumberofSources = 0;
         }
 
-        public void SortSources()
+        public void SortSources(int Position, int SortingWay)
+        /*Subrutina muta sursa de pe pozitia Position in functie de valoarea lui SortingWay:
+         1 - muta cu o pozitie mai sus (Up 1)
+         2 - muta cu o pozitie mai jos (Down 1)
+         3 - muta pe prima pozitie (Move first)
+         4 - muta pe ultima pozitie (Move last)*/
         {
+            string buffer; //variabila temporara utilizata la interschimbari
+            switch (SortingWay)
+            {
+                case 1:
+                    {
+                        if (Position > 0) //Daca nu incerc sa mut mai sus prima sursa de stiri
+                        {
+                            buffer = SourceTitle[Position - 1];
+                            SourceTitle[Position - 1] = SourceTitle[Position];
+                            SourceTitle[Position] = buffer;
 
+                            buffer = SourceURL[Position - 1];
+                            SourceURL[Position - 1] = SourceURL[Position];
+                            SourceURL[Position] = buffer;
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        if (Position < SourceTitle.Count)
+                        {
+                            buffer = SourceTitle[Position + 1];
+                            SourceTitle[Position + 1] = SourceTitle[Position];
+                            SourceTitle[Position] = buffer;
+
+                            buffer = SourceURL[Position + 1];
+                            SourceURL[Position + 1] = SourceURL[Position];
+                            SourceURL[Position] = buffer;
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        if (Position > 0)
+                        {
+                            buffer = SourceTitle[0];
+                            for (int i = 0; i < Position; i++)
+                                SourceTitle[i] = SourceTitle[i + 1];
+                            SourceTitle[SourceTitle.Count - 1] = buffer;
+
+                            buffer = SourceURL[0];
+                            for (int i = 0; i < Position; i++)
+                                SourceURL[i] = SourceURL[i + 1];
+                            SourceURL[SourceURL.Count - 1] = buffer;
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        if (Position < SourceTitle.Count)
+                        {
+                            buffer = SourceTitle[Position + 1];
+                            for (int i = Position - 1; i < SourceTitle.Count; i++)
+                                SourceTitle[i] = SourceTitle[i - 1];
+                            SourceTitle[SourceTitle.Count + 1] = buffer;
+
+                            buffer = SourceURL[Position + 1];
+                            for (int i = Position - 1; i < SourceURL.Count; i++)
+                                SourceURL[i] = SourceURL[i - 1];
+                            SourceURL[SourceURL.Count + 1] = buffer;
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
         }
     }
 }

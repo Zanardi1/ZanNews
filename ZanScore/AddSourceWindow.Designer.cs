@@ -1,6 +1,6 @@
 ﻿namespace ZanScore
 {
-    partial class AddSource
+    partial class AddSourceWindow
     {
         /// <summary>
         /// Required designer variable.

@@ -52,11 +52,11 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddSource.cs">
+    <Compile Include="AddSourceWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddSource.Designer.cs">
-      <DependentUpon>AddSource.cs</DependentUpon>
+    <Compile Include="AddSourceWindow.Designer.cs">
+      <DependentUpon>AddSourceWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="EditSourcesWindow.cs">
       <SubType>Form</SubType>
@@ -70,11 +70,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Options.cs">
+    <Compile Include="OptionsWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Options.Designer.cs">
-      <DependentUpon>Options.cs</DependentUpon>
+    <Compile Include="OptionsWindow.Designer.cs">
+      <DependentUpon>OptionsWindow.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -89,8 +89,8 @@
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddSource.resx">
-      <DependentUpon>AddSource.cs</DependentUpon>
+    <EmbeddedResource Include="AddSourceWindow.resx">
+      <DependentUpon>AddSourceWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditSourcesWindow.resx">
       <DependentUpon>EditSourcesWindow.cs</DependentUpon>

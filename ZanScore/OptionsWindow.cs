@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ZanScore
 {
-    public partial class AddSource : Form
+    public partial class OptionsWindow : Form
     {
-        public AddSource()
+        public OptionsWindow()
         {
             InitializeComponent();
         }
