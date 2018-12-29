@@ -10,8 +10,8 @@ namespace ZanScore
         public EditSourcesWindow()
         {
             InitializeComponent();
-            SourceNameToEdit.Width = AllTheSources.Width / 3;
-            SourceURLToEdit.Width = 2 * AllTheSources.Width / 3;
+            SourceNameToEdit.Width = AllTheSources.Width / 4;
+            SourceURLToEdit.Width = 2 * AllTheSources.Width / 4;
         }
 
         private void DeleteSelectedNewsSources(object sender, System.EventArgs e)
@@ -191,7 +191,7 @@ namespace ZanScore
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
-            if (i > 0) //todo Eroare de depasire la aceasta secventa
+            if (i > 0) 
             {
                 buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
                 for (int j = i; j > 0; j--)

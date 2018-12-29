@@ -143,14 +143,16 @@
             // DownloadFromAllSourcesOption
             // 
             this.DownloadFromAllSourcesOption.Name = "DownloadFromAllSourcesOption";
-            this.DownloadFromAllSourcesOption.Size = new System.Drawing.Size(141, 26);
+            this.DownloadFromAllSourcesOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.DownloadFromAllSourcesOption.Size = new System.Drawing.Size(191, 26);
             this.DownloadFromAllSourcesOption.Text = "All";
             this.DownloadFromAllSourcesOption.Click += new System.EventHandler(this.DownloadAllNews);
             // 
             // DownloadFromSelectedSourcesOption
             // 
             this.DownloadFromSelectedSourcesOption.Name = "DownloadFromSelectedSourcesOption";
-            this.DownloadFromSelectedSourcesOption.Size = new System.Drawing.Size(141, 26);
+            this.DownloadFromSelectedSourcesOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.DownloadFromSelectedSourcesOption.Size = new System.Drawing.Size(191, 26);
             this.DownloadFromSelectedSourcesOption.Text = "Selected";
             this.DownloadFromSelectedSourcesOption.Click += new System.EventHandler(this.SelectNewsSources);
             // 

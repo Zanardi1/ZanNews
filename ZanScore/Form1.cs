@@ -8,7 +8,7 @@ namespace ZanScore
 {
     public partial class Form1 : Form
     {
-        RSSData NewsSourceData = new RSSData();
+        RSSSourceData NewsSourceData = new RSSSourceData();
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
 
         public Form1()
@@ -29,10 +29,13 @@ namespace ZanScore
             StatusLabel.Text = "Downloading RSS...";
             for (int i = 0; i < URLList.Count; i++)
             {
-                NewsSourceData.LoadRSSFile(URLList[i]);
-                NewsSourceData.DownloadRSSFile();
-                NewsSourceData.ReadRSSContent();
-                NewsSourceData.FillRSSData();
+                if (NewsSourcesCollection.IsSourceSelected[i])
+                {
+                    NewsSourceData.LoadRSSFile(URLList[i]);
+                    NewsSourceData.DownloadRSSFile();
+                    NewsSourceData.ReadRSSContent();
+                    NewsSourceData.FillRSSData();
+                }
             }
             StatusLabel.Text = "Download complete";
             Cursor.Current = Cursors.Arrow;
@@ -58,8 +61,10 @@ namespace ZanScore
 
         private void SelectNewsSources(object sender, EventArgs e)
         {
-            SelectSource S = new SelectSource();
-            S.ShowDialog();
+            SelectSourcesWindow S = new SelectSourcesWindow();
+            S.ShowDialog(owner: this);
+            if (S.DialogResult == DialogResult.OK)
+                NewsSourcesCollection.SaveSources();
         }
 
         private void ShowAddNewsSourcesWindow(object sender, EventArgs e)

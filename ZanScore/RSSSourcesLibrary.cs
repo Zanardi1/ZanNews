@@ -16,9 +16,9 @@ namespace ZanScore
     // 6. Sortarea surselor;
 
     {
-        //string[] SourceTitle = new string[] { };
-        List<string> SourceTitle = new List<string>();
+        public List<string> SourceTitle = new List<string>();
         List<string> SourceURL = new List<string>();
+        public List<bool> IsSourceSelected = new List<bool>();
         public int NumberofSources;
 
         public RSSSourcesLibrary()
@@ -33,10 +33,14 @@ namespace ZanScore
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
             int j = 0;
             TextToRead = File.ReadAllLines("Sources.txt");
-            for (int i = 0; i < TextToRead.Length; i += 2) //Imparte fiecare text in sursa si URL
+            for (int i = 0; i < TextToRead.Length; i += 3) //Imparte fiecare text in sursa si URL
             {
                 SourceTitle.Add(TextToRead[i]);
                 SourceURL.Add(TextToRead[i + 1]);
+                if (TextToRead[i + 2].Contains("True"))
+                    IsSourceSelected.Add(true);
+                else
+                    IsSourceSelected.Add(false);
                 SourceTitle[j] = SourceTitle[j].Remove(0, SourceTitle[j].IndexOf(">") + 1); //Elimina "<name">
                 SourceTitle[j] = SourceTitle[j].Remove(SourceTitle[j].IndexOf("<")); //Elimina "</name>"
                 SourceURL[j] = SourceURL[j].Remove(0, SourceURL[j].IndexOf(">") + 1); //Elimina "<URL>"
@@ -54,12 +58,13 @@ namespace ZanScore
         {
             string[] TextToWrite = new string[] { }; //retine textele care vor fi scrise in fisier. 
             int j = 0;
-            Array.Resize(ref TextToWrite, SourceTitle.Count * 2);
+            Array.Resize(ref TextToWrite, SourceTitle.Count * 3);
             for (int i = 0; i < SourceTitle.Count; i++)
             {
                 TextToWrite[j] = "<name>" + SourceTitle[i] + "</name>";
                 TextToWrite[j + 1] = "<URL>" + SourceURL[i] + "</URL>";
-                j += 2;
+                TextToWrite[j + 2] = "<selected>" + IsSourceSelected[i] + "</selected>";
+                j += 3;
             }
             File.WriteAllLines("Sources.txt", TextToWrite);
         }
@@ -139,6 +144,7 @@ namespace ZanScore
          4 - muta pe ultima pozitie (Move last)*/
         {
             string buffer; //variabila temporara utilizata la interschimbari
+            bool bufferBool; //variabila temporara utilizata la interschimbari, pentru lista booleana
             switch (SortingWay)
             {
                 case 1:
@@ -152,6 +158,10 @@ namespace ZanScore
                             buffer = SourceURL[Position - 1];
                             SourceURL[Position - 1] = SourceURL[Position];
                             SourceURL[Position] = buffer;
+
+                            bufferBool = IsSourceSelected[Position - 1];
+                            IsSourceSelected[Position - 1] = IsSourceSelected[Position];
+                            IsSourceSelected[Position] = bufferBool;
                         }
                         break;
                     }
@@ -166,6 +176,10 @@ namespace ZanScore
                             buffer = SourceURL[Position + 1];
                             SourceURL[Position + 1] = SourceURL[Position];
                             SourceURL[Position] = buffer;
+
+                            bufferBool = IsSourceSelected[Position - 1];
+                            IsSourceSelected[Position - 1] = IsSourceSelected[Position];
+                            IsSourceSelected[Position] = bufferBool;
                         }
                         break;
                     }
@@ -182,6 +196,11 @@ namespace ZanScore
                             for (int i = Position; i > 0; i--)
                                 SourceURL[i] = SourceURL[i - 1];
                             SourceURL[0] = buffer;
+
+                            bufferBool = IsSourceSelected[Position];
+                            for (int i = Position; i > 0; i--)
+                                IsSourceSelected[i] = IsSourceSelected[i - 1];
+                            IsSourceSelected[0] = bufferBool;
                         }
                         break;
                     }
@@ -198,6 +217,11 @@ namespace ZanScore
                             for (int i = Position; i < SourceURL.Count - 1; i++)
                                 SourceURL[i] = SourceURL[i + 1];
                             SourceURL[SourceURL.Count - 1] = buffer;
+
+                            bufferBool = IsSourceSelected[Position];
+                            for (int i = Position; i < IsSourceSelected.Count - 1; i++)
+                                IsSourceSelected[i] = IsSourceSelected[i + 1];
+                            IsSourceSelected[IsSourceSelected.Count - 1] = bufferBool;
                         }
                         break;
                     }

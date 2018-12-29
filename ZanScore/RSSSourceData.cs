@@ -16,7 +16,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
  */
 
 {
-    class RSSData
+    class RSSSourceData
     //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
     //todo Sa adaug si restul subcategoriilor din definitia unui fisier RSS, odata ce am o aplicatie functionala
     {
@@ -37,7 +37,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         private string FileToProcess; //Retine numele fisierului care va fi descarcat si procesat
         private List<string> FileContent = new List<string>(); //Retine liniile fisierului citit
 
-        public RSSData()
+        public RSSSourceData()
         {
             RSSVersion = "";
             ChannelTitle = "";

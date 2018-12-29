@@ -78,13 +78,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RSSData.cs" />
+    <Compile Include="RSSSourceData.cs" />
     <Compile Include="RSSSourcesLibrary.cs" />
-    <Compile Include="SelectSource.cs">
+    <Compile Include="SelectSourcesWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="SelectSource.Designer.cs">
-      <DependentUpon>SelectSource.cs</DependentUpon>
+    <Compile Include="SelectSourcesWindow.Designer.cs">
+      <DependentUpon>SelectSourcesWindow.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
@@ -98,6 +98,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OptionsWindow.resx">
+      <DependentUpon>OptionsWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -107,8 +110,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="SelectSource.resx">
-      <DependentUpon>SelectSource.cs</DependentUpon>
+    <EmbeddedResource Include="SelectSourcesWindow.resx">
+      <DependentUpon>SelectSourcesWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

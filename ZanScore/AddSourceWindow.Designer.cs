@@ -76,9 +76,9 @@
             this.NewDataSource.Controls.Add(this.URLRSSLabel);
             this.NewDataSource.Controls.Add(this.SourceURLText);
             this.NewDataSource.Controls.Add(this.NameLabel);
-            this.NewDataSource.Location = new System.Drawing.Point(22, 41);
+            this.NewDataSource.Location = new System.Drawing.Point(12, 12);
             this.NewDataSource.Name = "NewDataSource";
-            this.NewDataSource.Size = new System.Drawing.Size(572, 156);
+            this.NewDataSource.Size = new System.Drawing.Size(589, 156);
             this.NewDataSource.TabIndex = 4;
             this.NewDataSource.TabStop = false;
             this.NewDataSource.Text = "Data for the new source";
@@ -86,7 +86,7 @@
             // SaveChanges
             // 
             this.SaveChanges.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.SaveChanges.Location = new System.Drawing.Point(239, 217);
+            this.SaveChanges.Location = new System.Drawing.Point(141, 191);
             this.SaveChanges.Name = "SaveChanges";
             this.SaveChanges.Size = new System.Drawing.Size(75, 23);
             this.SaveChanges.TabIndex = 5;
@@ -96,20 +96,19 @@
             // DiscardChanges
             // 
             this.DiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DiscardChanges.Location = new System.Drawing.Point(350, 217);
+            this.DiscardChanges.Location = new System.Drawing.Point(355, 191);
             this.DiscardChanges.Name = "DiscardChanges";
             this.DiscardChanges.Size = new System.Drawing.Size(75, 23);
             this.DiscardChanges.TabIndex = 6;
             this.DiscardChanges.Text = "Cancel";
             this.DiscardChanges.UseVisualStyleBackColor = true;
             // 
-            // AddSource
+            // AddSourceWindow
             // 
             this.AcceptButton = this.SaveChanges;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(635, 304);
+            this.ClientSize = new System.Drawing.Size(613, 231);
             this.ControlBox = false;
             this.Controls.Add(this.DiscardChanges);
             this.Controls.Add(this.SaveChanges);
@@ -117,7 +116,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "AddSource";
+            this.Name = "AddSourceWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add a news source";
             this.NewDataSource.ResumeLayout(false);

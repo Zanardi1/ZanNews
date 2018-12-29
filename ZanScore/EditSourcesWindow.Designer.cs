@@ -36,6 +36,7 @@
             this.SourceNameToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewsSourceSelectGroupBox = new System.Windows.Forms.GroupBox();
+            this.FinishReorderingButton = new System.Windows.Forms.Button();
             this.MoveToLastPositionButton = new System.Windows.Forms.Button();
             this.MoveToFirstPositionButton = new System.Windows.Forms.Button();
             this.MoveDownOnePositionButton = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@
             this.NewSourceURLText = new System.Windows.Forms.TextBox();
             this.NewSourceNameText = new System.Windows.Forms.TextBox();
             this.ReorderNewsButton = new System.Windows.Forms.Button();
-            this.FinishReorderingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).BeginInit();
             this.NewsSourceSelectGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +95,7 @@
             // AllTheSources
             // 
             this.AllTheSources.AllowUserToAddRows = false;
+            this.AllTheSources.AllowUserToDeleteRows = false;
             this.AllTheSources.AllowUserToResizeRows = false;
             this.AllTheSources.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AllTheSources.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -140,6 +141,17 @@
             this.NewsSourceSelectGroupBox.TabIndex = 5;
             this.NewsSourceSelectGroupBox.TabStop = false;
             this.NewsSourceSelectGroupBox.Text = "Select the news source to edit, delete or reorder";
+            // 
+            // FinishReorderingButton
+            // 
+            this.FinishReorderingButton.Enabled = false;
+            this.FinishReorderingButton.Location = new System.Drawing.Point(645, 441);
+            this.FinishReorderingButton.Name = "FinishReorderingButton";
+            this.FinishReorderingButton.Size = new System.Drawing.Size(245, 23);
+            this.FinishReorderingButton.TabIndex = 11;
+            this.FinishReorderingButton.Text = "Done";
+            this.FinishReorderingButton.UseVisualStyleBackColor = true;
+            this.FinishReorderingButton.Click += new System.EventHandler(this.FinishReorderingSelectedNewsSource);
             // 
             // MoveToLastPositionButton
             // 
@@ -253,24 +265,12 @@
             this.ReorderNewsButton.UseVisualStyleBackColor = true;
             this.ReorderNewsButton.Click += new System.EventHandler(this.ReorderSelectedNewsSources);
             // 
-            // FinishReorderingButton
-            // 
-            this.FinishReorderingButton.Enabled = false;
-            this.FinishReorderingButton.Location = new System.Drawing.Point(645, 441);
-            this.FinishReorderingButton.Name = "FinishReorderingButton";
-            this.FinishReorderingButton.Size = new System.Drawing.Size(245, 23);
-            this.FinishReorderingButton.TabIndex = 11;
-            this.FinishReorderingButton.Text = "Done";
-            this.FinishReorderingButton.UseVisualStyleBackColor = true;
-            this.FinishReorderingButton.Click += new System.EventHandler(this.FinishReorderingSelectedNewsSource);
-            // 
             // EditSourcesWindow
             // 
             this.AcceptButton = this.SaveChanges;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(964, 572);
+            this.ClientSize = new System.Drawing.Size(954, 526);
             this.ControlBox = false;
             this.Controls.Add(this.DeleteNewsButton);
             this.Controls.Add(this.EditNewsButton);
