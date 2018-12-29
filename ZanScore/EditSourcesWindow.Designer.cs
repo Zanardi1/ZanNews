@@ -47,6 +47,7 @@
             this.NewSourceURLText = new System.Windows.Forms.TextBox();
             this.NewSourceNameText = new System.Windows.Forms.TextBox();
             this.ReorderNewsButton = new System.Windows.Forms.Button();
+            this.FinishReorderingButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).BeginInit();
             this.NewsSourceSelectGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -74,7 +75,7 @@
             // SaveChanges
             // 
             this.SaveChanges.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.SaveChanges.Location = new System.Drawing.Point(143, 461);
+            this.SaveChanges.Location = new System.Drawing.Point(143, 491);
             this.SaveChanges.Name = "SaveChanges";
             this.SaveChanges.Size = new System.Drawing.Size(75, 23);
             this.SaveChanges.TabIndex = 2;
@@ -84,7 +85,7 @@
             // DiscardChanges
             // 
             this.DiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DiscardChanges.Location = new System.Drawing.Point(445, 461);
+            this.DiscardChanges.Location = new System.Drawing.Point(445, 491);
             this.DiscardChanges.Name = "DiscardChanges";
             this.DiscardChanges.Size = new System.Drawing.Size(75, 23);
             this.DiscardChanges.TabIndex = 3;
@@ -104,7 +105,7 @@
             this.AllTheSources.Name = "AllTheSources";
             this.AllTheSources.RowTemplate.Height = 24;
             this.AllTheSources.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.AllTheSources.Size = new System.Drawing.Size(615, 411);
+            this.AllTheSources.Size = new System.Drawing.Size(615, 441);
             this.AllTheSources.TabIndex = 4;
             // 
             // SourceNameToEdit
@@ -121,6 +122,7 @@
             // 
             // NewsSourceSelectGroupBox
             // 
+            this.NewsSourceSelectGroupBox.Controls.Add(this.FinishReorderingButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.MoveToLastPositionButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.MoveToFirstPositionButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.MoveDownOnePositionButton);
@@ -134,10 +136,10 @@
             this.NewsSourceSelectGroupBox.Controls.Add(this.ReorderNewsButton);
             this.NewsSourceSelectGroupBox.Location = new System.Drawing.Point(27, 12);
             this.NewsSourceSelectGroupBox.Name = "NewsSourceSelectGroupBox";
-            this.NewsSourceSelectGroupBox.Size = new System.Drawing.Size(909, 443);
+            this.NewsSourceSelectGroupBox.Size = new System.Drawing.Size(909, 473);
             this.NewsSourceSelectGroupBox.TabIndex = 5;
             this.NewsSourceSelectGroupBox.TabStop = false;
-            this.NewsSourceSelectGroupBox.Text = "Select the news source to edit or delete";
+            this.NewsSourceSelectGroupBox.Text = "Select the news source to edit, delete or reorder";
             // 
             // MoveToLastPositionButton
             // 
@@ -251,13 +253,24 @@
             this.ReorderNewsButton.UseVisualStyleBackColor = true;
             this.ReorderNewsButton.Click += new System.EventHandler(this.ReorderSelectedNewsSources);
             // 
+            // FinishReorderingButton
+            // 
+            this.FinishReorderingButton.Enabled = false;
+            this.FinishReorderingButton.Location = new System.Drawing.Point(645, 441);
+            this.FinishReorderingButton.Name = "FinishReorderingButton";
+            this.FinishReorderingButton.Size = new System.Drawing.Size(245, 23);
+            this.FinishReorderingButton.TabIndex = 11;
+            this.FinishReorderingButton.Text = "Done";
+            this.FinishReorderingButton.UseVisualStyleBackColor = true;
+            this.FinishReorderingButton.Click += new System.EventHandler(this.FinishReorderingSelectedNewsSource);
+            // 
             // EditSourcesWindow
             // 
             this.AcceptButton = this.SaveChanges;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(964, 542);
+            this.ClientSize = new System.Drawing.Size(964, 572);
             this.ControlBox = false;
             this.Controls.Add(this.DeleteNewsButton);
             this.Controls.Add(this.EditNewsButton);
@@ -299,5 +312,6 @@
         private System.Windows.Forms.Button MoveToFirstPositionButton;
         private System.Windows.Forms.Button MoveDownOnePositionButton;
         private System.Windows.Forms.Button MoveUpOnePositionButton;
+        private System.Windows.Forms.Button FinishReorderingButton;
     }
 }

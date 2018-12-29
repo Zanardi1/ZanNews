@@ -113,6 +113,7 @@ namespace ZanScore
             MoveToLastPositionButton.Enabled = false;
             EditNewsButton.Enabled = true;
             DeleteNewsButton.Enabled = true;
+            FinishReorderingButton.Enabled = false;
         }
 
         private void EnableReorderingControls()
@@ -124,6 +125,7 @@ namespace ZanScore
             MoveToLastPositionButton.Enabled = true;
             EditNewsButton.Enabled = false;
             DeleteNewsButton.Enabled = false;
+            FinishReorderingButton.Enabled = true;
         }
 
         private void ReorderSelectedNewsSources(object sender, EventArgs e)
@@ -138,6 +140,7 @@ namespace ZanScore
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
+            DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 1);
             if (i > 0)
             {
@@ -161,6 +164,8 @@ namespace ZanScore
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
+            int j = i + 1;
+            DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 2);
             if (i < AllTheSources.RowCount)
             {
@@ -184,6 +189,7 @@ namespace ZanScore
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
+            DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
             if (i > 0) //todo Eroare de depasire la aceasta secventa
             {
@@ -206,18 +212,35 @@ namespace ZanScore
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
+            DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 4);
             if (i < AllTheSources.RowCount)
             {
                 buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
                 for (int j = i; j < AllTheSources.RowCount - 1; j++)
                     AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j + 1].Cells[0].Value;
-                AllTheSources.Rows[AllTheSources.RowCount-1].Cells[0].Value = buffer;
+                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[0].Value = buffer;
 
                 buffer = AllTheSources.Rows[i].Cells[1].Value.ToString();
                 for (int j = i; j < AllTheSources.RowCount - 1; j++)
                     AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j + 1].Cells[1].Value;
-                AllTheSources.Rows[AllTheSources.RowCount-1].Cells[1].Value = buffer;
+                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[1].Value = buffer;
+            }
+        }
+
+        private void FinishReorderingSelectedNewsSource(object sender, EventArgs e)
+        {
+            DisableReorderingControls();
+        }
+
+        private void DisselectEverythingBelow(int Position)
+        //Subrutina deselecteaza toate randurile de sub randul cu numarul Position
+        {
+            int j = Position + 1;
+            while (j < AllTheSources.RowCount)
+            {
+                AllTheSources.Rows[j].Selected = false;
+                j++;
             }
         }
     }
