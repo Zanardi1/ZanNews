@@ -118,5 +118,58 @@ namespace ZanScore
             AboutBox A = new AboutBox();
             A.ShowDialog();
         }
+
+        private void DisplayTheCorrectHelpMessage(object sender, EventArgs e)
+        //Afiseaza mesajul corect de asistenta,in functie de meniul selectat
+        {
+            switch (sender.ToString())
+            {
+                case "Download":
+                    {
+                        StatusLabel.Text = "Options for downloading from news sources";
+                        break;
+                    }
+                case "News Sources":
+                    {
+                        StatusLabel.Text = "News sources management";
+                        break;
+                    }
+                case "All":
+                    {
+                        StatusLabel.Text = "Download from all selected news sources";
+                        break;
+                    }
+                case "Selected":
+                    {
+                        StatusLabel.Text = "Select the news sources that will be downloaded";
+                        break;
+                    }
+                case "Add":
+                    {
+                        StatusLabel.Text = "Add a new news source";
+                        break;
+                    }
+                case "Edit":
+                    {
+                        StatusLabel.Text = "Edit, delete or reorder news sources";
+                        break;
+                    }
+                case "Options":
+                    {
+                        StatusLabel.Text = "Options for customizing ZanNews";
+                        break;
+                    }
+                case "About":
+                    {
+                        StatusLabel.Text = "About ZanNews";
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+
+        }
     }
 }
