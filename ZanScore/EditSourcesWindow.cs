@@ -187,15 +187,37 @@ namespace ZanScore
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
             if (i > 0) //todo Eroare de depasire la aceasta secventa
             {
-                buffer = AllTheSources.Rows[0].Cells[0].Value.ToString();
-                for (int j = 0; j < AllTheSources.RowCount; j++)
-                    AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j + 1].Cells[0].Value;
-                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[0].Value = buffer;
+                buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
+                for (int j = i; j > 0; j--)
+                    AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j - 1].Cells[0].Value;
+                AllTheSources.Rows[0].Cells[0].Value = buffer;
 
-                buffer = AllTheSources.Rows[0].Cells[1].Value.ToString();
-                for (int j = 0; j < AllTheSources.RowCount; j++)
+                buffer = AllTheSources.Rows[1].Cells[1].Value.ToString();
+                for (int j = i; j > 0; j--)
+                    AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j - 1].Cells[1].Value;
+                AllTheSources.Rows[0].Cells[1].Value = buffer;
+            }
+        }
+
+        private void MoveSelectedSourceToLastPosition(object sender, EventArgs e)
+        //Subrutina muta sursa aleasa pe ultima pozitie
+        {
+            int i = 0;
+            string buffer;
+            while (AllTheSources.Rows[i].Selected == false)
+                i++; //Cauta prima sursa selectata si-i retine pozitia
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 4);
+            if (i < AllTheSources.RowCount)
+            {
+                buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
+                for (int j = i; j < AllTheSources.RowCount - 1; j++)
+                    AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j + 1].Cells[0].Value;
+                AllTheSources.Rows[AllTheSources.RowCount-1].Cells[0].Value = buffer;
+
+                buffer = AllTheSources.Rows[i].Cells[1].Value.ToString();
+                for (int j = i; j < AllTheSources.RowCount - 1; j++)
                     AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j + 1].Cells[1].Value;
-                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[1].Value = buffer;
+                AllTheSources.Rows[AllTheSources.RowCount-1].Cells[1].Value = buffer;
             }
         }
     }

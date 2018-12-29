@@ -173,15 +173,15 @@ namespace ZanScore
                     {
                         if (Position > 0)
                         {
-                            buffer = SourceTitle[0];
-                            for (int i = 0; i < Position; i++)
-                                SourceTitle[i] = SourceTitle[i + 1];
-                            SourceTitle[SourceTitle.Count - 1] = buffer;
+                            buffer = SourceTitle[Position];
+                            for (int i = Position; i > 0; i--)
+                                SourceTitle[i] = SourceTitle[i - 1];
+                            SourceTitle[0] = buffer;
 
-                            buffer = SourceURL[0];
-                            for (int i = 0; i < Position; i++)
-                                SourceURL[i] = SourceURL[i + 1];
-                            SourceURL[SourceURL.Count - 1] = buffer;
+                            buffer = SourceURL[Position];
+                            for (int i = Position; i > 0; i--)
+                                SourceURL[i] = SourceURL[i - 1];
+                            SourceURL[0] = buffer;
                         }
                         break;
                     }
@@ -189,15 +189,15 @@ namespace ZanScore
                     {
                         if (Position < SourceTitle.Count)
                         {
-                            buffer = SourceTitle[Position + 1];
-                            for (int i = Position - 1; i < SourceTitle.Count; i++)
-                                SourceTitle[i] = SourceTitle[i - 1];
-                            SourceTitle[SourceTitle.Count + 1] = buffer;
+                            buffer = SourceTitle[Position];
+                            for (int i = Position; i < SourceTitle.Count - 1; i++)
+                                SourceTitle[i] = SourceTitle[i + 1];
+                            SourceTitle[SourceTitle.Count - 1] = buffer;
 
-                            buffer = SourceURL[Position + 1];
-                            for (int i = Position - 1; i < SourceURL.Count; i++)
-                                SourceURL[i] = SourceURL[i - 1];
-                            SourceURL[SourceURL.Count + 1] = buffer;
+                            buffer = SourceURL[Position];
+                            for (int i = Position; i < SourceURL.Count - 1; i++)
+                                SourceURL[i] = SourceURL[i + 1];
+                            SourceURL[SourceURL.Count - 1] = buffer;
                         }
                         break;
                     }

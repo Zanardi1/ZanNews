@@ -146,8 +146,9 @@
             this.MoveToLastPositionButton.Name = "MoveToLastPositionButton";
             this.MoveToLastPositionButton.Size = new System.Drawing.Size(115, 23);
             this.MoveToLastPositionButton.TabIndex = 10;
-            this.MoveToLastPositionButton.Text = "Move last";
+            this.MoveToLastPositionButton.Text = "Move to last";
             this.MoveToLastPositionButton.UseVisualStyleBackColor = true;
+            this.MoveToLastPositionButton.Click += new System.EventHandler(this.MoveSelectedSourceToLastPosition);
             // 
             // MoveToFirstPositionButton
             // 
@@ -156,7 +157,7 @@
             this.MoveToFirstPositionButton.Name = "MoveToFirstPositionButton";
             this.MoveToFirstPositionButton.Size = new System.Drawing.Size(115, 23);
             this.MoveToFirstPositionButton.TabIndex = 9;
-            this.MoveToFirstPositionButton.Text = "Move first";
+            this.MoveToFirstPositionButton.Text = "Move to first";
             this.MoveToFirstPositionButton.UseVisualStyleBackColor = true;
             this.MoveToFirstPositionButton.Click += new System.EventHandler(this.MoveSelectedSourceToFirstPosition);
             // 
