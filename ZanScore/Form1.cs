@@ -19,6 +19,7 @@ namespace ZanScore
 
         private void DownloadAllNews(object sender, EventArgs e)
         {
+            DownloadProgressBar.Maximum = NewsSourcesCollection.IsSourceSelected.Count;
             NewsSourceData.EmptyFields();
             NewsDetails.Rows.Clear();
             NewsSourcesCollection.ClearSources();
@@ -35,6 +36,7 @@ namespace ZanScore
                     NewsSourceData.DownloadRSSFile();
                     NewsSourceData.ReadRSSContent();
                     NewsSourceData.FillRSSData();
+                    DownloadProgressBar.Value++;
                 }
             }
             StatusLabel.Text = "Download complete";

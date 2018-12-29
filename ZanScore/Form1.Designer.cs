@@ -44,6 +44,7 @@
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetails)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -104,17 +105,20 @@
             // 
             this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.StatusLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 681);
+            this.StatusLabel,
+            this.DownloadProgressBar});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 679);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1582, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1582, 24);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
             // StatusLabel
             // 
+            this.StatusLabel.AutoSize = false;
+            this.StatusLabel.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.StatusLabel.Name = "StatusLabel";
-            this.StatusLabel.Size = new System.Drawing.Size(0, 17);
+            this.StatusLabel.Size = new System.Drawing.Size(300, 19);
             // 
             // MainMenu
             // 
@@ -204,6 +208,11 @@
             this.AboutProgramOption.Click += new System.EventHandler(this.ShowAboutBoxWindow);
             this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
             // 
+            // DownloadProgressBar
+            // 
+            this.DownloadProgressBar.Name = "DownloadProgressBar";
+            this.DownloadProgressBar.Size = new System.Drawing.Size(200, 18);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -245,6 +254,7 @@
         private System.Windows.Forms.ToolStripMenuItem DownloadFromAllSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem DownloadFromSelectedSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem AboutProgramOption;
+        private System.Windows.Forms.ToolStripProgressBar DownloadProgressBar;
     }
 }
 
