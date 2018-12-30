@@ -32,19 +32,23 @@ namespace ZanScore
         {
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
             int j = 0;
+            int found = 0;
             TextToRead = File.ReadAllLines("Sources.txt");
             for (int i = 0; i < TextToRead.Length; i += 3) //Imparte fiecare text in sursa si URL
             {
                 SourceTitle.Add(TextToRead[i]);
+                found = TextToRead[i].IndexOf(":");
+                SourceTitle[j] = SourceTitle[j].Substring(found + 1);
+
                 SourceURL.Add(TextToRead[i + 1]);
+                found = TextToRead[i + 1].IndexOf(":");
+                SourceURL[j] = SourceURL[j].Substring(found + 1);
+                
+
                 if (TextToRead[i + 2].Contains("True"))
                     IsSourceSelected.Add(true);
                 else
                     IsSourceSelected.Add(false);
-                SourceTitle[j] = SourceTitle[j].Remove(0, SourceTitle[j].IndexOf(">") + 1); //Elimina "<name">
-                SourceTitle[j] = SourceTitle[j].Remove(SourceTitle[j].IndexOf("<")); //Elimina "</name>"
-                SourceURL[j] = SourceURL[j].Remove(0, SourceURL[j].IndexOf(">") + 1); //Elimina "<URL>"
-                SourceURL[j] = SourceURL[j].Remove(SourceURL[j].IndexOf("<")); //Elimina "</URL>"
                 j++;
                 NumberofSources++;
             }
@@ -53,15 +57,16 @@ namespace ZanScore
         public void SaveSources()
         /*Functia salveaza sursele de stiri in fisier. 
         Forma fisierului este: 
-        <name>numele sursei (dat de utilizator></name>
-        <URL>Adresa fisierului XML</URL>*/
+        name:numele sursei (dat de utilizator>
+        URL:Adresa fisierului XML
+        selected:Daca e selectat sau nu*/
         {
             List<string> TextToWrite = new List<string>(); //retine textele care vor fi scrise in fisier.
             for (int i = 0; i < SourceTitle.Count; i++)
             {
-                TextToWrite.Add("<name>" + SourceTitle[i] + "</name>");
-                TextToWrite.Add("<URL>" + SourceURL[i] + "</URL>");
-                TextToWrite.Add("<selected>" + IsSourceSelected[i] + "</selected>");
+                TextToWrite.Add("name:" + SourceTitle[i]);
+                TextToWrite.Add("URL:" + SourceURL[i]);
+                TextToWrite.Add("selected:" + IsSourceSelected[i]);
             }
             File.WriteAllLines("Sources.txt", TextToWrite.ToArray());
         }

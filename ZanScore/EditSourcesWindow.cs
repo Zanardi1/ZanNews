@@ -160,7 +160,6 @@ namespace ZanScore
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
-            int j = i + 1;
             DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 2);
             if (i < AllTheSources.RowCount)
@@ -185,7 +184,6 @@ namespace ZanScore
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
-            DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
             if (i > 0)
             {
