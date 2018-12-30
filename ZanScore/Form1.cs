@@ -79,20 +79,12 @@ namespace ZanScore
         {
             AddSourceWindow A = new AddSourceWindow();
             string s = "", s2 = "";
-            A.ShowDialog();
+            A.ShowDialog(this);
             if (A.DialogResult == DialogResult.OK) //*
             {
-                foreach (Control c in A.Controls)
-                {
-                    if (c is GroupBox)
-                        foreach (Control c2 in c.Controls)
-                        {
-                            if (c2.Name == "SourceNameText")
-                                s = c2.Text;
-                            else if (c2.Name == "SourceURLText")
-                                s2 = c2.Text;
-                        }
-                } //*
+                s = A.NewName;
+                s2 = A.NewURL;
+
                 NewsSourcesCollection.AddNewSource(s, s2);
                 NewsSourcesCollection.SaveSources();
             }
@@ -121,57 +113,44 @@ namespace ZanScore
             A.ShowDialog();
         }
 
-        private void DisplayTheCorrectHelpMessage(object sender, EventArgs e)
-        //Afiseaza mesajul corect de asistenta,in functie de meniul selectat
+        private void DisplayDownloadHelpMessage(object sender, EventArgs e)
         {
-            switch (sender.ToString())
-            {
-                case "Download":
-                    {
-                        StatusLabel.Text = "Options for downloading from news sources";
-                        break;
-                    }
-                case "News Sources":
-                    {
-                        StatusLabel.Text = "News sources management";
-                        break;
-                    }
-                case "All":
-                    {
-                        StatusLabel.Text = "Download from all selected news sources";
-                        break;
-                    }
-                case "Selected":
-                    {
-                        StatusLabel.Text = "Select the news sources that will be downloaded";
-                        break;
-                    }
-                case "Add":
-                    {
-                        StatusLabel.Text = "Add a new news source";
-                        break;
-                    }
-                case "Edit":
-                    {
-                        StatusLabel.Text = "Edit, delete or reorder news sources";
-                        break;
-                    }
-                case "Options":
-                    {
-                        StatusLabel.Text = "Options for customizing ZanNews";
-                        break;
-                    }
-                case "About":
-                    {
-                        StatusLabel.Text = "About ZanNews";
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            }
+            StatusLabel.Text = "Options for downloading from news sources";
+        }
 
+        private void DisplayNewsSourcesHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "News sources management";
+        }
+
+        private void DisplayAllHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "Download from all selected news sources";
+        }
+
+        private void DisplaySelectedHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "Select the news sources that will be downloaded";
+        }
+
+        private void DisplayAddHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "Add a new news source";
+        }
+
+        private void DisplayEditHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "Edit, delete or reorder news sources";
+        }
+
+        private void DisplayOptionsHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "Options for customizing ZanNews";
+        }
+
+        private void DisplayAboutBoxHelpMessage(object sender, EventArgs e)
+        {
+            StatusLabel.Text = "About ZanNews";
         }
     }
 }

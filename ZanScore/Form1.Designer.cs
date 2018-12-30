@@ -35,6 +35,7 @@
             this.NewsHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.DownloadNewsOption = new System.Windows.Forms.ToolStripMenuItem();
             this.DownloadFromAllSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +45,6 @@
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetails)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -120,6 +120,11 @@
             this.StatusLabel.Name = "StatusLabel";
             this.StatusLabel.Size = new System.Drawing.Size(300, 19);
             // 
+            // DownloadProgressBar
+            // 
+            this.DownloadProgressBar.Name = "DownloadProgressBar";
+            this.DownloadProgressBar.Size = new System.Drawing.Size(200, 18);
+            // 
             // MainMenu
             // 
             this.MainMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
@@ -143,25 +148,25 @@
             this.DownloadNewsOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
             this.DownloadNewsOption.Size = new System.Drawing.Size(90, 24);
             this.DownloadNewsOption.Text = "Download";
-            this.DownloadNewsOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.DownloadNewsOption.MouseEnter += new System.EventHandler(this.DisplayDownloadHelpMessage);
             // 
             // DownloadFromAllSourcesOption
             // 
             this.DownloadFromAllSourcesOption.Name = "DownloadFromAllSourcesOption";
             this.DownloadFromAllSourcesOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
-            this.DownloadFromAllSourcesOption.Size = new System.Drawing.Size(216, 26);
+            this.DownloadFromAllSourcesOption.Size = new System.Drawing.Size(191, 26);
             this.DownloadFromAllSourcesOption.Text = "All";
             this.DownloadFromAllSourcesOption.Click += new System.EventHandler(this.DownloadAllNews);
-            this.DownloadFromAllSourcesOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.DownloadFromAllSourcesOption.MouseEnter += new System.EventHandler(this.DisplayAllHelpMessage);
             // 
             // DownloadFromSelectedSourcesOption
             // 
             this.DownloadFromSelectedSourcesOption.Name = "DownloadFromSelectedSourcesOption";
             this.DownloadFromSelectedSourcesOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.DownloadFromSelectedSourcesOption.Size = new System.Drawing.Size(216, 26);
+            this.DownloadFromSelectedSourcesOption.Size = new System.Drawing.Size(191, 26);
             this.DownloadFromSelectedSourcesOption.Text = "Selected";
             this.DownloadFromSelectedSourcesOption.Click += new System.EventHandler(this.SelectNewsSources);
-            this.DownloadFromSelectedSourcesOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.DownloadFromSelectedSourcesOption.MouseEnter += new System.EventHandler(this.DisplaySelectedHelpMessage);
             // 
             // ManageNewsSourcesOption
             // 
@@ -171,25 +176,25 @@
             this.ManageNewsSourcesOption.Name = "ManageNewsSourcesOption";
             this.ManageNewsSourcesOption.Size = new System.Drawing.Size(112, 24);
             this.ManageNewsSourcesOption.Text = "News Sources";
-            this.ManageNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.ManageNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayNewsSourcesHelpMessage);
             // 
             // AddNewsSourcesOption
             // 
             this.AddNewsSourcesOption.Name = "AddNewsSourcesOption";
             this.AddNewsSourcesOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.AddNewsSourcesOption.Size = new System.Drawing.Size(216, 26);
+            this.AddNewsSourcesOption.Size = new System.Drawing.Size(164, 26);
             this.AddNewsSourcesOption.Text = "Add";
             this.AddNewsSourcesOption.Click += new System.EventHandler(this.ShowAddNewsSourcesWindow);
-            this.AddNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.AddNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayAddHelpMessage);
             // 
             // EditNewsSourcesOption
             // 
             this.EditNewsSourcesOption.Name = "EditNewsSourcesOption";
             this.EditNewsSourcesOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
-            this.EditNewsSourcesOption.Size = new System.Drawing.Size(216, 26);
+            this.EditNewsSourcesOption.Size = new System.Drawing.Size(164, 26);
             this.EditNewsSourcesOption.Text = "Edit";
             this.EditNewsSourcesOption.Click += new System.EventHandler(this.ShowEditSourcesWindow);
-            this.EditNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.EditNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayEditHelpMessage);
             // 
             // OptionsWindowOption
             // 
@@ -198,7 +203,7 @@
             this.OptionsWindowOption.Size = new System.Drawing.Size(73, 24);
             this.OptionsWindowOption.Text = "Options";
             this.OptionsWindowOption.Click += new System.EventHandler(this.ShowOptionsWindow);
-            this.OptionsWindowOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
+            this.OptionsWindowOption.MouseEnter += new System.EventHandler(this.DisplayOptionsHelpMessage);
             // 
             // AboutProgramOption
             // 
@@ -206,12 +211,7 @@
             this.AboutProgramOption.Size = new System.Drawing.Size(62, 24);
             this.AboutProgramOption.Text = "About";
             this.AboutProgramOption.Click += new System.EventHandler(this.ShowAboutBoxWindow);
-            this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayTheCorrectHelpMessage);
-            // 
-            // DownloadProgressBar
-            // 
-            this.DownloadProgressBar.Name = "DownloadProgressBar";
-            this.DownloadProgressBar.Size = new System.Drawing.Size(200, 18);
+            this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayAboutBoxHelpMessage);
             // 
             // Form1
             // 

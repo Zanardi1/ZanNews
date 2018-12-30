@@ -56,23 +56,21 @@ namespace ZanScore
         <name>numele sursei (dat de utilizator></name>
         <URL>Adresa fisierului XML</URL>*/
         {
-            string[] TextToWrite = new string[] { }; //retine textele care vor fi scrise in fisier. 
-            int j = 0;
-            Array.Resize(ref TextToWrite, SourceTitle.Count * 3);
+            List<string> TextToWrite = new List<string>(); //retine textele care vor fi scrise in fisier.
             for (int i = 0; i < SourceTitle.Count; i++)
             {
-                TextToWrite[j] = "<name>" + SourceTitle[i] + "</name>";
-                TextToWrite[j + 1] = "<URL>" + SourceURL[i] + "</URL>";
-                TextToWrite[j + 2] = "<selected>" + IsSourceSelected[i] + "</selected>";
-                j += 3;
+                TextToWrite.Add("<name>" + SourceTitle[i] + "</name>");
+                TextToWrite.Add("<URL>" + SourceURL[i] + "</URL>");
+                TextToWrite.Add("<selected>" + IsSourceSelected[i] + "</selected>");
             }
-            File.WriteAllLines("Sources.txt", TextToWrite);
+            File.WriteAllLines("Sources.txt", TextToWrite.ToArray());
         }
 
         public void AddNewSource(string NewSourceName, string NewSourceURL)
         {
             SourceTitle.Add(NewSourceName);
             SourceURL.Add(NewSourceURL);
+            IsSourceSelected.Add(true);
             NumberofSources++;
         }
 
@@ -86,16 +84,12 @@ namespace ZanScore
         public void RemoveSource(List<int> NewsNumbers)
         //Elimina una sau mai multe surse de stiri. Numerele lor de ordine sunt transmise ca parametri
         {
-            List<string> TempSourceTitle = new List<string>(SourceTitle);
-            List<string> TempSourceURL = new List<string>(SourceURL);
             for (int i = 0; i < NewsNumbers.Count; i++)
             {
-                TempSourceTitle.RemoveAt(NewsNumbers[i]);
-                TempSourceURL.RemoveAt(NewsNumbers[i]);
+                SourceTitle.RemoveAt(NewsNumbers[i]);
+                SourceURL.RemoveAt(NewsNumbers[i]);
                 NumberofSources--;
             }
-            SourceTitle = TempSourceTitle;
-            SourceURL = TempSourceURL;
         }
 
         public void ShowNewsSourcesInDataGrid(DataGridView Grid)

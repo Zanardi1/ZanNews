@@ -92,6 +92,7 @@
             this.SaveChanges.TabIndex = 5;
             this.SaveChanges.Text = "OK";
             this.SaveChanges.UseVisualStyleBackColor = true;
+            this.SaveChanges.Click += new System.EventHandler(this.SaveNewData);
             // 
             // DiscardChanges
             // 

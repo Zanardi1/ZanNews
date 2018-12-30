@@ -14,7 +14,7 @@ namespace ZanScore
             SourceURLToEdit.Width = 2 * AllTheSources.Width / 4;
         }
 
-        private void DeleteSelectedNewsSources(object sender, System.EventArgs e)
+        private void DeleteSelectedNewsSources(object sender, EventArgs e)
         {
             DialogResult UserAnswer;
             string text = "Are you sure you want to delete the selected news source? This cannot be undone!";
@@ -25,14 +25,10 @@ namespace ZanScore
             UserAnswer = MessageBox.Show(text, caption, Buttons, Icon, Default);
             if (UserAnswer == DialogResult.Yes)
             {
-                List<int> Positions = new List<int>();
-                int j = 0;
+                List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
                 for (int i = 0; i < AllTheSources.RowCount; i++)
                     if (AllTheSources.Rows[i].Selected)
-                    {
                         Positions.Add(i);
-                        j++;
-                    }
                 ((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions);
                 ((Form1)Owner).NewsSourcesCollection.SaveSources();
                 for (int i = 0; i < AllTheSources.Rows.Count; i++)
@@ -191,7 +187,7 @@ namespace ZanScore
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
-            if (i > 0) 
+            if (i > 0)
             {
                 buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
                 for (int j = i; j > 0; j--)
