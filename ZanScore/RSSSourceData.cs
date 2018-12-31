@@ -80,7 +80,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
         public void FillRSSData()
         //Umple proprietatile clasei cu informatiile necesare
-        //todo Bug: atunci cand in RSS, textul dintre <description> si </description> e pe 2+ randuri, rutina imi afiseaza un mesaj de eroare, caci da peste cap indecsii din sirurile de caractere citite din fisier
+        //todo de rescris subrutina folosind bibliotecile XML existente
         {
             bool IsNews = false;
             //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
