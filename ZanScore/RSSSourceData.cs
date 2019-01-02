@@ -3,6 +3,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Collections.Generic;
+using System.Xml.Linq;
+using System.Linq;
 
 namespace ZanScore
 /*
@@ -78,9 +80,9 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             return true;
         }
 
-        public void FillRSSData()
+        public void FillRSSDataOld()
         //Umple proprietatile clasei cu informatiile necesare
-        //todo de rescris subrutina folosind bibliotecile XML existente
+
         {
             bool IsNews = false;
             //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
@@ -229,6 +231,71 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                         PubDate = PubDate.Remove(PubDate.IndexOf("<"));
                 }
             }
+        }
+
+        public void FillRSSData()
+        //todo de rescris subrutina folosind bibliotecile XML existente
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
+            XmlReader reader = XmlReader.Create(OnlineSource, settings);
+            string StartTag;
+            while (reader.Read())
+            {
+                if (reader.IsStartElement())
+                    if (reader.IsEmptyElement)
+                        MessageBox.Show("Empty");
+                    else
+                    {
+                        StartTag = reader.Name; //retine numele etichetei
+                        switch(StartTag)
+                        {
+                            case "rss":
+                                {
+                                    break;
+                                }
+                            case "link":
+                                {
+                                    ChannelLink = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                            case "description":
+                                {
+                                    ChannelDescription = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                            case "title":
+                                {
+                                    ChannelTitle = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                            case "language":
+                                {
+                                    Language = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                            case "copyright":
+                                {
+                                    Copyright = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                            case "managingeditor":
+                                {
+                                    ManagingEditor = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                            case "pubdate":
+                                {
+                                    PubDate = reader.ReadElementContentAsString();
+                                    break;
+                                }
+                        }
+                        reader.Read(); //Citeste eticheta de pornire
+                        if (reader.IsStartElement())  //Se ocupa de elementele secundare
+                            Console.Write(reader.Name);
+                        Console.Write(reader.ReadString()); //Citeste continutul elementului
+                    }
+            }
+
         }
 
         private void MakeNewsLengthEqual()
