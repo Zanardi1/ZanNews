@@ -36,7 +36,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         public List<string> NewsDescription = new List<string>(); //Descrierile stirilor
 
         private string OnlineSource; //Retine numele fisierului XML original, aflat pe internet
-        private string FileToProcess; //Retine numele fisierului care va fi descarcat si procesat
+        private string FileToProcess; //Retine numele fisierului care va fi descarcat si procesat. Va fi eliminat odata ce termin cu rescrierea rutinei de umplere a membrilor clasei cu informatiile din XML
         private List<string> FileContent = new List<string>(); //Retine liniile fisierului citit
 
         public RSSSourceData()
