@@ -32,10 +32,7 @@ namespace ZanScore
             {
                 if (NewsSourcesCollection.IsSourceSelected[i])
                 {
-                    NewsSourceData.LoadRSSFile(URLList[i]);
-                    NewsSourceData.DownloadRSSFile();
-                    NewsSourceData.ReadRSSContent();
-                    NewsSourceData.FillRSSData();
+                    NewsSourceData.FillRSSData(URLList[i]);
                     DownloadProgressBar.Value++;
                 }
             }

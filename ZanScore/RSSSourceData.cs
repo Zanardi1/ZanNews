@@ -21,7 +21,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
     //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
     //todo Sa adaug si restul subcategoriilor din definitia unui fisier RSS, odata ce am o aplicatie functionala
     {
-        public string RSSVersion; //Versiunea de RSS folosita
         public string ChannelTitle; //Titlul canalului
         public string ChannelLink; //Link catre URL-ul canalului
         public string ChannelDescription; //Descrierea canalului
@@ -35,41 +34,10 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         public List<string> NewsDescription = new List<string>(); //Descrierile stirilor
 
         private string OnlineSource; //Retine numele fisierului XML original, aflat pe internet
-        private string FileToProcess; //Retine numele fisierului care va fi descarcat si procesat. Va fi eliminat odata ce termin cu rescrierea rutinei de umplere a membrilor clasei cu informatiile din XML
-        private List<string> FileContent = new List<string>(); //Retine liniile fisierului citit
 
         public RSSSourceData()
         {
 
-        }
-
-        public void LoadRSSFile(string FileToLoad)
-        //Citeste numele fisierului RSS care va fi procesat
-        {
-            OnlineSource = FileToLoad;
-        }
-
-        public bool CheckRSSFile()
-        //Verifica existenta fisierului RSS. Inca am dubii asupra utilitatii acestei functii
-        {
-            if (File.Exists(FileToProcess))
-                return true;
-            else
-            {
-                MessageBox.Show("Fisierul " + FileToProcess + " nu exista");
-                return false;
-            }
-        }
-
-        public List<string> ReadRSSContent()
-        //Citeste continutul fisierului RSS
-        {
-            FileContent.Clear();
-            string[] buffer = new string[] { }; //retine liniile citite din fisier
-            buffer = File.ReadAllLines(FileToProcess);
-            for (int i = 0; i < buffer.Length; i++)
-                FileContent.Add(buffer[i]);
-            return FileContent;
         }
 
         public bool ValidateRSSFile()
@@ -79,20 +47,25 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             return true;
         }
 
-        public void FillRSSData()
+        public void FillRSSData(string FileToLoad)
         //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         {
-            XmlReader reader = XmlReader.Create(OnlineSource);
+            XmlReader reader = XmlReader.Create(FileToLoad);
             SyndicationFeed feed = SyndicationFeed.Load(reader);
             reader.Close();
             ChannelTitle = feed.Title.Text;
             ChannelDescription = feed.Description.Text;
             ChannelLink = feed.Links[feed.Links.Count - 1].Uri.ToString();
-            //Category = feed.Categories[feed.Categories.Count-1].Name.ToString();
-            Copyright = feed.Copyright.Text.ToString();
-            Language = feed.Language.ToString();
-            ManagingEditor = feed.Authors[feed.Authors.Count - 1].Email.ToString();
-            PubDate = feed.LastUpdatedTime.ToString();
+            if (feed.Categories.Count != 0)
+                Category = feed.Categories[feed.Categories.Count - 1].Name.ToString();
+            if (feed.Copyright != null)
+                Copyright = feed.Copyright.Text.ToString();
+            if (feed.Language != null)
+                Language = feed.Language.ToString();
+            if (feed.Authors.Count != 0)
+                ManagingEditor = feed.Authors[feed.Authors.Count - 1].Email.ToString();
+            if (feed.LastUpdatedTime != null)
+                PubDate = feed.LastUpdatedTime.ToString();
             foreach (SyndicationItem item in feed.Items)
             {
                 NewsTitle.Add(item.Title.Text);
@@ -121,21 +94,9 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             }
         }
 
-        public void DownloadRSSFile()
-        {
-            XmlDocument document = new XmlDocument();
-            document.Load(OnlineSource);
-            FileToProcess = Path.GetFileName(OnlineSource);
-            FileToProcess = "RSS Files\\" + FileToProcess;
-            if (!Directory.Exists("RSS Files\\"))
-                Directory.CreateDirectory("RSS Files\\");
-            document.Save(FileToProcess);
-        }
-
         public void EmptyFields()
         {
-            RSSVersion = String.Empty;
-            ChannelTitle = String.Empty; ;
+            ChannelTitle = String.Empty;
             ChannelLink = String.Empty;
             ChannelDescription = String.Empty;
             Category = String.Empty;
@@ -143,7 +104,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             Language = String.Empty;
             PubDate = String.Empty;
             ManagingEditor = String.Empty;
-            FileToProcess = String.Empty;
             OnlineSource = String.Empty;
             NewsDescription.Clear();
             NewsLink.Clear();
