@@ -19,7 +19,7 @@ namespace ZanScore
 
         private void DownloadAllNews(object sender, EventArgs e)
         {
-            DownloadProgressBar.Maximum = NewsSourcesCollection.IsSourceSelected.Count;
+            DownloadProgressBar.Maximum = NewsSourcesCollection.NumberofSelectedSources;
             NewsSourceData.EmptyFields();
             NewsDetails.Rows.Clear();
             NewsSourcesCollection.ClearSources();

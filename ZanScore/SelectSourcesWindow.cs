@@ -34,7 +34,10 @@ namespace ZanScore
             for (int i = 0; i < NewsSourcesDataGrid.RowCount; i++)
             {
                 if ((bool)NewsSourcesDataGrid.Rows[i].Cells[0].Value == true)
+                {
                     ((Form1)this.Owner).NewsSourcesCollection.IsSourceSelected[i] = true;
+                    ((Form1)this.Owner).NewsSourcesCollection.NumberofSelectedSources++;
+                }
                 else
                     ((Form1)this.Owner).NewsSourcesCollection.IsSourceSelected[i] = false;
             }

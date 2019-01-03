@@ -20,10 +20,10 @@ namespace ZanScore
         List<string> SourceURL = new List<string>();
         public List<bool> IsSourceSelected = new List<bool>();
         public int NumberofSources;
+        public int NumberofSelectedSources;
 
         public RSSSourcesLibrary()
         {
-            NumberofSources = 0;
             CheckForRSSFile();
             LoadSources();
         }
@@ -43,10 +43,13 @@ namespace ZanScore
                 SourceURL.Add(TextToRead[i + 1]);
                 found = TextToRead[i + 1].IndexOf(":");
                 SourceURL[j] = SourceURL[j].Substring(found + 1);
-                
+
 
                 if (TextToRead[i + 2].Contains("True"))
+                {
                     IsSourceSelected.Add(true);
+                    NumberofSelectedSources++;
+                }
                 else
                     IsSourceSelected.Add(false);
                 j++;
@@ -119,7 +122,6 @@ namespace ZanScore
         private void CheckForRSSFile()
         //Subrutina verifica daca exista fisierul "Sources.txt". Daca nu exista, creaza un fisier gol
         {
-
             if (!File.Exists("Sources.txt"))
             {
                 FileStream FS = File.Create("Sources.txt");
