@@ -3,8 +3,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Xml;
 using System.Collections.Generic;
-using System.Xml.Linq;
-using System.Linq;
+using System.ServiceModel.Syndication;
 
 namespace ZanScore
 /*
@@ -80,222 +79,26 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             return true;
         }
 
-        public void FillRSSDataOld()
-        //Umple proprietatile clasei cu informatiile necesare
-
-        {
-            bool IsNews = false;
-            //Campurile obligatorii, title, link si description, pot fi atata la canal cat si la o stire. IsItem retine daca am inceput prelucrarea unei stiri, nu a unui canal. Daca IsItem este adevarata, atunci prelucrez o stire, altfel prelucrez canalul.
-            for (int i = 0; i <= FileContent.Count - 1; i++) //Verifica fiecare rand pentru a vedea ce informatii sunt. Apoi le clasifica unde trebuie
-            {
-                if (FileContent[i].Contains("<rss")) //Contine versiunea de RSS
-                {
-                    RSSVersion = FileContent[i].Trim();
-                    RSSVersion = RSSVersion.Remove(RSSVersion.IndexOf("<"), RSSVersion.IndexOf("\"") + 1);
-                    RSSVersion = RSSVersion.Remove(RSSVersion.IndexOf("\""), RSSVersion.Length - RSSVersion.IndexOf("\""));
-                }
-
-                if (FileContent[i].Contains("<channel>")) //Daca avem un canal
-                {
-                    //Nimic momentan
-                }
-
-                if (FileContent[i].Contains("</channel>"))
-                {
-                    //Nimic momentan
-                }
-
-                if (FileContent[i].Contains("<item"))
-                {
-                    IsNews = true;
-                }
-
-                if (FileContent[i].Contains("</item"))
-                {
-                    IsNews = false;
-                    MakeNewsLengthEqual();
-                }
-
-                if (FileContent[i].Contains("<title>"))
-                {
-                    if (IsNews) //Titlu de stire
-                    {
-                        NewsTitle.Add(FileContent[i].Trim());
-                        if (NewsTitle[NewsTitle.Count - 1].Contains("CDATA")) //Daca titlul are si eticheta CDATA
-                        {
-                            NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"), 16);
-                            if (NewsTitle[NewsTitle.Count - 1].Length != 0) //Daca eticheta nu are continut, ci doar <title></title>
-                                NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("]"));
-                        }
-                        else
-                        {
-                            NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"), NewsTitle[NewsTitle.Count - 1].IndexOf(">") + 1);
-                            if (NewsTitle[NewsTitle.Count - 1].Length != 0)
-                                NewsTitle[NewsTitle.Count - 1] = NewsTitle[NewsTitle.Count - 1].Remove(NewsTitle[NewsTitle.Count - 1].IndexOf("<"));
-                        }
-                    }
-                    else //Titlu de canal
-                    {
-                        ChannelTitle = FileContent[i].Trim();
-                        ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"), ChannelTitle.IndexOf(">") + 1);
-                        if (ChannelTitle.Length != 0)
-                            ChannelTitle = ChannelTitle.Remove(ChannelTitle.IndexOf("<"));
-                    }
-                }
-
-                if (FileContent[i].Contains("<link>"))
-                {
-                    if (IsNews) //Link-ul stirii
-                    {
-                        NewsLink.Add(FileContent[i].Trim());
-                        if (NewsLink[NewsLink.Count - 1].Contains("CDATA")) //Daca link-ul catre stire are si eticheta CDATA
-                        {
-                            NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"), 15);
-                            if (NewsLink[NewsLink.Count - 1].Length != 0)
-                                NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("]"));
-                        }
-                        else
-                        {
-                            NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"), NewsLink[NewsLink.Count - 1].IndexOf(">") + 1);
-                            if (NewsLink[NewsLink.Count - 1].Length != 0)
-                                NewsLink[NewsLink.Count - 1] = NewsLink[NewsLink.Count - 1].Remove(NewsLink[NewsLink.Count - 1].IndexOf("<"));
-                        }
-                    }
-
-                    else //Link-ul canalului
-                    {
-                        ChannelLink = FileContent[i].Trim();
-                        ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"), ChannelLink.IndexOf(">") + 1);
-                        if (ChannelLink.Length != 0)
-                            ChannelLink = ChannelLink.Remove(ChannelLink.IndexOf("<"));
-                    }
-                }
-
-                if (FileContent[i].Contains("<description>"))
-                {
-                    if (IsNews) //Descrierea stirii
-                    {
-                        NewsDescription.Add(FileContent[i].Trim());
-                        if (NewsDescription[NewsDescription.Count - 1].Contains("CDATA"))
-                        {
-                            NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"), 22);
-                            if (NewsDescription[NewsDescription.Count - 1].Length != 0)
-                                NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("]"));
-                        }
-                        else
-                        {
-                            NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"), NewsDescription[NewsDescription.Count - 1].IndexOf(">") + 1);
-                            if (NewsDescription[NewsDescription.Count - 1].Length != 0)
-                                NewsDescription[NewsDescription.Count - 1] = NewsDescription[NewsDescription.Count - 1].Remove(NewsDescription[NewsDescription.Count - 1].IndexOf("<"));
-                        }
-                    }
-
-                    else //Descrierea canalului
-                    {
-                        ChannelDescription = FileContent[i].Trim();
-                        ChannelDescription = ChannelDescription.Remove(ChannelDescription.IndexOf("<"), ChannelDescription.IndexOf(">") + 1);
-                        if (ChannelDescription.Length != 0)
-                            ChannelDescription = ChannelDescription.Remove(ChannelDescription.IndexOf("<"));
-                    }
-                }
-
-                if (FileContent[i].Contains("<copyright>"))
-                {
-                    Copyright = FileContent[i].Trim();
-                    Copyright = Copyright.Remove(Copyright.IndexOf("<"), Copyright.IndexOf(">") + 1);
-                    if (Copyright.Length != 0)
-                        Copyright = Copyright.Remove(Copyright.IndexOf("<"));
-                }
-
-                if (FileContent[i].Contains("<managingEditor>"))
-                {
-                    ManagingEditor = FileContent[i].Trim();
-                    ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"), ManagingEditor.IndexOf(">") + 1);
-                    if (ManagingEditor.Length != 0)
-                        ManagingEditor = ManagingEditor.Remove(ManagingEditor.IndexOf("<"));
-                }
-
-                if (FileContent[i].Contains("<language>"))
-                {
-                    Language = FileContent[i].Trim();
-                    Language = Language.Remove(Language.IndexOf("<"), Language.IndexOf(">") + 1);
-                    if (Language.Length != 0)
-                        Language = Language.Remove(Language.IndexOf("<"));
-                }
-
-                if (FileContent[i].Contains("<pubDate>"))
-                {
-                    PubDate = FileContent[i].Trim();
-                    PubDate = PubDate.Remove(PubDate.IndexOf("<"), PubDate.IndexOf(">") + 1);
-                    if (PubDate.Length != 0)
-                        PubDate = PubDate.Remove(PubDate.IndexOf("<"));
-                }
-            }
-        }
-
         public void FillRSSData()
-        //todo de rescris subrutina folosind bibliotecile XML existente
+        //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            XmlReader reader = XmlReader.Create(OnlineSource, settings);
-            string StartTag;
-            while (reader.Read())
+            XmlReader reader = XmlReader.Create(OnlineSource);
+            SyndicationFeed feed = SyndicationFeed.Load(reader);
+            reader.Close();
+            ChannelTitle = feed.Title.Text;
+            ChannelDescription = feed.Description.Text;
+            ChannelLink = feed.Links[feed.Links.Count - 1].Uri.ToString();
+            //Category = feed.Categories[feed.Categories.Count-1].Name.ToString();
+            Copyright = feed.Copyright.Text.ToString();
+            Language = feed.Language.ToString();
+            ManagingEditor = feed.Authors[feed.Authors.Count - 1].Email.ToString();
+            PubDate = feed.LastUpdatedTime.ToString();
+            foreach (SyndicationItem item in feed.Items)
             {
-                if (reader.IsStartElement())
-                    if (reader.IsEmptyElement)
-                        MessageBox.Show("Empty");
-                    else
-                    {
-                        StartTag = reader.Name; //retine numele etichetei
-                        switch(StartTag)
-                        {
-                            case "rss":
-                                {
-                                    break;
-                                }
-                            case "link":
-                                {
-                                    ChannelLink = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                            case "description":
-                                {
-                                    ChannelDescription = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                            case "title":
-                                {
-                                    ChannelTitle = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                            case "language":
-                                {
-                                    Language = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                            case "copyright":
-                                {
-                                    Copyright = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                            case "managingeditor":
-                                {
-                                    ManagingEditor = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                            case "pubdate":
-                                {
-                                    PubDate = reader.ReadElementContentAsString();
-                                    break;
-                                }
-                        }
-                        reader.Read(); //Citeste eticheta de pornire
-                        if (reader.IsStartElement())  //Se ocupa de elementele secundare
-                            Console.Write(reader.Name);
-                        Console.Write(reader.ReadString()); //Citeste continutul elementului
-                    }
+                NewsTitle.Add(item.Title.Text);
+                NewsLink.Add(item.Links[0].Uri.ToString());
+                NewsDescription.Add(item.Summary.Text);
             }
-
         }
 
         private void MakeNewsLengthEqual()
