@@ -40,14 +40,14 @@
             // 
             // SourceNameText
             // 
-            this.SourceNameText.Location = new System.Drawing.Point(174, 41);
+            this.SourceNameText.Location = new System.Drawing.Point(150, 38);
             this.SourceNameText.Name = "SourceNameText";
             this.SourceNameText.Size = new System.Drawing.Size(381, 22);
             this.SourceNameText.TabIndex = 0;
             // 
             // SourceURLText
             // 
-            this.SourceURLText.Location = new System.Drawing.Point(174, 116);
+            this.SourceURLText.Location = new System.Drawing.Point(150, 89);
             this.SourceURLText.Name = "SourceURLText";
             this.SourceURLText.Size = new System.Drawing.Size(381, 22);
             this.SourceURLText.TabIndex = 1;
@@ -64,7 +64,7 @@
             // URLRSSLabel
             // 
             this.URLRSSLabel.AutoSize = true;
-            this.URLRSSLabel.Location = new System.Drawing.Point(10, 116);
+            this.URLRSSLabel.Location = new System.Drawing.Point(10, 94);
             this.URLRSSLabel.Name = "URLRSSLabel";
             this.URLRSSLabel.Size = new System.Drawing.Size(134, 17);
             this.URLRSSLabel.TabIndex = 3;
@@ -78,7 +78,7 @@
             this.NewDataSource.Controls.Add(this.NameLabel);
             this.NewDataSource.Location = new System.Drawing.Point(12, 12);
             this.NewDataSource.Name = "NewDataSource";
-            this.NewDataSource.Size = new System.Drawing.Size(589, 156);
+            this.NewDataSource.Size = new System.Drawing.Size(553, 127);
             this.NewDataSource.TabIndex = 4;
             this.NewDataSource.TabStop = false;
             this.NewDataSource.Text = "Data for the new source";
@@ -86,7 +86,7 @@
             // SaveChanges
             // 
             this.SaveChanges.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.SaveChanges.Location = new System.Drawing.Point(141, 191);
+            this.SaveChanges.Location = new System.Drawing.Point(112, 145);
             this.SaveChanges.Name = "SaveChanges";
             this.SaveChanges.Size = new System.Drawing.Size(75, 23);
             this.SaveChanges.TabIndex = 5;
@@ -97,7 +97,7 @@
             // DiscardChanges
             // 
             this.DiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DiscardChanges.Location = new System.Drawing.Point(355, 191);
+            this.DiscardChanges.Location = new System.Drawing.Point(360, 145);
             this.DiscardChanges.Name = "DiscardChanges";
             this.DiscardChanges.Size = new System.Drawing.Size(75, 23);
             this.DiscardChanges.TabIndex = 6;
@@ -109,7 +109,7 @@
             this.AcceptButton = this.SaveChanges;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(613, 231);
+            this.ClientSize = new System.Drawing.Size(579, 181);
             this.ControlBox = false;
             this.Controls.Add(this.DiscardChanges);
             this.Controls.Add(this.SaveChanges);

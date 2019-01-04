@@ -10,8 +10,8 @@ namespace ZanScore
         public EditSourcesWindow()
         {
             InitializeComponent();
-            SourceNameToEdit.Width = AllTheSources.Width / 4;
-            SourceURLToEdit.Width = 2 * AllTheSources.Width / 4;
+            SourceNameToEdit.Width = 2 * AllTheSources.Width / 10;
+            SourceURLToEdit.Width = 7 * AllTheSources.Width / 10;
         }
 
         private void DeleteSelectedNewsSources(object sender, EventArgs e)

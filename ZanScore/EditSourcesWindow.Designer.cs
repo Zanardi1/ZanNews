@@ -54,7 +54,7 @@
             // 
             // EditNewsButton
             // 
-            this.EditNewsButton.Location = new System.Drawing.Point(672, 38);
+            this.EditNewsButton.Location = new System.Drawing.Point(536, 26);
             this.EditNewsButton.Name = "EditNewsButton";
             this.EditNewsButton.Size = new System.Drawing.Size(75, 23);
             this.EditNewsButton.TabIndex = 0;
@@ -64,7 +64,7 @@
             // 
             // DeleteNewsButton
             // 
-            this.DeleteNewsButton.Location = new System.Drawing.Point(672, 80);
+            this.DeleteNewsButton.Location = new System.Drawing.Point(617, 26);
             this.DeleteNewsButton.Name = "DeleteNewsButton";
             this.DeleteNewsButton.Size = new System.Drawing.Size(75, 23);
             this.DeleteNewsButton.TabIndex = 1;
@@ -75,7 +75,7 @@
             // SaveChanges
             // 
             this.SaveChanges.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.SaveChanges.Location = new System.Drawing.Point(143, 491);
+            this.SaveChanges.Location = new System.Drawing.Point(154, 397);
             this.SaveChanges.Name = "SaveChanges";
             this.SaveChanges.Size = new System.Drawing.Size(75, 23);
             this.SaveChanges.TabIndex = 2;
@@ -85,7 +85,7 @@
             // DiscardChanges
             // 
             this.DiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DiscardChanges.Location = new System.Drawing.Point(445, 491);
+            this.DiscardChanges.Location = new System.Drawing.Point(386, 397);
             this.DiscardChanges.Name = "DiscardChanges";
             this.DiscardChanges.Size = new System.Drawing.Size(75, 23);
             this.DiscardChanges.TabIndex = 3;
@@ -106,7 +106,7 @@
             this.AllTheSources.Name = "AllTheSources";
             this.AllTheSources.RowTemplate.Height = 24;
             this.AllTheSources.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.AllTheSources.Size = new System.Drawing.Size(615, 441);
+            this.AllTheSources.Size = new System.Drawing.Size(486, 320);
             this.AllTheSources.TabIndex = 4;
             // 
             // SourceNameToEdit
@@ -123,6 +123,8 @@
             // 
             // NewsSourceSelectGroupBox
             // 
+            this.NewsSourceSelectGroupBox.Controls.Add(this.EditNewsButton);
+            this.NewsSourceSelectGroupBox.Controls.Add(this.DeleteNewsButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.FinishReorderingButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.MoveToLastPositionButton);
             this.NewsSourceSelectGroupBox.Controls.Add(this.MoveToFirstPositionButton);
@@ -137,7 +139,7 @@
             this.NewsSourceSelectGroupBox.Controls.Add(this.ReorderNewsButton);
             this.NewsSourceSelectGroupBox.Location = new System.Drawing.Point(27, 12);
             this.NewsSourceSelectGroupBox.Name = "NewsSourceSelectGroupBox";
-            this.NewsSourceSelectGroupBox.Size = new System.Drawing.Size(909, 473);
+            this.NewsSourceSelectGroupBox.Size = new System.Drawing.Size(797, 368);
             this.NewsSourceSelectGroupBox.TabIndex = 5;
             this.NewsSourceSelectGroupBox.TabStop = false;
             this.NewsSourceSelectGroupBox.Text = "Select the news source to edit, delete or reorder";
@@ -145,7 +147,7 @@
             // FinishReorderingButton
             // 
             this.FinishReorderingButton.Enabled = false;
-            this.FinishReorderingButton.Location = new System.Drawing.Point(645, 441);
+            this.FinishReorderingButton.Location = new System.Drawing.Point(536, 323);
             this.FinishReorderingButton.Name = "FinishReorderingButton";
             this.FinishReorderingButton.Size = new System.Drawing.Size(245, 23);
             this.FinishReorderingButton.TabIndex = 11;
@@ -156,7 +158,7 @@
             // MoveToLastPositionButton
             // 
             this.MoveToLastPositionButton.Enabled = false;
-            this.MoveToLastPositionButton.Location = new System.Drawing.Point(775, 408);
+            this.MoveToLastPositionButton.Location = new System.Drawing.Point(666, 294);
             this.MoveToLastPositionButton.Name = "MoveToLastPositionButton";
             this.MoveToLastPositionButton.Size = new System.Drawing.Size(115, 23);
             this.MoveToLastPositionButton.TabIndex = 10;
@@ -167,7 +169,7 @@
             // MoveToFirstPositionButton
             // 
             this.MoveToFirstPositionButton.Enabled = false;
-            this.MoveToFirstPositionButton.Location = new System.Drawing.Point(645, 408);
+            this.MoveToFirstPositionButton.Location = new System.Drawing.Point(536, 294);
             this.MoveToFirstPositionButton.Name = "MoveToFirstPositionButton";
             this.MoveToFirstPositionButton.Size = new System.Drawing.Size(115, 23);
             this.MoveToFirstPositionButton.TabIndex = 9;
@@ -178,7 +180,7 @@
             // MoveDownOnePositionButton
             // 
             this.MoveDownOnePositionButton.Enabled = false;
-            this.MoveDownOnePositionButton.Location = new System.Drawing.Point(775, 366);
+            this.MoveDownOnePositionButton.Location = new System.Drawing.Point(666, 265);
             this.MoveDownOnePositionButton.Name = "MoveDownOnePositionButton";
             this.MoveDownOnePositionButton.Size = new System.Drawing.Size(115, 23);
             this.MoveDownOnePositionButton.TabIndex = 8;
@@ -189,7 +191,7 @@
             // MoveUpOnePositionButton
             // 
             this.MoveUpOnePositionButton.Enabled = false;
-            this.MoveUpOnePositionButton.Location = new System.Drawing.Point(645, 366);
+            this.MoveUpOnePositionButton.Location = new System.Drawing.Point(536, 265);
             this.MoveUpOnePositionButton.Name = "MoveUpOnePositionButton";
             this.MoveUpOnePositionButton.Size = new System.Drawing.Size(115, 23);
             this.MoveUpOnePositionButton.TabIndex = 7;
@@ -200,7 +202,7 @@
             // DiscardNewsEditButton
             // 
             this.DiscardNewsEditButton.Enabled = false;
-            this.DiscardNewsEditButton.Location = new System.Drawing.Point(806, 292);
+            this.DiscardNewsEditButton.Location = new System.Drawing.Point(706, 181);
             this.DiscardNewsEditButton.Name = "DiscardNewsEditButton";
             this.DiscardNewsEditButton.Size = new System.Drawing.Size(75, 23);
             this.DiscardNewsEditButton.TabIndex = 6;
@@ -211,7 +213,7 @@
             // SaveNewsEditButton
             // 
             this.SaveNewsEditButton.Enabled = false;
-            this.SaveNewsEditButton.Location = new System.Drawing.Point(645, 292);
+            this.SaveNewsEditButton.Location = new System.Drawing.Point(536, 181);
             this.SaveNewsEditButton.Name = "SaveNewsEditButton";
             this.SaveNewsEditButton.Size = new System.Drawing.Size(75, 23);
             this.SaveNewsEditButton.TabIndex = 5;
@@ -223,7 +225,7 @@
             // 
             this.NewSourceURLLabel.AutoSize = true;
             this.NewSourceURLLabel.Enabled = false;
-            this.NewSourceURLLabel.Location = new System.Drawing.Point(642, 230);
+            this.NewSourceURLLabel.Location = new System.Drawing.Point(533, 133);
             this.NewSourceURLLabel.Name = "NewSourceURLLabel";
             this.NewSourceURLLabel.Size = new System.Drawing.Size(118, 17);
             this.NewSourceURLLabel.TabIndex = 4;
@@ -233,7 +235,7 @@
             // 
             this.NewSourceNameLabel.AutoSize = true;
             this.NewSourceNameLabel.Enabled = false;
-            this.NewSourceNameLabel.Location = new System.Drawing.Point(642, 178);
+            this.NewSourceNameLabel.Location = new System.Drawing.Point(533, 78);
             this.NewSourceNameLabel.Name = "NewSourceNameLabel";
             this.NewSourceNameLabel.Size = new System.Drawing.Size(125, 17);
             this.NewSourceNameLabel.TabIndex = 3;
@@ -242,22 +244,22 @@
             // NewSourceURLText
             // 
             this.NewSourceURLText.Enabled = false;
-            this.NewSourceURLText.Location = new System.Drawing.Point(645, 250);
+            this.NewSourceURLText.Location = new System.Drawing.Point(536, 153);
             this.NewSourceURLText.Name = "NewSourceURLText";
-            this.NewSourceURLText.Size = new System.Drawing.Size(236, 22);
+            this.NewSourceURLText.Size = new System.Drawing.Size(245, 22);
             this.NewSourceURLText.TabIndex = 2;
             // 
             // NewSourceNameText
             // 
             this.NewSourceNameText.Enabled = false;
-            this.NewSourceNameText.Location = new System.Drawing.Point(645, 198);
+            this.NewSourceNameText.Location = new System.Drawing.Point(536, 98);
             this.NewSourceNameText.Name = "NewSourceNameText";
-            this.NewSourceNameText.Size = new System.Drawing.Size(236, 22);
+            this.NewSourceNameText.Size = new System.Drawing.Size(245, 22);
             this.NewSourceNameText.TabIndex = 1;
             // 
             // ReorderNewsButton
             // 
-            this.ReorderNewsButton.Location = new System.Drawing.Point(645, 110);
+            this.ReorderNewsButton.Location = new System.Drawing.Point(706, 26);
             this.ReorderNewsButton.Name = "ReorderNewsButton";
             this.ReorderNewsButton.Size = new System.Drawing.Size(75, 23);
             this.ReorderNewsButton.TabIndex = 0;
@@ -270,10 +272,8 @@
             this.AcceptButton = this.SaveChanges;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(954, 526);
+            this.ClientSize = new System.Drawing.Size(842, 442);
             this.ControlBox = false;
-            this.Controls.Add(this.DeleteNewsButton);
-            this.Controls.Add(this.EditNewsButton);
             this.Controls.Add(this.AllTheSources);
             this.Controls.Add(this.NewsSourceSelectGroupBox);
             this.Controls.Add(this.DiscardChanges);
