@@ -111,13 +111,7 @@ namespace ZanScore
             }
         }
 
-        public List<string> GetNewsURL()
-        {
-            List<string> NewsURLList = new List<string>();
-            for (int i = 0; i < NumberofSources; i++)
-                NewsURLList.Add(SourceURL[i]);
-            return NewsURLList;
-        }
+        public List<string> GetNewsURL() => SourceURL;
 
         private void CheckForRSSFile()
         //Subrutina verifica daca exista fisierul "Sources.txt". Daca nu exista, creaza un fisier gol
@@ -146,93 +140,88 @@ namespace ZanScore
 
         //todo de cautat metode de a scrie aceasta rutina cu mai putine linii de cod
         {
-            string buffer; //variabila temporara utilizata la interschimbari
-            bool bufferBool; //variabila temporara utilizata la interschimbari, pentru lista booleana
             switch (SortingWay)
             {
                 case 1:
                     {
-                        if (Position > 0) //Daca nu incerc sa mut mai sus prima sursa de stiri
-                        {
-                            buffer = SourceTitle[Position - 1];
-                            SourceTitle[Position - 1] = SourceTitle[Position];
-                            SourceTitle[Position] = buffer;
+                        ExchangeElementsString(SourceTitle, Position - 1, Position);
+                        ExchangeElementsString(SourceURL, Position - 1, Position);
+                        ExchangeElementsBoolean(IsSourceSelected, Position - 1, Position);
 
-                            buffer = SourceURL[Position - 1];
-                            SourceURL[Position - 1] = SourceURL[Position];
-                            SourceURL[Position] = buffer;
-
-                            bufferBool = IsSourceSelected[Position - 1];
-                            IsSourceSelected[Position - 1] = IsSourceSelected[Position];
-                            IsSourceSelected[Position] = bufferBool;
-                        }
                         break;
                     }
                 case 2:
                     {
-                        if (Position < SourceTitle.Count)
-                        {
-                            buffer = SourceTitle[Position + 1];
-                            SourceTitle[Position + 1] = SourceTitle[Position];
-                            SourceTitle[Position] = buffer;
+                        ExchangeElementsString(SourceTitle, Position + 1, Position);
+                        ExchangeElementsString(SourceURL, Position + 1, Position);
+                        ExchangeElementsBoolean(IsSourceSelected, Position + 1, Position);
 
-                            buffer = SourceURL[Position + 1];
-                            SourceURL[Position + 1] = SourceURL[Position];
-                            SourceURL[Position] = buffer;
-
-                            bufferBool = IsSourceSelected[Position - 1];
-                            IsSourceSelected[Position - 1] = IsSourceSelected[Position];
-                            IsSourceSelected[Position] = bufferBool;
-                        }
                         break;
                     }
                 case 3:
                     {
-                        if (Position > 0)
-                        {
-                            buffer = SourceTitle[Position];
-                            for (int i = Position; i > 0; i--)
-                                SourceTitle[i] = SourceTitle[i - 1];
-                            SourceTitle[0] = buffer;
+                        MoveToFirstPositionString(SourceTitle, Position);
+                        MoveToFirstPositionString(SourceURL, Position);
+                        MoveToFirstPositionBoolean(IsSourceSelected, Position);
 
-                            buffer = SourceURL[Position];
-                            for (int i = Position; i > 0; i--)
-                                SourceURL[i] = SourceURL[i - 1];
-                            SourceURL[0] = buffer;
-
-                            bufferBool = IsSourceSelected[Position];
-                            for (int i = Position; i > 0; i--)
-                                IsSourceSelected[i] = IsSourceSelected[i - 1];
-                            IsSourceSelected[0] = bufferBool;
-                        }
                         break;
                     }
                 case 4:
                     {
-                        if (Position < SourceTitle.Count)
-                        {
-                            buffer = SourceTitle[Position];
-                            for (int i = Position; i < SourceTitle.Count - 1; i++)
-                                SourceTitle[i] = SourceTitle[i + 1];
-                            SourceTitle[SourceTitle.Count - 1] = buffer;
 
-                            buffer = SourceURL[Position];
-                            for (int i = Position; i < SourceURL.Count - 1; i++)
-                                SourceURL[i] = SourceURL[i + 1];
-                            SourceURL[SourceURL.Count - 1] = buffer;
+                        MoveToLastPositionString(SourceTitle, Position);
+                        MoveToLastPositionString(SourceURL, Position);
+                        MoveToLastPositionBoolean(IsSourceSelected, Position);
 
-                            bufferBool = IsSourceSelected[Position];
-                            for (int i = Position; i < IsSourceSelected.Count - 1; i++)
-                                IsSourceSelected[i] = IsSourceSelected[i + 1];
-                            IsSourceSelected[IsSourceSelected.Count - 1] = bufferBool;
-                        }
-                        break;
-                    }
-                default:
-                    {
                         break;
                     }
             }
+        }
+
+        private void ExchangeElementsString(List<string> List, int Pos1, int Pos2)
+        {
+            string buffer = List[Pos1];
+            List[Pos1] = List[Pos2];
+            List[Pos2] = buffer;
+        }
+
+        private void ExchangeElementsBoolean(List<bool> List, int Pos1, int Pos2)
+        {
+            bool buffer = List[Pos1];
+            List[Pos1] = List[Pos2];
+            List[Pos2] = buffer;
+        }
+
+        private void MoveToFirstPositionString(List<string> List, int PosFrom)
+        {
+            string buffer = "";
+            for (int i = 0; i > 0; i--)
+                List[i] = List[i - 1];
+            List[0] = buffer;
+        }
+
+        private void MoveToFirstPositionBoolean(List<bool> List, int PosFrom)
+        {
+            bool buffer = false;
+            for (int i = 0; i > 0; i--)
+                List[i] = List[i - 1];
+            List[0] = buffer;
+        }
+
+        private void MoveToLastPositionString(List<string> List, int PosFrom)
+        {
+            string buffer = List[PosFrom];
+            for (int i = PosFrom; i < List.Count - 1; i++)
+                List[i] = List[i + 1];
+            List[List.Count - 1] = buffer;
+        }
+
+        private void MoveToLastPositionBoolean(List<bool> List, int PosFrom)
+        {
+            bool buffer = List[PosFrom];
+            for (int i = PosFrom; i < List.Count - 1; i++)
+                List[i] = List[i + 1];
+            List[List.Count - 1] = buffer;
         }
     }
 }

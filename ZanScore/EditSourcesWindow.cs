@@ -137,9 +137,10 @@ namespace ZanScore
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
-            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 1);
             if (i > 0)
             {
+                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 1);
+
                 buffer = AllTheSources.Rows[i - 1].Cells[0].Value.ToString();
                 AllTheSources.Rows[i - 1].Cells[0].Value = AllTheSources.Rows[i].Cells[0].Value;
                 AllTheSources.Rows[i].Cells[0].Value = buffer;
@@ -151,6 +152,7 @@ namespace ZanScore
                 AllTheSources.Rows[i - 1].Selected = true;
                 AllTheSources.Rows[i].Selected = false;
             }
+
         }
 
         private void MoveSelectedSourceDownOnePosition(object sender, EventArgs e)
@@ -161,9 +163,10 @@ namespace ZanScore
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
-            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 2);
-            if (i < AllTheSources.RowCount)
+            if (i < AllTheSources.RowCount-1)
             {
+                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 2);
+
                 buffer = AllTheSources.Rows[i + 1].Cells[0].Value.ToString();
                 AllTheSources.Rows[i + 1].Cells[0].Value = AllTheSources.Rows[i].Cells[0].Value;
                 AllTheSources.Rows[i].Cells[0].Value = buffer;
@@ -179,14 +182,16 @@ namespace ZanScore
 
         private void MoveSelectedSourceToFirstPosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa pe prima pozitie
+        // todo bug aici
         {
             int i = 0;
             string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
-            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
             if (i > 0)
             {
+                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
+
                 buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
                 for (int j = i; j > 0; j--)
                     AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j - 1].Cells[0].Value;
@@ -207,9 +212,10 @@ namespace ZanScore
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
-            ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 4);
             if (i < AllTheSources.RowCount)
             {
+                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 4);
+
                 buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
                 for (int j = i; j < AllTheSources.RowCount - 1; j++)
                     AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j + 1].Cells[0].Value;
