@@ -51,27 +51,69 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         {
             XmlReader reader = XmlReader.Create(FileToLoad);
-            SyndicationFeed feed = SyndicationFeed.Load(reader);
+            SyndicationFeed feed = new SyndicationFeed();
+
+            try
+            {
+                feed = SyndicationFeed.Load(reader);
+            }
+            catch (XmlException e)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show("Error reading file " + e.SourceUri + ". File format unknown. Program will go to the next news source","Error loading news source file",buttons,icon);
+                return;
+            }
+
             reader.Close();
-            ChannelTitle = feed.Title.Text;
-            ChannelDescription = feed.Description.Text;
-            ChannelLink = feed.Links[feed.Links.Count - 1].Uri.ToString();
-            if (feed.Categories.Count != 0)
+
+            if (feed.Title == null)
+                ChannelTitle = "";
+            else
+                ChannelTitle = feed.Title.Text.ToString();
+
+            if (feed.Description == null)
+                ChannelDescription = "";
+            else
+                ChannelDescription = feed.Description.Text.ToString();
+
+            if (feed.Links.Count == 0)
+                ChannelLink = "";
+            else
+                ChannelLink = feed.Links[feed.Links.Count - 1].Uri.ToString();
+
+            if (feed.Categories.Count == 0)
+                Category = "";
+            else
                 Category = feed.Categories[feed.Categories.Count - 1].Name.ToString();
-            if (feed.Copyright != null)
+
+            if (feed.Copyright == null)
+                Copyright = "";
+            else
                 Copyright = feed.Copyright.Text.ToString();
-            if (feed.Language != null)
+
+            if (feed.Language == null)
+                Language = "";
+            else
                 Language = feed.Language.ToString();
-            if (feed.Authors.Count != 0)
+
+            if (feed.Authors.Count == 0)
+                ManagingEditor = "";
+            else
                 ManagingEditor = feed.Authors[feed.Authors.Count - 1].Email.ToString();
-            if (feed.LastUpdatedTime != null)
+
+            if (feed.LastUpdatedTime == null)
+                PubDate = "";
+            else
                 PubDate = feed.LastUpdatedTime.ToString();
+
             foreach (SyndicationItem item in feed.Items)
             {
                 NewsTitle.Add(item.Title.Text);
                 NewsLink.Add(item.Links[0].Uri.ToString());
                 NewsDescription.Add(item.Summary.Text);
             }
+            reader.Dispose();
         }
 
         private void MakeNewsLengthEqual()
