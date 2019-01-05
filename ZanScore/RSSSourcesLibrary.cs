@@ -60,7 +60,7 @@ namespace ZanScore
         public void SaveSources()
         /*Functia salveaza sursele de stiri in fisier. 
         Forma fisierului este: 
-        name:numele sursei (dat de utilizator>
+        name:numele sursei (dat de utilizator)
         URL:Adresa fisierului XML
         selected:Daca e selectat sau nu*/
         {
