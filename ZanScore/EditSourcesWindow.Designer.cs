@@ -257,6 +257,7 @@
             this.Name = "EditSourcesWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit News Sources";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseWindow);
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).EndInit();
             this.NewsSourceSelectGroupBox.ResumeLayout(false);
             this.NewsSourceSelectGroupBox.PerformLayout();

@@ -116,26 +116,6 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             reader.Dispose();
         }
 
-        private void MakeNewsLengthEqual()
-        //Procedura aceasta se asigura, la finalul fiecarei iteratii, ca cei trei vectori legati de stiri (titlu, URL si descriere) au aceeasi lungime. Desi e obligatoriu, exista RSS-uri la care lipseste macar unul dintre aceste trei caracteristici, fapt ce provoaca probleme la afisarea lor in program.
-        //Compar fiecare caracteristica cu fiecare si, acolo unde intalnesc un sir mai mic, adaug un element gol.
-        {
-            if ((NewsLink.Count > NewsTitle.Count) || (NewsDescription.Count > NewsTitle.Count))
-            {
-                NewsTitle.Add("");
-            }
-
-            if ((NewsLink.Count < NewsTitle.Count) || (NewsLink.Count < NewsDescription.Count))
-            {
-                NewsLink.Add("");
-            }
-
-            if ((NewsLink.Count > NewsDescription.Count) || (NewsDescription.Count < NewsTitle.Count))
-            {
-                NewsDescription.Add("");
-            }
-        }
-
         public void EmptyFields()
         {
             ChannelTitle = String.Empty;

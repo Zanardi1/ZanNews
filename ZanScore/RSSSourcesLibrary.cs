@@ -137,8 +137,6 @@ namespace ZanScore
          2 - muta cu o pozitie mai jos (Down 1)
          3 - muta pe prima pozitie (Move first)
          4 - muta pe ultima pozitie (Move last)*/
-
-        //todo de cautat metode de a scrie aceasta rutina cu mai putine linii de cod
         {
             switch (SortingWay)
             {

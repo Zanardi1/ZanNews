@@ -14,50 +14,54 @@ namespace ZanScore
             SourceURLToEdit.Width = 7 * AllTheSources.Width / 10;
         }
 
+        private void DeletingNewsEngine()
+        {
+            List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
+            for (int i = 0; i < AllTheSources.RowCount; i++)
+                if (AllTheSources.Rows[i].Selected)
+                    Positions.Add(i);
+            ((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions);
+            ((Form1)Owner).NewsSourcesCollection.SaveSources();
+            for (int i = 0; i < AllTheSources.Rows.Count; i++)
+                if (AllTheSources.Rows[i].Selected)
+                    AllTheSources.Rows.RemoveAt(i);
+        }
+
         private void DeleteSelectedNewsSources(object sender, EventArgs e)
         {
-            DialogResult UserAnswer;
-            string text = "Are you sure you want to delete the selected news source? This cannot be undone!";
-            string caption = "Confirm deletion";
             MessageBoxButtons Buttons = MessageBoxButtons.YesNo;
             MessageBoxIcon Icon = MessageBoxIcon.Question;
             MessageBoxDefaultButton Default = MessageBoxDefaultButton.Button1;
-            UserAnswer = MessageBox.Show(text, caption, Buttons, Icon, Default);
+            DialogResult UserAnswer = MessageBox.Show("Are you sure you want to delete the selected news source? This cannot be undone!", "Confirm deletion", Buttons, Icon, Default);
             if (UserAnswer == DialogResult.Yes)
+                DeletingNewsEngine();
+        }
+
+        private void SouceEditingEngine(int Pos)
+        {
+            if (AllTheSources.Rows[Pos].Selected)
             {
-                List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
-                for (int i = 0; i < AllTheSources.RowCount; i++)
-                    if (AllTheSources.Rows[i].Selected)
-                        Positions.Add(i);
-                ((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions);
-                ((Form1)Owner).NewsSourcesCollection.SaveSources();
-                for (int i = 0; i < AllTheSources.Rows.Count; i++)
-                    if (AllTheSources.Rows[i].Selected)
-                        AllTheSources.Rows.RemoveAt(i);
+                int j = 0;
+
+                NewSourceNameText.Text = AllTheSources.Rows[Pos].Cells[0].Value.ToString();
+                NewSourceURLText.Text = AllTheSources.Rows[Pos].Cells[1].Value.ToString();
+                j = Pos + 1;
+                SelectedPositionInGrid = Pos;
+                while (j < AllTheSources.RowCount) //Deselecteaza toate stirile de dedesubtul primei stiri alese (care va fi si editata)
+                {
+                    AllTheSources.Rows[j].Selected = false;
+                    j++;
+                }
             }
         }
 
         private void EditSelectedSource(object sender, EventArgs e)
         {
             int i = 0;
-            int j = 0;
-            bool IsNewsSelected = false;
             EnableEditingControls();
-            while ((i < AllTheSources.RowCount) && (!IsNewsSelected))
+            while (i < AllTheSources.RowCount)
             {
-                if (AllTheSources.Rows[i].Selected)
-                {
-                    NewSourceNameText.Text = AllTheSources.Rows[i].Cells[0].Value.ToString();
-                    NewSourceURLText.Text = AllTheSources.Rows[i].Cells[1].Value.ToString();
-                    j = i + 1;
-                    SelectedPositionInGrid = i;
-                    while (j < AllTheSources.RowCount) //Deselecteaza toate stirile de dedesubtul primei stiri alese (care va fi si editata)
-                    {
-                        AllTheSources.Rows[j].Selected = false;
-                        j++;
-                    }
-                    IsNewsSelected = true;
-                }
+                SouceEditingEngine(i);
                 i++;
             }
         }
@@ -129,102 +133,128 @@ namespace ZanScore
             EnableReorderingControls();
         }
 
+        private void MoveUpOnePositionInGrid(int Position,int Cell)
+        {
+            string buffer;
+
+            buffer = AllTheSources.Rows[Position - 1].Cells[Cell].Value.ToString();
+            AllTheSources.Rows[Position - 1].Cells[Cell].Value = AllTheSources.Rows[Position].Cells[Cell].Value;
+            AllTheSources.Rows[Position].Cells[Cell].Value = buffer;
+        }
+
+        private void MoveUpOnePositionEngine(int Position)
+        //Logica de mutare a stirii selectate cu o pozitie mai sus
+        {
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(Position, 1);
+
+            MoveUpOnePositionInGrid(Position, 0);
+            MoveUpOnePositionInGrid(Position, 1);
+
+            AllTheSources.Rows[Position - 1].Selected = true;
+            AllTheSources.Rows[Position].Selected = false;
+        }
+
         private void MoveSelectedSourceUpOnePosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa cu o pozitie mai sus
         {
             int i = 0;
-            string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
             if (i > 0)
-            {
-                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 1);
+                MoveUpOnePositionEngine(i);
+        }
 
-                buffer = AllTheSources.Rows[i - 1].Cells[0].Value.ToString();
-                AllTheSources.Rows[i - 1].Cells[0].Value = AllTheSources.Rows[i].Cells[0].Value;
-                AllTheSources.Rows[i].Cells[0].Value = buffer;
+        private void MoveDownOnePositionInGrid(int Position, int Cell)
+        {
+            string buffer;
 
-                buffer = AllTheSources.Rows[i - 1].Cells[1].Value.ToString();
-                AllTheSources.Rows[i - 1].Cells[1].Value = AllTheSources.Rows[i].Cells[1].Value;
-                AllTheSources.Rows[i].Cells[1].Value = buffer;
+            buffer = AllTheSources.Rows[Position + 1].Cells[Cell].Value.ToString();
+            AllTheSources.Rows[Position + 1].Cells[Cell].Value = AllTheSources.Rows[Position].Cells[Cell].Value;
+            AllTheSources.Rows[Position].Cells[Cell].Value = buffer;
+        }
 
-                AllTheSources.Rows[i - 1].Selected = true;
-                AllTheSources.Rows[i].Selected = false;
-            }
+        private void MoveDownOnePositionEngine(int Position)
+        //Logica de mutare a stirii selectate cu o pozitie mai jos
+        {
+            ((Form1)Owner).NewsSourcesCollection.SortSources(Position, 2);
 
+            MoveDownOnePositionInGrid(Position, 0);
+            MoveDownOnePositionInGrid(Position, 1);
+
+            AllTheSources.Rows[Position + 1].Selected = true;
+            AllTheSources.Rows[Position].Selected = false;
         }
 
         private void MoveSelectedSourceDownOnePosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa cu o pozitie mai jos
         {
             int i = 0;
-            string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
-            if (i < AllTheSources.RowCount-1)
-            {
-                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 2);
+            if (i < AllTheSources.RowCount - 1)
+                MoveDownOnePositionEngine(i);
+        }
 
-                buffer = AllTheSources.Rows[i + 1].Cells[0].Value.ToString();
-                AllTheSources.Rows[i + 1].Cells[0].Value = AllTheSources.Rows[i].Cells[0].Value;
-                AllTheSources.Rows[i].Cells[0].Value = buffer;
+        private void MoveToFirstPositionInGrid(int Position,int Cell)
+        {
+            string buffer;
 
-                buffer = AllTheSources.Rows[i + 1].Cells[1].Value.ToString();
-                AllTheSources.Rows[i + 1].Cells[1].Value = AllTheSources.Rows[i].Cells[1].Value;
-                AllTheSources.Rows[i].Cells[1].Value = buffer;
+            buffer = AllTheSources.Rows[Position].Cells[Cell].Value.ToString();
+            for (int j = Position; j > 0; j--)
+                AllTheSources.Rows[j].Cells[Cell].Value = AllTheSources.Rows[j - 1].Cells[Cell].Value;
+            AllTheSources.Rows[0].Cells[0].Value = buffer;
+        }
 
-                AllTheSources.Rows[i + 1].Selected = true;
-                AllTheSources.Rows[i].Selected = false;
-            }
+        private void MoveToFirstPositionEngine(int StartingPosition)
+        //Logica de mutare a stirii selectate pe prima pozitie 
+        {
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(StartingPosition, 3);
+
+            MoveToFirstPositionInGrid(StartingPosition, 0);
+            MoveToFirstPositionInGrid(StartingPosition, 1);
         }
 
         private void MoveSelectedSourceToFirstPosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa pe prima pozitie
         {
             int i = 0;
-            string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             if (i > 0)
-            {
-                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 3);
+                MoveToFirstPositionEngine(i);
+        }
 
-                buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
-                for (int j = i; j > 0; j--)
-                    AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j - 1].Cells[0].Value;
-                AllTheSources.Rows[0].Cells[0].Value = buffer;
+        private void MoveToLastPositionInGrid(int Position,int Cell)
+        {
+            string buffer;
 
-                buffer = AllTheSources.Rows[i].Cells[1].Value.ToString();
-                for (int j = i; j > 0; j--)
-                    AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j - 1].Cells[1].Value;
-                AllTheSources.Rows[0].Cells[1].Value = buffer;
-            }
+            buffer = AllTheSources.Rows[Position].Cells[Cell].Value.ToString();
+            for (int j = Position; j < AllTheSources.RowCount - 1; j++)
+                AllTheSources.Rows[j].Cells[Cell].Value = AllTheSources.Rows[j + 1].Cells[Cell].Value;
+            AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[Cell].Value = buffer;
+
+        }
+
+        private void MovingToLastPositionEngine(int StartingPosition)
+        //Logica de mutare a stirii selectate pe ultima pozitie 
+        {
+            ((Form1)this.Owner).NewsSourcesCollection.SortSources(StartingPosition, 4);
+
+            MoveToLastPositionInGrid(StartingPosition, 0);
+            MoveToLastPositionInGrid(StartingPosition, 1);
         }
 
         private void MoveSelectedSourceToLastPosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa pe ultima pozitie
         {
             int i = 0;
-            string buffer;
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
             DisselectEverythingBelow(i);
             if (i < AllTheSources.RowCount)
-            {
-                ((Form1)this.Owner).NewsSourcesCollection.SortSources(i, 4);
-
-                buffer = AllTheSources.Rows[i].Cells[0].Value.ToString();
-                for (int j = i; j < AllTheSources.RowCount - 1; j++)
-                    AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j + 1].Cells[0].Value;
-                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[0].Value = buffer;
-
-                buffer = AllTheSources.Rows[i].Cells[1].Value.ToString();
-                for (int j = i; j < AllTheSources.RowCount - 1; j++)
-                    AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j + 1].Cells[1].Value;
-                AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[1].Value = buffer;
-            }
+                MovingToLastPositionEngine(i);
         }
 
         private void FinishReorderingSelectedNewsSource(object sender, EventArgs e)
@@ -242,6 +272,11 @@ namespace ZanScore
                 AllTheSources.Rows[j].Selected = false;
                 j++;
             }
+        }
+
+        private void CloseWindow(object sender, FormClosedEventArgs e)
+        {
+            ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
         }
     }
 }
