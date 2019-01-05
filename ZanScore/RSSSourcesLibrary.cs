@@ -194,16 +194,16 @@ namespace ZanScore
 
         private void MoveToFirstPositionString(List<string> List, int PosFrom)
         {
-            string buffer = "";
-            for (int i = 0; i > 0; i--)
+            string buffer = List[PosFrom];
+            for (int i = PosFrom; i > 0; i--)
                 List[i] = List[i - 1];
             List[0] = buffer;
         }
 
         private void MoveToFirstPositionBoolean(List<bool> List, int PosFrom)
         {
-            bool buffer = false;
-            for (int i = 0; i > 0; i--)
+            bool buffer = List[PosFrom];
+            for (int i = PosFrom; i > 0; i--)
                 List[i] = List[i - 1];
             List[0] = buffer;
         }

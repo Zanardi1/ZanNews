@@ -94,8 +94,6 @@ namespace ZanScore
                 if (c is DataGridView)
                     NewsSourcesCollection.ShowNewsSourcesInDataGrid(c as DataGridView);
             E.ShowDialog(owner: this);
-            if (E.DialogResult == DialogResult.OK)
-                NewsSourcesCollection.SaveSources();
         }
 
         private void ShowOptionsWindow(object sender, EventArgs e)

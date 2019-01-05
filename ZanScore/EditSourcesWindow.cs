@@ -182,7 +182,6 @@ namespace ZanScore
 
         private void MoveSelectedSourceToFirstPosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa pe prima pozitie
-        // todo bug aici
         {
             int i = 0;
             string buffer;
@@ -197,7 +196,7 @@ namespace ZanScore
                     AllTheSources.Rows[j].Cells[0].Value = AllTheSources.Rows[j - 1].Cells[0].Value;
                 AllTheSources.Rows[0].Cells[0].Value = buffer;
 
-                buffer = AllTheSources.Rows[1].Cells[1].Value.ToString();
+                buffer = AllTheSources.Rows[i].Cells[1].Value.ToString();
                 for (int j = i; j > 0; j--)
                     AllTheSources.Rows[j].Cells[1].Value = AllTheSources.Rows[j - 1].Cells[1].Value;
                 AllTheSources.Rows[0].Cells[1].Value = buffer;
@@ -231,6 +230,7 @@ namespace ZanScore
         private void FinishReorderingSelectedNewsSource(object sender, EventArgs e)
         {
             DisableReorderingControls();
+            ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
         }
 
         private void DisselectEverythingBelow(int Position)

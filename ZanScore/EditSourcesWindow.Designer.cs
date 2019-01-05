@@ -30,8 +30,6 @@
         {
             this.EditNewsButton = new System.Windows.Forms.Button();
             this.DeleteNewsButton = new System.Windows.Forms.Button();
-            this.SaveChanges = new System.Windows.Forms.Button();
-            this.DiscardChanges = new System.Windows.Forms.Button();
             this.AllTheSources = new System.Windows.Forms.DataGridView();
             this.SourceNameToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SourceURLToEdit = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -71,26 +69,6 @@
             this.DeleteNewsButton.Text = "Delete";
             this.DeleteNewsButton.UseVisualStyleBackColor = true;
             this.DeleteNewsButton.Click += new System.EventHandler(this.DeleteSelectedNewsSources);
-            // 
-            // SaveChanges
-            // 
-            this.SaveChanges.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.SaveChanges.Location = new System.Drawing.Point(154, 397);
-            this.SaveChanges.Name = "SaveChanges";
-            this.SaveChanges.Size = new System.Drawing.Size(75, 23);
-            this.SaveChanges.TabIndex = 2;
-            this.SaveChanges.Text = "OK";
-            this.SaveChanges.UseVisualStyleBackColor = true;
-            // 
-            // DiscardChanges
-            // 
-            this.DiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.DiscardChanges.Location = new System.Drawing.Point(386, 397);
-            this.DiscardChanges.Name = "DiscardChanges";
-            this.DiscardChanges.Size = new System.Drawing.Size(75, 23);
-            this.DiscardChanges.TabIndex = 3;
-            this.DiscardChanges.Text = "Cancel";
-            this.DiscardChanges.UseVisualStyleBackColor = true;
             // 
             // AllTheSources
             // 
@@ -269,15 +247,10 @@
             // 
             // EditSourcesWindow
             // 
-            this.AcceptButton = this.SaveChanges;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(842, 442);
-            this.ControlBox = false;
+            this.ClientSize = new System.Drawing.Size(842, 400);
             this.Controls.Add(this.AllTheSources);
             this.Controls.Add(this.NewsSourceSelectGroupBox);
-            this.Controls.Add(this.DiscardChanges);
-            this.Controls.Add(this.SaveChanges);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -295,8 +268,6 @@
 
         private System.Windows.Forms.Button EditNewsButton;
         private System.Windows.Forms.Button DeleteNewsButton;
-        private System.Windows.Forms.Button SaveChanges;
-        private System.Windows.Forms.Button DiscardChanges;
         private System.Windows.Forms.DataGridView AllTheSources;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceNameToEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceURLToEdit;
