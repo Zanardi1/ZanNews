@@ -15,6 +15,8 @@ namespace ZanScore
         {
             InitializeComponent();
             StatusLabel.Text = "Welcome";
+            News.Width = NewsDetails.Width / 2;
+            NewsDescription.Width = NewsDetails.Width / 2; 
         }
 
         private void DownloadAllNewsInitialization()
@@ -62,8 +64,7 @@ namespace ZanScore
             {
                 NewsDetails.Rows.Add();
                 NewsDetails.Rows[i].Cells[0].Value = NewsSourceData.NewsTitle[i];
-                NewsDetails.Rows[i].Cells[1].Value = NewsSourceData.NewsLink[i];
-                NewsDetails.Rows[i].Cells[2].Value = NewsSourceData.NewsDescription[i];
+                NewsDetails.Rows[i].Cells[1].Value = NewsSourceData.NewsDescription[i];
             }
         }
 

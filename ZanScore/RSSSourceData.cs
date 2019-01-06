@@ -61,7 +61,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
-                MessageBox.Show("Error reading file " + e.SourceUri + ". File format unknown. Program will go to the next news source","Error loading news source file",buttons,icon);
+                MessageBox.Show("Error reading file " + e.SourceUri + ". File format unknown. Program will go to the next news source", "Error loading news source file", buttons, icon);
                 return;
             }
 
@@ -109,9 +109,20 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
             foreach (SyndicationItem item in feed.Items)
             {
-                NewsTitle.Add(item.Title.Text);
-                NewsLink.Add(item.Links[0].Uri.ToString());
-                NewsDescription.Add(item.Summary.Text);
+                if (item.Title == null)
+                    NewsTitle.Add("");
+                else
+                    NewsTitle.Add(item.Title.Text);
+
+                if (item.Links[0].Uri.ToString() == null)
+                    NewsLink.Add("");
+                else
+                    NewsLink.Add(item.Links[0].Uri.ToString());
+
+                if (item.Summary == null)
+                    NewsDescription.Add("");
+                else
+                    NewsDescription.Add(item.Summary.Text);
             }
             reader.Dispose();
         }

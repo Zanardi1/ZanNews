@@ -30,9 +30,6 @@
         {
             this.NewsWebPage = new System.Windows.Forms.WebBrowser();
             this.NewsDetails = new System.Windows.Forms.DataGridView();
-            this.News = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewsURL = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewsHeader = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -45,6 +42,8 @@
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.News = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetails)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -68,8 +67,7 @@
             this.NewsDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.NewsDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.News,
-            this.NewsURL,
-            this.NewsHeader});
+            this.NewsDescription});
             this.NewsDetails.Location = new System.Drawing.Point(12, 50);
             this.NewsDetails.MultiSelect = false;
             this.NewsDetails.Name = "NewsDetails";
@@ -79,27 +77,6 @@
             this.NewsDetails.Size = new System.Drawing.Size(451, 617);
             this.NewsDetails.TabIndex = 2;
             this.NewsDetails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LoadNewsURL);
-            // 
-            // News
-            // 
-            this.News.HeaderText = "Title";
-            this.News.Name = "News";
-            this.News.ReadOnly = true;
-            this.News.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NewsURL
-            // 
-            this.NewsURL.HeaderText = "Link";
-            this.NewsURL.Name = "NewsURL";
-            this.NewsURL.ReadOnly = true;
-            this.NewsURL.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NewsHeader
-            // 
-            this.NewsHeader.HeaderText = "Description";
-            this.NewsHeader.Name = "NewsHeader";
-            this.NewsHeader.ReadOnly = true;
-            this.NewsHeader.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // statusStrip1
             // 
@@ -213,6 +190,20 @@
             this.AboutProgramOption.Click += new System.EventHandler(this.ShowAboutBoxWindow);
             this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayAboutBoxHelpMessage);
             // 
+            // News
+            // 
+            this.News.HeaderText = "Title";
+            this.News.Name = "News";
+            this.News.ReadOnly = true;
+            this.News.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NewsDescription
+            // 
+            this.NewsDescription.HeaderText = "Description";
+            this.NewsDescription.Name = "NewsDescription";
+            this.NewsDescription.ReadOnly = true;
+            this.NewsDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -247,14 +238,13 @@
         private System.Windows.Forms.ToolStripMenuItem AddNewsSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem EditNewsSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem DownloadNewsOption;
-        private System.Windows.Forms.DataGridViewTextBoxColumn News;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewsURL;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewsHeader;
         private System.Windows.Forms.ToolStripMenuItem OptionsWindowOption;
         private System.Windows.Forms.ToolStripMenuItem DownloadFromAllSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem DownloadFromSelectedSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem AboutProgramOption;
         private System.Windows.Forms.ToolStripProgressBar DownloadProgressBar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn News;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
     }
 }
 
