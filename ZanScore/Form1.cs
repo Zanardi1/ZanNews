@@ -16,13 +16,14 @@ namespace ZanScore
             InitializeComponent();
             StatusLabel.Text = "Welcome";
             News.Width = NewsDetails.Width / 2;
-            NewsDescription.Width = NewsDetails.Width / 2; 
+            NewsDescription.Width = NewsDetails.Width / 2;
         }
 
         private void DownloadAllNewsInitialization()
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
             DownloadProgressBar.Maximum = NewsSourcesCollection.NumberofSelectedSources;
+            DownloadProgressBar.Value = 0;
             NewsSourceData.EmptyFields();
             NewsDetails.Rows.Clear();
             NewsSourcesCollection.ClearSources();
@@ -37,8 +38,13 @@ namespace ZanScore
             {
                 if (NewsSourcesCollection.IsSourceSelected[i])
                 {
-                    NewsSourceData.FillRSSData(URLList[i]);
-                    DownloadProgressBar.Value++;
+                    if (NewsSourceData.FillRSSData(URLList[i]))
+                        DownloadProgressBar.Value++;
+                    else
+                    {
+                        //DownloadProgressBar.Maximum--;
+                        DownloadProgressBar.Value++;
+                    }
                 }
             }
         }
@@ -46,7 +52,7 @@ namespace ZanScore
         private void DownloadAllNews(object sender, EventArgs e)
         {
             DownloadAllNewsInitialization();
-                       
+
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Downloading RSS...";
 

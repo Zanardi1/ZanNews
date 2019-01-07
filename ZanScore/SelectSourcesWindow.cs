@@ -19,24 +19,25 @@ namespace ZanScore
 
         private void DisplaySourceNames(object sender, EventArgs e)
         {
-            int NumberOfSources = ((Form1)this.Owner).NewsSourcesCollection.NumberofSources;
+            int NumberOfSources = ((Form1)Owner).NewsSourcesCollection.NumberofSources;
             for (int i = 0; i < NumberOfSources; i++)
             {
                 NewsSourcesDataGrid.Rows.Add();
-                NewsSourcesDataGrid.Rows[i].Cells[0].Value = ((Form1)this.Owner).NewsSourcesCollection.IsSourceSelected[i];
-                NewsSourcesDataGrid.Rows[i].Cells[1].Value = ((Form1)this.Owner).NewsSourcesCollection.SourceTitle[i];
+                NewsSourcesDataGrid.Rows[i].Cells[0].Value = ((Form1)Owner).NewsSourcesCollection.IsSourceSelected[i];
+                NewsSourcesDataGrid.Rows[i].Cells[1].Value = ((Form1)Owner).NewsSourcesCollection.SourceTitle[i];
             }
             NewsSourcesDataGrid.RefreshEdit();
         }
 
         private void UpdateSelectedSourcesList(object sender, EventArgs e)
         {
+            ((Form1)Owner).NewsSourcesCollection.NumberofSelectedSources = 0;
             for (int i = 0; i < NewsSourcesDataGrid.RowCount; i++)
             {
                 if ((bool)NewsSourcesDataGrid.Rows[i].Cells[0].Value == true)
                 {
-                    ((Form1)this.Owner).NewsSourcesCollection.IsSourceSelected[i] = true;
-                    ((Form1)this.Owner).NewsSourcesCollection.NumberofSelectedSources++;
+                    ((Form1)Owner).NewsSourcesCollection.IsSourceSelected[i] = true;
+                    ((Form1)Owner).NewsSourcesCollection.NumberofSelectedSources++;
                 }
                 else
                     ((Form1)this.Owner).NewsSourcesCollection.IsSourceSelected[i] = false;

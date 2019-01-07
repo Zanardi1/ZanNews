@@ -20,7 +20,7 @@ namespace ZanScore
         List<string> SourceURL = new List<string>();
         public List<bool> IsSourceSelected = new List<bool>();
         public int NumberofSources;
-        public int NumberofSelectedSources;
+        public int NumberofSelectedSources = 0;
 
         public RSSSourcesLibrary()
         {
@@ -129,6 +129,7 @@ namespace ZanScore
             SourceTitle.Clear();
             SourceURL.Clear();
             NumberofSources = 0;
+            NumberofSelectedSources = 0;
         }
 
         public void SortSources(int Position, int SortingWay)
