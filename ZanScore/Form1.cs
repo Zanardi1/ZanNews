@@ -15,8 +15,9 @@ namespace ZanScore
         {
             InitializeComponent();
             StatusLabel.Text = "Welcome";
-            News.Width = NewsDetails.Width / 2;
-            NewsDescription.Width = NewsDetails.Width / 2;
+            NewsChannel.Width = NewsDetailsGrid.Width / 3;
+            NewsTitle.Width = NewsDetailsGrid.Width / 3;
+            NewsDescription.Width = NewsDetailsGrid.Width / 3;
         }
 
         private void DownloadAllNewsInitialization()
@@ -25,7 +26,7 @@ namespace ZanScore
             DownloadProgressBar.Maximum = NewsSourcesCollection.NumberofSelectedSources;
             DownloadProgressBar.Value = 0;
             NewsSourceData.EmptyFields();
-            NewsDetails.Rows.Clear();
+            NewsDetailsGrid.Rows.Clear();
             NewsSourcesCollection.ClearSources();
             NewsSourcesCollection.LoadSources();
         }
@@ -38,13 +39,8 @@ namespace ZanScore
             {
                 if (NewsSourcesCollection.IsSourceSelected[i])
                 {
-                    if (NewsSourceData.FillRSSData(URLList[i]))
-                        DownloadProgressBar.Value++;
-                    else
-                    {
-                        //DownloadProgressBar.Maximum--;
-                        DownloadProgressBar.Value++;
-                    }
+                    NewsSourceData.FillRSSData(URLList[i]);
+                    DownloadProgressBar.Value++;
                 }
             }
         }
@@ -54,13 +50,13 @@ namespace ZanScore
             DownloadAllNewsInitialization();
 
             Cursor.Current = Cursors.WaitCursor;
-            StatusLabel.Text = "Downloading RSS...";
+            StatusLabel.Text = "Reading selected news feeds...";
 
             DownloadingEngine();
 
-            StatusLabel.Text = "Download complete";
             Cursor.Current = Cursors.Arrow;
             FillGrid();
+            StatusLabel.Text = "Download complete. " + NewsDetailsGrid.RowCount.ToString() + " news downloaded.";
         }
 
         private void FillGrid()
@@ -68,15 +64,16 @@ namespace ZanScore
         {
             for (int i = 0; i < NewsSourceData.NewsTitle.Count; i++)
             {
-                NewsDetails.Rows.Add();
-                NewsDetails.Rows[i].Cells[0].Value = NewsSourceData.NewsTitle[i];
-                NewsDetails.Rows[i].Cells[1].Value = NewsSourceData.NewsDescription[i];
+                NewsDetailsGrid.Rows.Add();
+                NewsDetailsGrid.Rows[i].Cells[0].Value = NewsSourceData.NewsChannelTitle[i];
+                NewsDetailsGrid.Rows[i].Cells[1].Value = NewsSourceData.NewsTitle[i];
+                NewsDetailsGrid.Rows[i].Cells[2].Value = NewsSourceData.NewsDescription[i];
             }
         }
 
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
         {
-            NewsWebPage.Navigate(new Uri(NewsSourceData.NewsLink[NewsDetails.CurrentCell.RowIndex]));
+            NewsWebPage.Navigate(new Uri(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]));
         }
 
         private void SelectNewsSources(object sender, EventArgs e)

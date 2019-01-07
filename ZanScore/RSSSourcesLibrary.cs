@@ -19,7 +19,7 @@ namespace ZanScore
         public List<string> SourceTitle = new List<string>();
         List<string> SourceURL = new List<string>();
         public List<bool> IsSourceSelected = new List<bool>();
-        public int NumberofSources;
+        public int NumberofSources = 0;
         public int NumberofSelectedSources = 0;
 
         public RSSSourcesLibrary()

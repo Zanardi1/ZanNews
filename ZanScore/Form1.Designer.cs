@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.NewsWebPage = new System.Windows.Forms.WebBrowser();
-            this.NewsDetails = new System.Windows.Forms.DataGridView();
+            this.NewsDetailsGrid = new System.Windows.Forms.DataGridView();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -42,9 +42,10 @@
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.News = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NewsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.NewsDetails)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -58,25 +59,26 @@
             this.NewsWebPage.Size = new System.Drawing.Size(1033, 617);
             this.NewsWebPage.TabIndex = 1;
             // 
-            // NewsDetails
+            // NewsDetailsGrid
             // 
-            this.NewsDetails.AllowUserToAddRows = false;
-            this.NewsDetails.AllowUserToDeleteRows = false;
-            this.NewsDetails.AllowUserToResizeRows = false;
-            this.NewsDetails.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.NewsDetails.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.NewsDetails.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.News,
+            this.NewsDetailsGrid.AllowUserToAddRows = false;
+            this.NewsDetailsGrid.AllowUserToDeleteRows = false;
+            this.NewsDetailsGrid.AllowUserToResizeRows = false;
+            this.NewsDetailsGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.NewsDetailsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.NewsDetailsGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NewsChannel,
+            this.NewsTitle,
             this.NewsDescription});
-            this.NewsDetails.Location = new System.Drawing.Point(12, 50);
-            this.NewsDetails.MultiSelect = false;
-            this.NewsDetails.Name = "NewsDetails";
-            this.NewsDetails.ReadOnly = true;
-            this.NewsDetails.RowTemplate.Height = 24;
-            this.NewsDetails.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.NewsDetails.Size = new System.Drawing.Size(451, 617);
-            this.NewsDetails.TabIndex = 2;
-            this.NewsDetails.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LoadNewsURL);
+            this.NewsDetailsGrid.Location = new System.Drawing.Point(12, 50);
+            this.NewsDetailsGrid.MultiSelect = false;
+            this.NewsDetailsGrid.Name = "NewsDetailsGrid";
+            this.NewsDetailsGrid.ReadOnly = true;
+            this.NewsDetailsGrid.RowTemplate.Height = 24;
+            this.NewsDetailsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.NewsDetailsGrid.Size = new System.Drawing.Size(451, 617);
+            this.NewsDetailsGrid.TabIndex = 2;
+            this.NewsDetailsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LoadNewsURL);
             // 
             // statusStrip1
             // 
@@ -190,12 +192,19 @@
             this.AboutProgramOption.Click += new System.EventHandler(this.ShowAboutBoxWindow);
             this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayAboutBoxHelpMessage);
             // 
-            // News
+            // NewsChannel
             // 
-            this.News.HeaderText = "Title";
-            this.News.Name = "News";
-            this.News.ReadOnly = true;
-            this.News.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.NewsChannel.HeaderText = "Channel";
+            this.NewsChannel.Name = "NewsChannel";
+            this.NewsChannel.ReadOnly = true;
+            this.NewsChannel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NewsTitle
+            // 
+            this.NewsTitle.HeaderText = "Title";
+            this.NewsTitle.Name = "NewsTitle";
+            this.NewsTitle.ReadOnly = true;
+            this.NewsTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // NewsDescription
             // 
@@ -211,14 +220,14 @@
             this.ClientSize = new System.Drawing.Size(1582, 703);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainMenu);
-            this.Controls.Add(this.NewsDetails);
+            this.Controls.Add(this.NewsDetailsGrid);
             this.Controls.Add(this.NewsWebPage);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MinimumSize = new System.Drawing.Size(1600, 750);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ZanNews";
-            ((System.ComponentModel.ISupportInitialize)(this.NewsDetails)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.MainMenu.ResumeLayout(false);
@@ -230,7 +239,7 @@
 
         #endregion
         private System.Windows.Forms.WebBrowser NewsWebPage;
-        private System.Windows.Forms.DataGridView NewsDetails;
+        private System.Windows.Forms.DataGridView NewsDetailsGrid;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
         private System.Windows.Forms.MenuStrip MainMenu;
@@ -243,7 +252,8 @@
         private System.Windows.Forms.ToolStripMenuItem DownloadFromSelectedSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem AboutProgramOption;
         private System.Windows.Forms.ToolStripProgressBar DownloadProgressBar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn News;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsChannel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
     }
 }

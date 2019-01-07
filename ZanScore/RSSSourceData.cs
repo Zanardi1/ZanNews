@@ -19,21 +19,11 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 {
     class RSSSourceData
     //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
-    //todo Sa adaug si restul subcategoriilor din definitia unui fisier RSS, odata ce am o aplicatie functionala
     {
-        public string ChannelTitle; //Titlul canalului
-        public string ChannelLink; //Link catre URL-ul canalului
-        public string ChannelDescription; //Descrierea canalului
-        public string Category; //Categoria stirilor
-        public string Copyright; //Informatii despre copyright
-        public string Language; //Limba in care sunt scrise stirile
-        public string PubDate; //Data publicarii stirii
-        public string ManagingEditor; //E-mailul editorului continutului fisierului RSS
+        public List<string> NewsChannelTitle = new List<string>(); //Titlurile canalelor de stiri
         public List<string> NewsTitle = new List<string>(); //Titlurile stirilor
         public List<string> NewsLink = new List<string>(); //Link-urile catre stiri
         public List<string> NewsDescription = new List<string>(); //Descrierile stirilor
-
-        private string OnlineSource; //Retine numele fisierului XML original, aflat pe internet
 
         public RSSSourceData()
         {
@@ -47,7 +37,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             return true;
         }
 
-        public bool FillRSSData(string FileToLoad)
+        public void FillRSSData(string FileToLoad)
         //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         {
             XmlReader reader = XmlReader.Create(FileToLoad);
@@ -62,53 +52,18 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
                 MessageBox.Show("Error reading file " + e.SourceUri + ". File format unknown. Program will go to the next news source", "Error loading news source file", buttons, icon);
-                return false;
+                return;
             }
 
             reader.Close();
 
-            if (feed.Title == null)
-                ChannelTitle = "";
-            else
-                ChannelTitle = feed.Title.Text.ToString();
-
-            if (feed.Description == null)
-                ChannelDescription = "";
-            else
-                ChannelDescription = feed.Description.Text.ToString();
-
-            if (feed.Links.Count == 0)
-                ChannelLink = "";
-            else
-                ChannelLink = feed.Links[feed.Links.Count - 1].Uri.ToString();
-
-            if (feed.Categories.Count == 0)
-                Category = "";
-            else
-                Category = feed.Categories[feed.Categories.Count - 1].Name.ToString();
-
-            if (feed.Copyright == null)
-                Copyright = "";
-            else
-                Copyright = feed.Copyright.Text.ToString();
-
-            if (feed.Language == null)
-                Language = "";
-            else
-                Language = feed.Language.ToString();
-
-            if (feed.Authors.Count == 0)
-                ManagingEditor = "";
-            else
-                ManagingEditor = feed.Authors[feed.Authors.Count - 1].Email.ToString();
-
-            if (feed.LastUpdatedTime == null)
-                PubDate = "";
-            else
-                PubDate = feed.LastUpdatedTime.ToString();
-
             foreach (SyndicationItem item in feed.Items)
             {
+                if (feed.Title == null)
+                    NewsChannelTitle.Add("");
+                else
+                    NewsChannelTitle.Add(feed.Title.Text.ToString());
+
                 if (item.Title == null)
                     NewsTitle.Add("");
                 else
@@ -124,21 +79,11 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 else
                     NewsDescription.Add(item.Summary.Text);
             }
-            reader.Dispose();
-            return true;
         }
 
         public void EmptyFields()
         {
-            ChannelTitle = String.Empty;
-            ChannelLink = String.Empty;
-            ChannelDescription = String.Empty;
-            Category = String.Empty;
-            Copyright = String.Empty;
-            Language = String.Empty;
-            PubDate = String.Empty;
-            ManagingEditor = String.Empty;
-            OnlineSource = String.Empty;
+            NewsChannelTitle.Clear();
             NewsDescription.Clear();
             NewsLink.Clear();
             NewsTitle.Clear();
