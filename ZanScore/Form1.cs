@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Drawing;
 
 //todo de facut rutina pentru redimensionarea componentelor odata cu fereastra
 
@@ -10,6 +11,8 @@ namespace ZanScore
     {
         RSSSourceData NewsSourceData = new RSSSourceData();
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
+        static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
+        static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
 
         public Form1()
         {
@@ -164,6 +167,39 @@ namespace ZanScore
         private void DisplayAboutBoxHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "About ZanNews";
+        }
+
+        private void ApplyResize(object sender, EventArgs e)
+        //Rutina mareste sau micsoreaza controalele in cu diferenta calculata
+        {
+            if (Width > MinimumSize.Width)
+                NewsWebPage.Width += WidthDiff;
+            else
+                NewsWebPage.Width = 675;
+
+            NewsWebPage.Height += HeightDiff;
+            NewsDetailsGrid.Height += HeightDiff;
+        }
+
+        private void ResizeControls(object sender, EventArgs e)
+        //Rutina calculeaza valorile latimilor si ale inaltimilor cu care controalele vor fi marite sau micsorate
+        {
+            HeightDiff = Height - InitialHeight;
+            WidthDiff = Width - InitialWidth;
+
+            if (WindowState == FormWindowState.Maximized)
+            {
+                NewsWebPage.Width = Screen.PrimaryScreen.Bounds.Width-NewsWebPage.Left;
+                NewsWebPage.Height = Screen.PrimaryScreen.Bounds.Height-statusStrip1.Height-MainMenu.Height-100;
+                NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height-statusStrip1.Height-MainMenu.Height-100;
+            }
+        }
+
+        private void StoreInitialSizes(object sender, EventArgs e)
+        //Stocheaza valorile initiale ale dimensiunilor controlalelor, dinainte de redimensionarea ferestrei
+        {
+            InitialHeight = Height;
+            InitialWidth = Width;
         }
     }
 }

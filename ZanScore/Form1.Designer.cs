@@ -30,6 +30,9 @@
         {
             this.NewsWebPage = new System.Windows.Forms.WebBrowser();
             this.NewsDetailsGrid = new System.Windows.Forms.DataGridView();
+            this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -42,9 +45,6 @@
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
-            this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewsTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -56,7 +56,7 @@
             this.NewsWebPage.MinimumSize = new System.Drawing.Size(20, 20);
             this.NewsWebPage.Name = "NewsWebPage";
             this.NewsWebPage.ScriptErrorsSuppressed = true;
-            this.NewsWebPage.Size = new System.Drawing.Size(1033, 617);
+            this.NewsWebPage.Size = new System.Drawing.Size(675, 429);
             this.NewsWebPage.TabIndex = 1;
             // 
             // NewsDetailsGrid
@@ -76,9 +76,30 @@
             this.NewsDetailsGrid.ReadOnly = true;
             this.NewsDetailsGrid.RowTemplate.Height = 24;
             this.NewsDetailsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.NewsDetailsGrid.Size = new System.Drawing.Size(451, 617);
+            this.NewsDetailsGrid.Size = new System.Drawing.Size(451, 429);
             this.NewsDetailsGrid.TabIndex = 2;
             this.NewsDetailsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LoadNewsURL);
+            // 
+            // NewsChannel
+            // 
+            this.NewsChannel.HeaderText = "Channel";
+            this.NewsChannel.Name = "NewsChannel";
+            this.NewsChannel.ReadOnly = true;
+            this.NewsChannel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NewsTitle
+            // 
+            this.NewsTitle.HeaderText = "Title";
+            this.NewsTitle.Name = "NewsTitle";
+            this.NewsTitle.ReadOnly = true;
+            this.NewsTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NewsDescription
+            // 
+            this.NewsDescription.HeaderText = "Description";
+            this.NewsDescription.Name = "NewsDescription";
+            this.NewsDescription.ReadOnly = true;
+            this.NewsDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // statusStrip1
             // 
@@ -86,9 +107,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.StatusLabel,
             this.DownloadProgressBar});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 679);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 492);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1582, 24);
+            this.statusStrip1.Size = new System.Drawing.Size(1182, 24);
             this.statusStrip1.TabIndex = 3;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -114,7 +135,7 @@
             this.AboutProgramOption});
             this.MainMenu.Location = new System.Drawing.Point(0, 0);
             this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(1582, 28);
+            this.MainMenu.Size = new System.Drawing.Size(1182, 28);
             this.MainMenu.TabIndex = 4;
             this.MainMenu.Text = "menuStrip1";
             // 
@@ -192,41 +213,22 @@
             this.AboutProgramOption.Click += new System.EventHandler(this.ShowAboutBoxWindow);
             this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayAboutBoxHelpMessage);
             // 
-            // NewsChannel
-            // 
-            this.NewsChannel.HeaderText = "Channel";
-            this.NewsChannel.Name = "NewsChannel";
-            this.NewsChannel.ReadOnly = true;
-            this.NewsChannel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NewsTitle
-            // 
-            this.NewsTitle.HeaderText = "Title";
-            this.NewsTitle.Name = "NewsTitle";
-            this.NewsTitle.ReadOnly = true;
-            this.NewsTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NewsDescription
-            // 
-            this.NewsDescription.HeaderText = "Description";
-            this.NewsDescription.Name = "NewsDescription";
-            this.NewsDescription.ReadOnly = true;
-            this.NewsDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1582, 703);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1182, 516);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.NewsDetailsGrid);
             this.Controls.Add(this.NewsWebPage);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MinimumSize = new System.Drawing.Size(1600, 750);
+            this.MinimumSize = new System.Drawing.Size(1200, 563);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ZanNews";
+            this.ResizeBegin += new System.EventHandler(this.StoreInitialSizes);
+            this.ResizeEnd += new System.EventHandler(this.ApplyResize);
+            this.Resize += new System.EventHandler(this.ResizeControls);
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
