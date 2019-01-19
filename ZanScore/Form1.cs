@@ -12,14 +12,21 @@ namespace ZanScore
         static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
         static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
         private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu
+        private static int InitialBrowserWidth; //retine latimea initiala a browserului
 
-        public Form1()
+        private void SetInitialValues()
         {
-            InitializeComponent();
+            InitialBrowserWidth = NewsWebPage.Width;
             StatusLabel.Text = "Welcome";
             NewsChannel.Width = NewsDetailsGrid.Width / 3;
             NewsTitle.Width = NewsDetailsGrid.Width / 3;
             NewsDescription.Width = NewsDetailsGrid.Width / 3;
+        }
+
+        public Form1()
+        {
+            InitializeComponent();
+            SetInitialValues();
         }
 
         private void DownloadAllNewsInitialization()
@@ -173,7 +180,7 @@ namespace ZanScore
             if (Width > MinimumSize.Width)
                 NewsWebPage.Width += WidthDiff;
             else
-                NewsWebPage.Width = 675;
+                NewsWebPage.Width = InitialBrowserWidth;
 
             NewsWebPage.Height += HeightDiff;
             NewsDetailsGrid.Height += HeightDiff;
