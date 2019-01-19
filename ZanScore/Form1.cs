@@ -194,6 +194,12 @@ namespace ZanScore
             ApplyResize();
         }
 
+        private void ComputeSizeDifferences()
+        {
+            HeightDiff = Height - InitialHeight;
+            WidthDiff = Width - InitialWidth;
+        }
+
         private void ResizeControls()
         {
             if (WindowState == FormWindowState.Maximized)
@@ -202,15 +208,13 @@ namespace ZanScore
                 NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height - statusStrip1.Height - MainMenu.Height - (int)(Height * 0.12);
                 NewsWebPage.Height = NewsDetailsGrid.Height;
                 StoreInitialSizes();
-                HeightDiff = Height - InitialHeight;
-                WidthDiff = Width - InitialWidth;
+                ComputeSizeDifferences();
                 WasMaximized = true;
             }
             else
             {
-                HeightDiff = Height - InitialHeight;
-                WidthDiff = Width - InitialWidth;
-/*Necesitatea variabilei WasMaximized apare deoarece pe ramura else se ajunge in doua feluri: atunci cand fereastra e redimensionata si atunci cand fereastra revine la dimensiunile sale initiale dupa ce a fost maximizata. In al doilea caz, trebuie redimensionate, efectiv, controalele ferestrei pe cand in primul caz, acest lucru se face automat prin declansarea evenimentului ResizeEnd*/
+                ComputeSizeDifferences();
+                /*Necesitatea variabilei WasMaximized apare deoarece pe ramura else se ajunge in doua feluri: atunci cand fereastra e redimensionata si atunci cand fereastra revine la dimensiunile sale initiale dupa ce a fost maximizata. In al doilea caz, trebuie redimensionate, efectiv, controalele ferestrei pe cand in primul caz, acest lucru se face automat prin declansarea evenimentului ResizeEnd*/
                 if (WasMaximized)
                     ApplyResize();
             }
