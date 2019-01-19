@@ -3,8 +3,6 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Drawing;
 
-//todo de facut rutina pentru redimensionarea componentelor odata cu fereastra
-
 namespace ZanScore
 {
     public partial class Form1 : Form
@@ -13,6 +11,7 @@ namespace ZanScore
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
         static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
         static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
+        private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu
 
         public Form1()
         {
@@ -169,8 +168,7 @@ namespace ZanScore
             StatusLabel.Text = "About ZanNews";
         }
 
-        private void ApplyResize(object sender, EventArgs e)
-        //Rutina mareste sau micsoreaza controalele in cu diferenta calculata
+        private void ApplyResize()
         {
             if (Width > MinimumSize.Width)
                 NewsWebPage.Width += WidthDiff;
@@ -179,27 +177,53 @@ namespace ZanScore
 
             NewsWebPage.Height += HeightDiff;
             NewsDetailsGrid.Height += HeightDiff;
+
+            WasMaximized = false;
         }
 
-        private void ResizeControls(object sender, EventArgs e)
-        //Rutina calculeaza valorile latimilor si ale inaltimilor cu care controalele vor fi marite sau micsorate
+        private void EndResize(object sender, EventArgs e)
+        //Rutina mareste sau micsoreaza controalele in cu diferenta calculata
         {
-            HeightDiff = Height - InitialHeight;
-            WidthDiff = Width - InitialWidth;
+            ApplyResize();
+        }
 
+        private void ResizeControls()
+        {
             if (WindowState == FormWindowState.Maximized)
             {
-                NewsWebPage.Width = Screen.PrimaryScreen.Bounds.Width-NewsWebPage.Left;
-                NewsWebPage.Height = Screen.PrimaryScreen.Bounds.Height-statusStrip1.Height-MainMenu.Height-100;
-                NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height-statusStrip1.Height-MainMenu.Height-100;
+                NewsWebPage.Width = Width - NewsWebPage.Left - (int)(Width * 0.02);
+                NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height - statusStrip1.Height - MainMenu.Height - (int)(Height * 0.12);
+                NewsWebPage.Height = NewsDetailsGrid.Height;
+                StoreInitialSizes();
+                HeightDiff = Height - InitialHeight;
+                WidthDiff = Width - InitialWidth;
+                WasMaximized = true;
+            }
+            else
+            {
+                HeightDiff = Height - InitialHeight;
+                WidthDiff = Width - InitialWidth;
+                if (WasMaximized)
+                    ApplyResize();
             }
         }
 
-        private void StoreInitialSizes(object sender, EventArgs e)
-        //Stocheaza valorile initiale ale dimensiunilor controlalelor, dinainte de redimensionarea ferestrei
+        private void ResizeEngine(object sender, EventArgs e)
+        //Rutina calculeaza valorile latimilor si ale inaltimilor cu care controalele vor fi marite sau micsorate
+        {
+            ResizeControls();
+        }
+
+        private void StoreInitialSizes()
         {
             InitialHeight = Height;
             InitialWidth = Width;
+        }
+
+        private void BeginResize(object sender, EventArgs e)
+        //Stocheaza valorile initiale ale dimensiunilor controlalelor, dinainte de redimensionarea ferestrei
+        {
+            StoreInitialSizes();
         }
     }
 }
