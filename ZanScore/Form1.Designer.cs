@@ -216,7 +216,7 @@
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1182, 516);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.MainMenu);

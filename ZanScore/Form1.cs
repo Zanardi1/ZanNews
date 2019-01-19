@@ -203,6 +203,7 @@ namespace ZanScore
             {
                 HeightDiff = Height - InitialHeight;
                 WidthDiff = Width - InitialWidth;
+/*Necesitatea variabilei WasMaximized apare deoarece pe ramura else se ajunge in doua feluri: atunci cand fereastra e redimensionata si atunci cand fereastra revine la dimensiunile sale initiale dupa ce a fost maximizata. In al doilea caz, trebuie redimensionate, efectiv, controalele ferestrei pe cand in primul caz, acest lucru se face automat prin declansarea evenimentului ResizeEnd*/
                 if (WasMaximized)
                     ApplyResize();
             }
