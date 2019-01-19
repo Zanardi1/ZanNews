@@ -31,9 +31,9 @@
             this.StartWithWindowsCheckBox = new System.Windows.Forms.CheckBox();
             this.MinimizeToTrayCheckBox = new System.Windows.Forms.CheckBox();
             this.AppStartGB = new System.Windows.Forms.GroupBox();
+            this.StartMaximized = new System.Windows.Forms.RadioButton();
             this.StartMinimized = new System.Windows.Forms.RadioButton();
             this.StartNormal = new System.Windows.Forms.RadioButton();
-            this.StartMaximized = new System.Windows.Forms.RadioButton();
             this.DisableBadSources = new System.Windows.Forms.CheckBox();
             this.AppStartGB.SuspendLayout();
             this.SuspendLayout();
@@ -70,6 +70,17 @@
             this.AppStartGB.TabStop = false;
             this.AppStartGB.Text = "Application start options";
             // 
+            // StartMaximized
+            // 
+            this.StartMaximized.AutoSize = true;
+            this.StartMaximized.Location = new System.Drawing.Point(18, 113);
+            this.StartMaximized.Name = "StartMaximized";
+            this.StartMaximized.Size = new System.Drawing.Size(128, 21);
+            this.StartMaximized.TabIndex = 4;
+            this.StartMaximized.TabStop = true;
+            this.StartMaximized.Text = "Start maximized";
+            this.StartMaximized.UseVisualStyleBackColor = true;
+            // 
             // StartMinimized
             // 
             this.StartMinimized.AutoSize = true;
@@ -92,17 +103,6 @@
             this.StartNormal.Text = "Start normal";
             this.StartNormal.UseVisualStyleBackColor = true;
             // 
-            // StartMaximized
-            // 
-            this.StartMaximized.AutoSize = true;
-            this.StartMaximized.Location = new System.Drawing.Point(18, 113);
-            this.StartMaximized.Name = "StartMaximized";
-            this.StartMaximized.Size = new System.Drawing.Size(128, 21);
-            this.StartMaximized.TabIndex = 4;
-            this.StartMaximized.TabStop = true;
-            this.StartMaximized.Text = "Start maximized";
-            this.StartMaximized.UseVisualStyleBackColor = true;
-            // 
             // DisableBadSources
             // 
             this.DisableBadSources.AutoSize = true;
@@ -122,6 +122,7 @@
             this.Controls.Add(this.MinimizeToTrayCheckBox);
             this.Controls.Add(this.StartWithWindowsCheckBox);
             this.Name = "OptionsWindow";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Options";
             this.AppStartGB.ResumeLayout(false);
             this.AppStartGB.PerformLayout();

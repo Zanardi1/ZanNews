@@ -15,6 +15,8 @@ namespace ZanScore
         public OptionsWindow()
         {
             InitializeComponent();
+            OptionsHandling O = new OptionsHandling();
+
         }
     }
 }

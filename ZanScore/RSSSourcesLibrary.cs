@@ -15,6 +15,8 @@ namespace ZanScore
     // 5. Stergerea unei surse;
     // 6. Sortarea surselor;
 
+    //todo de modificat felul de salvare a surselor de stiri, sub forma perechilor nume-valoare. Punct de plecare: https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.keyvaluepair-2?view=netframework-4.7.2
+
     {
         public List<string> SourceTitle = new List<string>();
         List<string> SourceURL = new List<string>();
