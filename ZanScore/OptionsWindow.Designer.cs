@@ -35,6 +35,7 @@
             this.StartMinimized = new System.Windows.Forms.RadioButton();
             this.StartNormal = new System.Windows.Forms.RadioButton();
             this.DisableBadSources = new System.Windows.Forms.CheckBox();
+            this.DownloadNewsAtStartup = new System.Windows.Forms.CheckBox();
             this.AppStartGB.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -45,6 +46,7 @@
             this.StartWithWindowsCheckBox.Name = "StartWithWindowsCheckBox";
             this.StartWithWindowsCheckBox.Size = new System.Drawing.Size(148, 21);
             this.StartWithWindowsCheckBox.TabIndex = 0;
+            this.StartWithWindowsCheckBox.Tag = "1";
             this.StartWithWindowsCheckBox.Text = "Start with Windows";
             this.StartWithWindowsCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -55,6 +57,7 @@
             this.MinimizeToTrayCheckBox.Name = "MinimizeToTrayCheckBox";
             this.MinimizeToTrayCheckBox.Size = new System.Drawing.Size(128, 21);
             this.MinimizeToTrayCheckBox.TabIndex = 1;
+            this.MinimizeToTrayCheckBox.Tag = "2";
             this.MinimizeToTrayCheckBox.Text = "Minimize to tray";
             this.MinimizeToTrayCheckBox.UseVisualStyleBackColor = true;
             // 
@@ -68,40 +71,41 @@
             this.AppStartGB.Size = new System.Drawing.Size(207, 150);
             this.AppStartGB.TabIndex = 2;
             this.AppStartGB.TabStop = false;
+            this.AppStartGB.Tag = "3";
             this.AppStartGB.Text = "Application start options";
             // 
             // StartMaximized
             // 
             this.StartMaximized.AutoSize = true;
-            this.StartMaximized.Location = new System.Drawing.Point(18, 113);
+            this.StartMaximized.Location = new System.Drawing.Point(6, 113);
             this.StartMaximized.Name = "StartMaximized";
             this.StartMaximized.Size = new System.Drawing.Size(128, 21);
             this.StartMaximized.TabIndex = 4;
-            this.StartMaximized.TabStop = true;
             this.StartMaximized.Text = "Start maximized";
             this.StartMaximized.UseVisualStyleBackColor = true;
+            this.StartMaximized.CheckedChanged += new System.EventHandler(this.Assign3ToVar);
             // 
             // StartMinimized
             // 
             this.StartMinimized.AutoSize = true;
-            this.StartMinimized.Location = new System.Drawing.Point(18, 30);
+            this.StartMinimized.Location = new System.Drawing.Point(6, 34);
             this.StartMinimized.Name = "StartMinimized";
             this.StartMinimized.Size = new System.Drawing.Size(125, 21);
             this.StartMinimized.TabIndex = 3;
-            this.StartMinimized.TabStop = true;
             this.StartMinimized.Text = "Start minimized";
             this.StartMinimized.UseVisualStyleBackColor = true;
+            this.StartMinimized.CheckedChanged += new System.EventHandler(this.Assign1ToVar);
             // 
             // StartNormal
             // 
             this.StartNormal.AutoSize = true;
-            this.StartNormal.Location = new System.Drawing.Point(18, 71);
+            this.StartNormal.Location = new System.Drawing.Point(6, 73);
             this.StartNormal.Name = "StartNormal";
             this.StartNormal.Size = new System.Drawing.Size(106, 21);
             this.StartNormal.TabIndex = 3;
-            this.StartNormal.TabStop = true;
             this.StartNormal.Text = "Start normal";
             this.StartNormal.UseVisualStyleBackColor = true;
+            this.StartNormal.CheckedChanged += new System.EventHandler(this.Assign2ToVar);
             // 
             // DisableBadSources
             // 
@@ -110,13 +114,26 @@
             this.DisableBadSources.Name = "DisableBadSources";
             this.DisableBadSources.Size = new System.Drawing.Size(300, 21);
             this.DisableBadSources.TabIndex = 3;
+            this.DisableBadSources.Tag = "4";
             this.DisableBadSources.Text = "Disable news sources with invalid RSS files";
             this.DisableBadSources.UseVisualStyleBackColor = true;
+            // 
+            // DownloadNewsAtStartup
+            // 
+            this.DownloadNewsAtStartup.AutoSize = true;
+            this.DownloadNewsAtStartup.Location = new System.Drawing.Point(34, 336);
+            this.DownloadNewsAtStartup.Name = "DownloadNewsAtStartup";
+            this.DownloadNewsAtStartup.Size = new System.Drawing.Size(347, 21);
+            this.DownloadNewsAtStartup.TabIndex = 4;
+            this.DownloadNewsAtStartup.Tag = "5";
+            this.DownloadNewsAtStartup.Text = "Download news automatically when program starts";
+            this.DownloadNewsAtStartup.UseVisualStyleBackColor = true;
             // 
             // OptionsWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.DownloadNewsAtStartup);
             this.Controls.Add(this.DisableBadSources);
             this.Controls.Add(this.AppStartGB);
             this.Controls.Add(this.MinimizeToTrayCheckBox);
@@ -140,5 +157,6 @@
         private System.Windows.Forms.RadioButton StartMaximized;
         private System.Windows.Forms.RadioButton StartNormal;
         private System.Windows.Forms.CheckBox DisableBadSources;
+        private System.Windows.Forms.CheckBox DownloadNewsAtStartup;
     }
 }

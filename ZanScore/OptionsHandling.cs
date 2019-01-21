@@ -15,6 +15,7 @@ using System.Windows.Forms;
      4. DisableInvalidNewsFiles. 1 daca dezactiveaza sursele de stiri care au fisiere RSS invalide, 0 altfel
      5. WindowWidth. Retine latimea ferestrei atunci cand programul a fost inchis
      6. WindowHeight. Acelasi lucru, dar pentru inaltimea ferestrei
+     7. AutomaticNewsDownload. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul
      
 Metode:
      
@@ -22,59 +23,61 @@ Metode:
      2.Verificarea existentei lui si, daca el nu exista, crearea unuia nou, cu optiuni implicite
      3.Salvarea optiunilor in fisier
      4.Citirea optiunilor din fisier (atribuirea valorilor citite din fisier catre proprietatile clasei 
-     5.Afisarea acestora in ferastra de optiuni
-     6.Verificarea integritatii continutului fisierului de optiuni
-     7.Stabilirea unor optiuni prestabilite, in cazul in care nu exista fisierul de rezultate
+     5.Verificarea integritatii continutului fisierului de optiuni
+     6.Stabilirea unor optiuni prestabilite, in cazul in care nu exista fisierul de rezultate
      
 Formatul fisierului:
-     proprietare:valoare*/
+     [proprietate,valoare]*/
 
 namespace ZanScore
 {
     class OptionsHandling
     {
-        int WindowsStartup;
-        int MinimizeToTray;
-        int StartupOptions;
-        int DisableInvalidNewsFiles;
-        int WindowWidth;
-        int WindowHeight;
+        public int WindowsStartup;
+        public int MinimizeToTray;
+        public int StartupOptions;
+        public int DisableInvalidNewsFiles;
+        public int WindowWidth;
+        public int WindowHeight;
+        public int AutomaticNewsDownload;
 
-        List<KeyValuePair<string, int>> buffer = new List<KeyValuePair<string, int>>();
+        List<KeyValuePair<string, int>> OptionsFileContent = new List<KeyValuePair<string, int>>();
 
         //todo de scris o rutina care sa sa se asigure ca StartupOptions e 1, 2 sau 3
 
-        public OptionsHandling()
+        public OptionsHandling() //constructor
         {
-            buffer.Add(["f",5]);
+            OptionsFileContent.Add(new KeyValuePair<string, int>("fxf", 5));
+            MessageBox.Show(OptionsFileContent[0].Key);
+            SaveOptionsToFile();
         }
 
-        public void OpenOptionsFile()
+        public void OpenOptionsFile() //deschiderea fisierului de optiuni
         {
             CheckOptionsFileExistence();
+            ReadOptionsFromFile();
         }
 
-        public void CheckOptionsFileExistence()
+        private void CheckOptionsFileExistence() //verificarea existentei acestuia
         {
             if (!File.Exists("Options.txt"))
             {
                 FileStream FS = File.Create("Options.txt");
+                SetDefaultOptions();
                 SaveOptionsToFile();
                 FS.Close();
             }
         }
 
-        public void SaveOptionsToFile()
+        public void SaveOptionsToFile() //salvarea optiunilor in fisier
         {
-
+            List<string> WriteBuffer = new List<string>() { };
+            for (int i = 0; i < OptionsFileContent.Count; i++)
+                WriteBuffer.Add(OptionsFileContent[i].ToString());
+            File.WriteAllLines("Options.txt", WriteBuffer.ToArray());
         }
 
-        public void ReadOptionsFromFile()
-        {
-
-        }
-
-        public void ShowOptionsInOptionsWindow()
+        public void ReadOptionsFromFile() //citeste optiunile din fisier
         {
 
         }
@@ -84,7 +87,7 @@ namespace ZanScore
             return true;
         }
 
-        private void SetDefaultOptions()
+        private void SetDefaultOptions() //setul de optiuni prestabilite
         {
             WindowsStartup = 0;
             MinimizeToTray = 0;
@@ -92,6 +95,7 @@ namespace ZanScore
             DisableInvalidNewsFiles = 0;
             WindowWidth = 1200;
             WindowHeight = 563;
+            AutomaticNewsDownload = 1;
         }
     }
 }
