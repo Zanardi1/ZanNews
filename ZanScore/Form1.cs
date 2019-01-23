@@ -272,6 +272,7 @@ namespace ZanScore
         }
 
         private void StuffAfterFormIsShown(object sender, EventArgs e)
+        //Questii efectuate atunci cand fereastra este afisata
         {
             AutomaticalNewsDownloadEngine();
         }

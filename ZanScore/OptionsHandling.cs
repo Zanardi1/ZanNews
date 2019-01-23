@@ -8,9 +8,9 @@ using System.IO;
      2. MinimizeToTray. 1 daca aplicatia se minimizeaza in SysTray, 0 altfel
      3. StartupOptions. 1 daca aplicatia va porni cu fereastra minimizata, 2 daca va porni cu fereastra la dimensiunile implicite, 3 daca va porni cu fereastra maximizata
      4. DisableInvalidNewsFiles. 1 daca dezactiveaza sursele de stiri care au fisiere RSS invalide, 0 altfel
-     5. WindowWidth. Retine latimea ferestrei atunci cand programul a fost inchis
-     6. WindowHeight. Acelasi lucru, dar pentru inaltimea ferestrei
-     7. AutomaticNewsDownload. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul
+     5. WindowWidth. Retine latimea ferestrei atunci cand programul a fost inchis -- gata
+     6. WindowHeight. Acelasi lucru, dar pentru inaltimea ferestrei -- gata
+     7. AutomaticNewsDownload. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul -- gata
      
 Metode:
      
