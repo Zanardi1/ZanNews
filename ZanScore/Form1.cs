@@ -40,6 +40,15 @@ namespace ZanScore
             LoadWindowSizes();
         }
 
+        private void AutomaticalNewsDownloadEngine()
+        //Se ocupa de descarcarea automata a stirilor, daca a fost stabilit acest lucru
+        {
+            if (OH.AutomaticNewsDownload == 1)
+            {
+                DownloadAllNewsProcess();
+            }
+        }
+
         public Form1()
         //Constructor
         {
@@ -73,8 +82,8 @@ namespace ZanScore
             }
         }
 
-        private void DownloadAllNews(object sender, EventArgs e)
-        //Procesarea efectuata cu ocazia descarcarii stirilor din sursele alese
+        private void DownloadAllNewsProcess()
+        //Intreg procesul de descarcare a stirilor
         {
             DownloadAllNewsInitialization();
 
@@ -86,6 +95,12 @@ namespace ZanScore
             Cursor.Current = Cursors.Arrow;
             FillGrid();
             StatusLabel.Text = "Download complete. " + NewsDetailsGrid.RowCount.ToString() + " news downloaded.";
+        }
+
+        private void DownloadAllNews(object sender, EventArgs e)
+        //Procesarea efectuata cu ocazia descarcarii stirilor din sursele alese
+        {
+            DownloadAllNewsProcess();
         }
 
         private void FillGrid()
@@ -254,6 +269,11 @@ namespace ZanScore
             OH.WindowHeight = Height;
             OH.WindowWidth = Width;
             OH.SaveOptionsToFile();
+        }
+
+        private void StuffAfterFormIsShown(object sender, EventArgs e)
+        {
+            AutomaticalNewsDownloadEngine();
         }
 
         private void StoreInitialSizes()

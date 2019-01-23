@@ -40,6 +40,7 @@ namespace ZanScore
         private readonly int[] OptionValues = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
         //todo de scris o rutina care sa sa se asigure ca StartupOptions e 1, 2 sau 3
+        //todo pe viitor sa-i implementez o optiune de rulare in fundal si, daca e rulat astfel, sa descarce automat stirile o data la un interval ales de catre utilizator
 
         public OptionsHandling() //constructor
         {
