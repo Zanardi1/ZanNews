@@ -36,6 +36,8 @@
             this.StartNormal = new System.Windows.Forms.RadioButton();
             this.DisableBadSources = new System.Windows.Forms.CheckBox();
             this.DownloadNewsAtStartup = new System.Windows.Forms.CheckBox();
+            this.AcceptChanges = new System.Windows.Forms.Button();
+            this.DiscardChanges = new System.Windows.Forms.Button();
             this.AppStartGB.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -49,6 +51,7 @@
             this.StartWithWindowsCheckBox.Tag = "1";
             this.StartWithWindowsCheckBox.Text = "Start with Windows";
             this.StartWithWindowsCheckBox.UseVisualStyleBackColor = true;
+            this.StartWithWindowsCheckBox.CheckedChanged += new System.EventHandler(this.StartWithWindowsToggle);
             // 
             // MinimizeToTrayCheckBox
             // 
@@ -60,6 +63,7 @@
             this.MinimizeToTrayCheckBox.Tag = "2";
             this.MinimizeToTrayCheckBox.Text = "Minimize to tray";
             this.MinimizeToTrayCheckBox.UseVisualStyleBackColor = true;
+            this.MinimizeToTrayCheckBox.CheckedChanged += new System.EventHandler(this.MinimizeToTrayToggle);
             // 
             // AppStartGB
             // 
@@ -110,34 +114,65 @@
             // DisableBadSources
             // 
             this.DisableBadSources.AutoSize = true;
-            this.DisableBadSources.Location = new System.Drawing.Point(34, 296);
+            this.DisableBadSources.Location = new System.Drawing.Point(306, 43);
             this.DisableBadSources.Name = "DisableBadSources";
             this.DisableBadSources.Size = new System.Drawing.Size(300, 21);
             this.DisableBadSources.TabIndex = 3;
             this.DisableBadSources.Tag = "4";
             this.DisableBadSources.Text = "Disable news sources with invalid RSS files";
             this.DisableBadSources.UseVisualStyleBackColor = true;
+            this.DisableBadSources.CheckedChanged += new System.EventHandler(this.DisableNewsSourcesToggle);
             // 
             // DownloadNewsAtStartup
             // 
             this.DownloadNewsAtStartup.AutoSize = true;
-            this.DownloadNewsAtStartup.Location = new System.Drawing.Point(34, 336);
+            this.DownloadNewsAtStartup.Location = new System.Drawing.Point(306, 83);
             this.DownloadNewsAtStartup.Name = "DownloadNewsAtStartup";
             this.DownloadNewsAtStartup.Size = new System.Drawing.Size(347, 21);
             this.DownloadNewsAtStartup.TabIndex = 4;
             this.DownloadNewsAtStartup.Tag = "5";
             this.DownloadNewsAtStartup.Text = "Download news automatically when program starts";
             this.DownloadNewsAtStartup.UseVisualStyleBackColor = true;
+            this.DownloadNewsAtStartup.CheckedChanged += new System.EventHandler(this.DownloadAtStartupToggle);
+            // 
+            // AcceptChanges
+            // 
+            this.AcceptChanges.Location = new System.Drawing.Point(240, 308);
+            this.AcceptChanges.Name = "AcceptChanges";
+            this.AcceptChanges.Size = new System.Drawing.Size(75, 23);
+            this.AcceptChanges.TabIndex = 5;
+            this.AcceptChanges.Text = "OK";
+            this.AcceptChanges.UseVisualStyleBackColor = true;
+            this.AcceptChanges.Click += new System.EventHandler(this.SaveChanges);
+            // 
+            // DiscardChanges
+            // 
+            this.DiscardChanges.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.DiscardChanges.Location = new System.Drawing.Point(370, 308);
+            this.DiscardChanges.Name = "DiscardChanges";
+            this.DiscardChanges.Size = new System.Drawing.Size(75, 23);
+            this.DiscardChanges.TabIndex = 6;
+            this.DiscardChanges.Text = "Cancel";
+            this.DiscardChanges.UseVisualStyleBackColor = true;
+            this.DiscardChanges.Click += new System.EventHandler(this.CloseWindow);
             // 
             // OptionsWindow
             // 
+            this.AcceptButton = this.AcceptChanges;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.CancelButton = this.DiscardChanges;
+            this.ClientSize = new System.Drawing.Size(658, 373);
+            this.ControlBox = false;
+            this.Controls.Add(this.DiscardChanges);
+            this.Controls.Add(this.AcceptChanges);
             this.Controls.Add(this.DownloadNewsAtStartup);
             this.Controls.Add(this.DisableBadSources);
             this.Controls.Add(this.AppStartGB);
             this.Controls.Add(this.MinimizeToTrayCheckBox);
             this.Controls.Add(this.StartWithWindowsCheckBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "OptionsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Options";
@@ -158,5 +193,7 @@
         private System.Windows.Forms.RadioButton StartNormal;
         private System.Windows.Forms.CheckBox DisableBadSources;
         private System.Windows.Forms.CheckBox DownloadNewsAtStartup;
+        private System.Windows.Forms.Button AcceptChanges;
+        private System.Windows.Forms.Button DiscardChanges;
     }
 }

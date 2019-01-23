@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ZanScore
 {
     public partial class OptionsWindow : Form
     {
-        OptionsHandling O = new OptionsHandling();
+        
 
         public OptionsWindow()
         {
@@ -22,11 +15,11 @@ namespace ZanScore
 
         private void ShowOptionsInOptionsWindow()
         {
-            StartWithWindowsCheckBox.Checked = (O.WindowsStartup == 1 ? true : false);
-            MinimizeToTrayCheckBox.Checked = (O.MinimizeToTray == 1 ? true : false);
-            DisableBadSources.Checked = (O.DisableInvalidNewsFiles == 1 ? true : false);
-            DownloadNewsAtStartup.Checked = (O.AutomaticNewsDownload == 1 ? true : false);
-            switch (O.StartupOptions)
+            StartWithWindowsCheckBox.Checked = (((Form1)Owner).OH.WindowsStartup == 1 ? true : false);
+            MinimizeToTrayCheckBox.Checked = (((Form1)Owner).OH.MinimizeToTray == 1 ? true : false);
+            DisableBadSources.Checked = (((Form1)Owner).OH.DisableInvalidNewsFiles == 1 ? true : false);
+            DownloadNewsAtStartup.Checked = (((Form1)Owner).OH.AutomaticNewsDownload == 1 ? true : false);
+            switch (((Form1)Owner).OH.StartupOptions)
             {
                 case 1:
                     {
@@ -49,19 +42,49 @@ namespace ZanScore
         private void Assign1ToVar(object sender, EventArgs e)
         {
             if (StartMinimized.Checked)
-                O.StartupOptions = 1;
+                ((Form1)Owner).OH.StartupOptions = 1;
         }
 
         private void Assign2ToVar(object sender, EventArgs e)
         {
             if (StartNormal.Checked)
-                O.StartupOptions = 2;
+                ((Form1)Owner).OH.StartupOptions = 2;
         }
 
         private void Assign3ToVar(object sender, EventArgs e)
         {
             if (StartMaximized.Checked)
-                O.StartupOptions = 3;
+                ((Form1)Owner).OH.StartupOptions = 3;
+        }
+
+        private void SaveChanges(object sender, EventArgs e)
+        {
+            ((Form1)Owner).OH.SaveOptionsToFile();
+        }
+
+        private void StartWithWindowsToggle(object sender, EventArgs e)
+        {
+            ((Form1)Owner).OH.WindowsStartup = (StartWithWindowsCheckBox.Checked ? 1 : 0);
+        }
+
+        private void MinimizeToTrayToggle(object sender, EventArgs e)
+        {
+            ((Form1)Owner).OH.MinimizeToTray = (MinimizeToTrayCheckBox.Checked ? 1 : 0);
+        }
+
+        private void DisableNewsSourcesToggle(object sender, EventArgs e)
+        {
+            ((Form1)Owner).OH.DisableInvalidNewsFiles = (DisableBadSources.Checked ? 1 : 0);
+        }
+
+        private void DownloadAtStartupToggle(object sender, EventArgs e)
+        {
+            ((Form1)Owner).OH.AutomaticNewsDownload = (DownloadNewsAtStartup.Checked ? 1 : 0);
+        }
+
+        private void CloseWindow(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

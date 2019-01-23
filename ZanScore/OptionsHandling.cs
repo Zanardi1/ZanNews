@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Windows.Forms;
 
 /*Clasa ce se ocpa de manipularea fisierului de optiuni si de punerea in aplicare a optiunilor citite.
  Proprietati:
@@ -27,11 +22,11 @@ Metode:
      6.Stabilirea unor optiuni prestabilite, in cazul in care nu exista fisierul de rezultate
      
 Formatul fisierului:
-     [proprietate,valoare]*/
+     proprietate=valoare*/
 
 namespace ZanScore
 {
-    class OptionsHandling
+    public class OptionsHandling
     {
         public int WindowsStartup;
         public int MinimizeToTray;
@@ -40,16 +35,15 @@ namespace ZanScore
         public int WindowWidth;
         public int WindowHeight;
         public int AutomaticNewsDownload;
-
-        List<KeyValuePair<string, int>> OptionsFileContent = new List<KeyValuePair<string, int>>();
+        private readonly int NumberOfOptions = 7; //retine numarul de optiuni. Daca mai apar sau dispar altele noi, acest numar se va modifica
+        private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "AutNewsDownl" };
+        private readonly int[] OptionValues = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
 
         //todo de scris o rutina care sa sa se asigure ca StartupOptions e 1, 2 sau 3
 
         public OptionsHandling() //constructor
         {
-            OptionsFileContent.Add(new KeyValuePair<string, int>("fxf", 5));
-            MessageBox.Show(OptionsFileContent[0].Key);
-            SaveOptionsToFile();
+            OpenOptionsFile();
         }
 
         public void OpenOptionsFile() //deschiderea fisierului de optiuni
@@ -72,14 +66,31 @@ namespace ZanScore
         public void SaveOptionsToFile() //salvarea optiunilor in fisier
         {
             List<string> WriteBuffer = new List<string>() { };
-            for (int i = 0; i < OptionsFileContent.Count; i++)
-                WriteBuffer.Add(OptionsFileContent[i].ToString());
+            OptionValues[0] = WindowsStartup;
+            OptionValues[1] = MinimizeToTray;
+            OptionValues[2] = StartupOptions;
+            OptionValues[3] = DisableInvalidNewsFiles;
+            OptionValues[4] = WindowWidth;
+            OptionValues[5] = WindowHeight;
+            OptionValues[6] = AutomaticNewsDownload;
+            for (int i = 0; i < NumberOfOptions; i++)
+                WriteBuffer.Add(OptionNames[i] + "=" + OptionValues[i]);
             File.WriteAllLines("Options.txt", WriteBuffer.ToArray());
         }
 
         public void ReadOptionsFromFile() //citeste optiunile din fisier
         {
-
+            string[] ReadBuffer = new string[] { };
+            ReadBuffer = File.ReadAllLines("Options.txt");
+            for (int i = 0; i < ReadBuffer.Length; i++)
+                ReadBuffer[i] = ReadBuffer[i].Trim();
+            WindowsStartup = int.Parse(ReadBuffer[0].Substring(ReadBuffer[0].IndexOf("=")+1));
+            MinimizeToTray = int.Parse(ReadBuffer[1].Substring(ReadBuffer[1].IndexOf("=") + 1));
+            StartupOptions = int.Parse(ReadBuffer[2].Substring(ReadBuffer[2].IndexOf("=") + 1));
+            DisableInvalidNewsFiles = int.Parse(ReadBuffer[3].Substring(ReadBuffer[3].IndexOf("=") + 1));
+            WindowWidth = int.Parse(ReadBuffer[4].Substring(ReadBuffer[4].IndexOf("=") + 1));
+            WindowHeight = int.Parse(ReadBuffer[5].Substring(ReadBuffer[5].IndexOf("=") + 1));
+            AutomaticNewsDownload = int.Parse(ReadBuffer[6].Substring(ReadBuffer[6].IndexOf("=") + 1));
         }
 
         public bool CheckOptionsFileContent()

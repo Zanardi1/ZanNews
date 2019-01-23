@@ -226,6 +226,7 @@
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ZanNews";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Bye);
             this.ResizeBegin += new System.EventHandler(this.BeginResize);
             this.ResizeEnd += new System.EventHandler(this.EndResize);
             this.Resize += new System.EventHandler(this.ResizeEngine);

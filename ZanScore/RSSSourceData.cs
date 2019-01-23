@@ -17,7 +17,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
  */
 
 {
-    class RSSSourceData
+    public class RSSSourceData
     //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
     {
         public List<string> NewsChannelTitle = new List<string>(); //Titlurile canalelor de stiri
