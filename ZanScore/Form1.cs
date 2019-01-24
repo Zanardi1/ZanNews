@@ -8,7 +8,7 @@ namespace ZanScore
     {
         public RSSSourceData NewsSourceData = new RSSSourceData();
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
-        public OptionsHandling OH = new OptionsHandling(); //instanta de clasa pentru optiunile programului
+        public OptionsHandling OH = new OptionsHandling(); 
         static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
         static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
         private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu
@@ -164,7 +164,7 @@ namespace ZanScore
         private void ShowOptionsWindow(object sender, EventArgs e)
         {
             OptionsWindow O = new OptionsWindow();
-            O.ShowDialog();
+            O.ShowDialog(owner: this);
         }
 
         private void ShowAboutBoxWindow(object sender, EventArgs e)

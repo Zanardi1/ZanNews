@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace ZanScore
 {
     public partial class OptionsWindow : Form
     {
-        
+        RegistryKey Key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true); //retine registrul care se ocupa de rularea odata cu Windows-ul a aplicatiei
 
         public OptionsWindow()
         {
@@ -57,9 +58,28 @@ namespace ZanScore
                 ((Form1)Owner).OH.StartupOptions = 3;
         }
 
+        private void EnableWindowsStartup()
+        {
+            Key.SetValue("ZanNews", Application.ExecutablePath);
+        }
+
+        private void DisableWindowsStartup()
+        {
+            Key.DeleteValue("ZanNews", false);
+        }
+
+        private void SwitchWindowsStartupMode()
+        {
+            if (((Form1)Owner).OH.WindowsStartup == 1)
+                EnableWindowsStartup();
+            else
+                DisableWindowsStartup();
+        }
+
         private void SaveChanges(object sender, EventArgs e)
         {
             ((Form1)Owner).OH.SaveOptionsToFile();
+            SwitchWindowsStartupMode();
         }
 
         private void StartWithWindowsToggle(object sender, EventArgs e)
