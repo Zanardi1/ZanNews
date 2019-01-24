@@ -76,7 +76,8 @@ namespace ZanScore
             {
                 if (NewsSourcesCollection.IsSourceSelected[i])
                 {
-                    NewsSourceData.FillRSSData(URLList[i]);
+                    if ((!NewsSourceData.FillRSSData(URLList[i])) && (OH.DisableInvalidNewsFiles==1))
+                        NewsSourcesCollection.DisableNewsSource(i);
                     DownloadProgressBar.Value++;
                 }
             }

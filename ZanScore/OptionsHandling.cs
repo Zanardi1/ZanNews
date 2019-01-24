@@ -7,19 +7,19 @@ using System.IO;
      1. WindowsStartup. 1 daca aplicatia porneste odata cu Windows, 0 altfel
      2. MinimizeToTray. 1 daca aplicatia se minimizeaza in SysTray, 0 altfel
      3. StartupOptions. 1 daca aplicatia va porni cu fereastra minimizata, 2 daca va porni cu fereastra la dimensiunile implicite, 3 daca va porni cu fereastra maximizata
-     4. DisableInvalidNewsFiles. 1 daca dezactiveaza sursele de stiri care au fisiere RSS invalide, 0 altfel
+     4. DisableInvalidNewsFiles. 1 daca dezactiveaza sursele de stiri care au fisiere RSS invalide, 0 altfel --gata
      5. WindowWidth. Retine latimea ferestrei atunci cand programul a fost inchis -- gata
      6. WindowHeight. Acelasi lucru, dar pentru inaltimea ferestrei -- gata
      7. AutomaticNewsDownload. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul -- gata
      
 Metode:
      
-     1.Deschiderea fisierului de optiuni
-     2.Verificarea existentei lui si, daca el nu exista, crearea unuia nou, cu optiuni implicite
-     3.Salvarea optiunilor in fisier
-     4.Citirea optiunilor din fisier (atribuirea valorilor citite din fisier catre proprietatile clasei 
-     5.Verificarea integritatii continutului fisierului de optiuni
-     6.Stabilirea unor optiuni prestabilite, in cazul in care nu exista fisierul de rezultate
+     1. Deschiderea fisierului de optiuni
+     2. Verificarea existentei lui si, daca el nu exista, crearea unuia nou, cu optiuni implicite
+     3. Salvarea optiunilor in fisier
+     4. Citirea optiunilor din fisier (atribuirea valorilor citite din fisier catre proprietatile clasei 
+     5. Verificarea integritatii continutului fisierului de optiuni
+     6. Stabilirea unor optiuni prestabilite, in cazul in care nu exista fisierul de rezultate
      
 Formatul fisierului:
      proprietate=valoare*/
@@ -85,7 +85,7 @@ namespace ZanScore
             ReadBuffer = File.ReadAllLines("Options.txt");
             for (int i = 0; i < ReadBuffer.Length; i++)
                 ReadBuffer[i] = ReadBuffer[i].Trim();
-            WindowsStartup = int.Parse(ReadBuffer[0].Substring(ReadBuffer[0].IndexOf("=")+1));
+            WindowsStartup = int.Parse(ReadBuffer[0].Substring(ReadBuffer[0].IndexOf("=") + 1));
             MinimizeToTray = int.Parse(ReadBuffer[1].Substring(ReadBuffer[1].IndexOf("=") + 1));
             StartupOptions = int.Parse(ReadBuffer[2].Substring(ReadBuffer[2].IndexOf("=") + 1));
             DisableInvalidNewsFiles = int.Parse(ReadBuffer[3].Substring(ReadBuffer[3].IndexOf("=") + 1));
