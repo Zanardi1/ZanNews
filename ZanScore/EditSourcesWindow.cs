@@ -17,7 +17,6 @@ namespace ZanScore
         private void DeletingNewsEngine()
         {
             List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
-            ((Form1)Owner).OH.WindowsStartup = 1;
             for (int i = 0; i < AllTheSources.RowCount; i++)
                 if (AllTheSources.Rows[i].Selected)
                     Positions.Add(i);
