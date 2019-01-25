@@ -176,6 +176,7 @@
             this.Name = "OptionsWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Options";
+            this.Load += new System.EventHandler(this.ShowOptions);
             this.AppStartGB.ResumeLayout(false);
             this.AppStartGB.PerformLayout();
             this.ResumeLayout(false);

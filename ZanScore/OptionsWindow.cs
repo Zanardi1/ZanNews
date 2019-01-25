@@ -11,7 +11,6 @@ namespace ZanScore
         public OptionsWindow()
         {
             InitializeComponent();
-            ShowOptionsInOptionsWindow();
         }
 
         private void ShowOptionsInOptionsWindow()
@@ -80,6 +79,7 @@ namespace ZanScore
         {
             ((Form1)Owner).OH.SaveOptionsToFile();
             SwitchWindowsStartupMode();
+            Close();
         }
 
         private void StartWithWindowsToggle(object sender, EventArgs e)
@@ -105,6 +105,11 @@ namespace ZanScore
         private void CloseWindow(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void ShowOptions(object sender, EventArgs e)
+        {
+            ShowOptionsInOptionsWindow();
         }
     }
 }
