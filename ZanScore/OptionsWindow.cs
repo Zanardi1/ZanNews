@@ -6,8 +6,6 @@ namespace ZanScore
 {
     public partial class OptionsWindow : Form
     {
-        RegistryKey Key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true); //retine registrul care se ocupa de rularea odata cu Windows-ul a aplicatiei
-
         public OptionsWindow()
         {
             InitializeComponent();
@@ -57,28 +55,47 @@ namespace ZanScore
                 ((Form1)Owner).OH.StartupOptions = 3;
         }
 
-        private void EnableWindowsStartup()
+        private void SetStartup(bool enable)
+        //Instructiunile pentru pornirea sau nepornirea aplicatiei odata cu Windows
+        //todo bug:procedura scrie in registrul corect, conform teoriei, numai ca aplicatia nu porneste.
         {
-            Key.SetValue("ZanNews", Application.ExecutablePath);
+            string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
+
+            //RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(runKey);
+            RegistryKey startupKey = Registry.LocalMachine.OpenSubKey(runKey);
+
+            if (enable)
+            {
+                if (startupKey.GetValue("ZanNews") == null)
+                {
+                    startupKey.Close();
+                    //startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
+                    startupKey = Registry.LocalMachine.OpenSubKey(runKey, true);
+                    startupKey.SetValue("ZanNews","\""+Application.ExecutablePath+"\"");
+                    startupKey.Close();
+                }
+            }
+            else
+            {
+                startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
+                startupKey.DeleteValue("ZanNews", false);
+                startupKey.Close();
+            }
         }
 
-        private void DisableWindowsStartup()
-        {
-            Key.DeleteValue("ZanNews", false);
-        }
-
-        private void SwitchWindowsStartupMode()
+        private void ChooseStartup()
+        //Alege daca sa porneasca sau nu aplicatia odata cu Windows
         {
             if (((Form1)Owner).OH.WindowsStartup == 1)
-                EnableWindowsStartup();
+                SetStartup(true);
             else
-                DisableWindowsStartup();
+                SetStartup(false);
         }
 
         private void SaveChanges(object sender, EventArgs e)
         {
             ((Form1)Owner).OH.SaveOptionsToFile();
-            SwitchWindowsStartupMode();
+            ChooseStartup();
             Close();
         }
 

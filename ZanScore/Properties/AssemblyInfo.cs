@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ZanScore")]
+[assembly: AssemblyTitle("ZanNews")]
 [assembly: AssemblyDescription("A simple news aggregator. In the future, the best in the world.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Zanardi Software")]
-[assembly: AssemblyProduct("ZanScore")]
+[assembly: AssemblyProduct("ZanNews")]
 [assembly: AssemblyCopyright("Copyright ©  2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
