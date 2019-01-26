@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.NewsWebPage = new System.Windows.Forms.WebBrowser();
             this.NewsDetailsGrid = new System.Windows.Forms.DataGridView();
             this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -45,6 +46,7 @@
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.MinimizeToSystray = new System.Windows.Forms.NotifyIcon(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -213,6 +215,14 @@
             this.AboutProgramOption.Click += new System.EventHandler(this.ShowAboutBoxWindow);
             this.AboutProgramOption.MouseEnter += new System.EventHandler(this.DisplayAboutBoxHelpMessage);
             // 
+            // MinimizeToSystray
+            // 
+            this.MinimizeToSystray.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.MinimizeToSystray.BalloonTipText = "Application will run in the background";
+            this.MinimizeToSystray.BalloonTipTitle = "Application Minimized";
+            this.MinimizeToSystray.Text = "Notification";
+            this.MinimizeToSystray.Visible = true;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -259,6 +269,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsChannel;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
+        private System.Windows.Forms.NotifyIcon MinimizeToSystray;
     }
 }
 
