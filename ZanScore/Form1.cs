@@ -8,7 +8,7 @@ namespace ZanScore
     {
         public RSSSourceData NewsSourceData = new RSSSourceData();
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
-        public OptionsHandling OH = new OptionsHandling(); 
+        public OptionsHandling OH = new OptionsHandling();
         static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
         static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
         private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu
@@ -31,6 +31,31 @@ namespace ZanScore
             ApplyResize();
         }
 
+        private void SetWindowMaximizationState()
+        //Stabileste cum va fi fereastra la pornirea programului: minimizata, normala sau maximizata
+        {
+            switch (OH.StartupOptions)
+            {
+                case 1:
+                    {
+                        WindowState = FormWindowState.Minimized;
+                        break;
+                    }
+
+                case 2:
+                    {
+                        WindowState = FormWindowState.Normal;
+                        break;
+                    }
+
+                case 3:
+                    {
+                        WindowState = FormWindowState.Maximized;
+                        break;
+                    }
+            }
+        }
+
         private void SetInitialValues()
         //Stabileste valorile initiale pentru diferite caracteristici ale ferestrei si ale componentelor ei
         {
@@ -38,6 +63,7 @@ namespace ZanScore
             StatusLabel.Text = "Welcome";
             SetColumnsWidth();
             LoadWindowSizes();
+            SetWindowMaximizationState();
         }
 
         private void AutomaticalNewsDownloadEngine()
@@ -76,7 +102,7 @@ namespace ZanScore
             {
                 if (NewsSourcesCollection.IsSourceSelected[i])
                 {
-                    if ((!NewsSourceData.FillRSSData(URLList[i])) && (OH.DisableInvalidNewsFiles==1))
+                    if ((!NewsSourceData.FillRSSData(URLList[i])) && (OH.DisableInvalidNewsFiles == 1))
                         NewsSourcesCollection.DisableNewsSource(i);
                     DownloadProgressBar.Value++;
                 }
