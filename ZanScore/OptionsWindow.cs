@@ -61,16 +61,16 @@ namespace ZanScore
         {
             string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
-            //RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(runKey);
-            RegistryKey startupKey = Registry.LocalMachine.OpenSubKey(runKey);
+            RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(runKey);
+            //RegistryKey startupKey = Registry.LocalMachine.OpenSubKey(runKey);
 
             if (enable)
             {
                 if (startupKey.GetValue("ZanNews") == null)
                 {
                     startupKey.Close();
-                    //startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
-                    startupKey = Registry.LocalMachine.OpenSubKey(runKey, true);
+                    startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
+                    //startupKey = Registry.LocalMachine.OpenSubKey(runKey, true);
                     startupKey.SetValue("ZanNews","\""+Application.ExecutablePath+"\"");
                     startupKey.Close();
                 }
