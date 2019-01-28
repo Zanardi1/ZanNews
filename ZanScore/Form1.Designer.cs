@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.NewsWebPage = new System.Windows.Forms.WebBrowser();
             this.NewsDetailsGrid = new System.Windows.Forms.DataGridView();
             this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -220,8 +221,9 @@
             this.MinimizeToSystray.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
             this.MinimizeToSystray.BalloonTipText = "Application will run in the background";
             this.MinimizeToSystray.BalloonTipTitle = "Application Minimized";
+            this.MinimizeToSystray.Icon = ((System.Drawing.Icon)(resources.GetObject("MinimizeToSystray.Icon")));
             this.MinimizeToSystray.Text = "Notification";
-            this.MinimizeToSystray.Visible = true;
+            this.MinimizeToSystray.Click += new System.EventHandler(this.RestoreApplication);
             // 
             // Form1
             // 

@@ -11,7 +11,7 @@ namespace ZanScore
         public OptionsHandling OH = new OptionsHandling();
         static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
         static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
-        private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu
+        private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu (atunci e true)
         private static int InitialBrowserWidth; //retine latimea initiala a browserului
 
         private void SetColumnsWidth()
@@ -284,10 +284,22 @@ namespace ZanScore
             }
         }
 
+        private void MinimizeToSystrayEngine()
+        //Instructiunile pentru minimizarea pe Systray
+        {
+            if ((OH.MinimizeToTray == 1) && (this.WindowState == FormWindowState.Minimized))
+            {
+                Hide();
+                MinimizeToSystray.Visible = true;
+                MinimizeToSystray.ShowBalloonTip(1000);
+            }
+        }
+
         private void ResizeEngine(object sender, EventArgs e)
         //Rutina calculeaza valorile latimilor si ale inaltimilor cu care controalele vor fi marite sau micsorate
         {
             ResizeControls();
+            MinimizeToSystrayEngine();
         }
 
         private void Bye(object sender, FormClosedEventArgs e)
@@ -302,6 +314,14 @@ namespace ZanScore
         //Questii efectuate atunci cand fereastra este afisata
         {
             AutomaticalNewsDownloadEngine();
+        }
+
+        private void RestoreApplication(object sender, EventArgs e)
+        //Aduce aplicatia in prim-plan daca utilizatorul a facut click pe ea
+        {
+            Show();
+            this.WindowState = FormWindowState.Normal;
+            MinimizeToSystray.Visible = false;
         }
 
         private void StoreInitialSizes()

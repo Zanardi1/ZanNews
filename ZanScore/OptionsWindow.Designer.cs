@@ -58,10 +58,10 @@
             this.MinimizeToTrayCheckBox.AutoSize = true;
             this.MinimizeToTrayCheckBox.Location = new System.Drawing.Point(34, 83);
             this.MinimizeToTrayCheckBox.Name = "MinimizeToTrayCheckBox";
-            this.MinimizeToTrayCheckBox.Size = new System.Drawing.Size(128, 21);
+            this.MinimizeToTrayCheckBox.Size = new System.Drawing.Size(208, 21);
             this.MinimizeToTrayCheckBox.TabIndex = 1;
             this.MinimizeToTrayCheckBox.Tag = "2";
-            this.MinimizeToTrayCheckBox.Text = "Minimize to tray";
+            this.MinimizeToTrayCheckBox.Text = "Minimize to Notification Area";
             this.MinimizeToTrayCheckBox.UseVisualStyleBackColor = true;
             this.MinimizeToTrayCheckBox.CheckedChanged += new System.EventHandler(this.MinimizeToTrayToggle);
             // 
