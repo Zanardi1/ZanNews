@@ -2,6 +2,8 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 
+//todo pe viitor sa incep sa tratez si exceptiile si cazurile de eroare. Pana acum m-am ocupat de cazurile ideale.
+
 namespace ZanScore
 {
     public partial class Form1 : Form
@@ -69,7 +71,7 @@ namespace ZanScore
         private void AutomaticalNewsDownloadEngine()
         //Se ocupa de descarcarea automata a stirilor, daca a fost stabilit acest lucru
         {
-            if (OH.AutomaticNewsDownload == 1)
+            if (OH.NewsDownloadAtStartup == 1)
             {
                 DownloadAllNewsProcess();
             }

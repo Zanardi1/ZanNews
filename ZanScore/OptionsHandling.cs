@@ -10,7 +10,10 @@ using System.IO;
      4. DisableInvalidNewsFiles. 1 daca dezactiveaza sursele de stiri care au fisiere RSS invalide, 0 altfel -- gata
      5. WindowWidth. Retine latimea ferestrei atunci cand programul a fost inchis -- gata
      6. WindowHeight. Acelasi lucru, dar pentru inaltimea ferestrei -- gata
-     7. AutomaticNewsDownload. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul -- gata
+     7. NewsDownloadAtStartup. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul -- gata
+     8. NewsDownloadAtInterval. 1 daca aplicatia descarca automat stirile la un anumit interval, 0 altfel
+     9. IntervalNumber. Valoarea numerica a intervalului dupa care aplicatia descarca automat stirile. De exemplu, daca e programata sa descarce dupa 15 minute, aceasta variabila are valoarea 15.
+    10. IntervalTime. UM a intervalului de timp dupa care aplicatia descarca automat stirile. Are valoarea 0 daca UM e secunda, 1 daca UM e minutul si 2 daca UM este ora.
      
 Metode:
      
@@ -34,13 +37,17 @@ namespace ZanScore
         public int DisableInvalidNewsFiles;
         public int WindowWidth;
         public int WindowHeight;
-        public int AutomaticNewsDownload;
-        private readonly int NumberOfOptions = 7; //retine numarul de optiuni. Daca mai apar sau dispar altele noi, acest numar se va modifica
-        private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "AutNewsDownl" };
-        private readonly int[] OptionValues = new int[7] { 0, 0, 0, 0, 0, 0, 0 };
+        public int NewsDownloadAtStartup;
+        public int NewsDownloadAtInterval;
+        public int IntervalNumber;
+        public int IntervalTime;
+        private readonly int NumberOfOptions = 10; //retine numarul de optiuni. Daca mai apar sau dispar altele noi, acest numar se va modifica
+        private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "NewsDownlAtStartup", "NewsDownlAtInterval", "IntervNumber", "IntervTime" };
+        private readonly int[] OptionValues = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        //todo de scris o rutina care sa sa se asigure ca StartupOptions e 1, 2 sau 3
-        //todo pe viitor sa-i implementez o optiune de rulare in fundal si, daca e rulat astfel, sa descarce automat stirile o data la un interval ales de catre utilizator
+        //todo pe viitor sa-i implementez o optiune descarcare automata a stirilor o data la un interval ales de catre utilizator
+        //todo pe viitor sa implementez o biblioteca de surse de stiri
+
 
         public OptionsHandling() //constructor
         {
@@ -73,7 +80,10 @@ namespace ZanScore
             OptionValues[3] = DisableInvalidNewsFiles;
             OptionValues[4] = WindowWidth;
             OptionValues[5] = WindowHeight;
-            OptionValues[6] = AutomaticNewsDownload;
+            OptionValues[6] = NewsDownloadAtStartup;
+            OptionValues[7] = NewsDownloadAtInterval;
+            OptionValues[8] = IntervalNumber;
+            OptionValues[9] = IntervalTime;
             for (int i = 0; i < NumberOfOptions; i++)
                 WriteBuffer.Add(OptionNames[i] + "=" + OptionValues[i]);
             File.WriteAllLines("Options.txt", WriteBuffer.ToArray());
@@ -91,7 +101,10 @@ namespace ZanScore
             DisableInvalidNewsFiles = int.Parse(ReadBuffer[3].Substring(ReadBuffer[3].IndexOf("=") + 1));
             WindowWidth = int.Parse(ReadBuffer[4].Substring(ReadBuffer[4].IndexOf("=") + 1));
             WindowHeight = int.Parse(ReadBuffer[5].Substring(ReadBuffer[5].IndexOf("=") + 1));
-            AutomaticNewsDownload = int.Parse(ReadBuffer[6].Substring(ReadBuffer[6].IndexOf("=") + 1));
+            NewsDownloadAtStartup = int.Parse(ReadBuffer[6].Substring(ReadBuffer[6].IndexOf("=") + 1));
+            NewsDownloadAtInterval = int.Parse(ReadBuffer[7].Substring(ReadBuffer[7].IndexOf("=") + 1));
+            IntervalNumber = int.Parse(ReadBuffer[8].Substring(ReadBuffer[8].IndexOf("=") + 1));
+            IntervalTime = int.Parse(ReadBuffer[9].Substring(ReadBuffer[9].IndexOf("=") + 1));
         }
 
         public bool CheckOptionsFileContent()
@@ -107,7 +120,10 @@ namespace ZanScore
             DisableInvalidNewsFiles = 0;
             WindowWidth = 1200;
             WindowHeight = 563;
-            AutomaticNewsDownload = 1;
+            NewsDownloadAtStartup = 1;
+            NewsDownloadAtInterval = 1;
+            IntervalNumber = 1;
+            IntervalTime = 1;
         }
     }
 }

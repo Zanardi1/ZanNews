@@ -16,7 +16,10 @@ namespace ZanScore
             StartWithWindowsCheckBox.Checked = (((Form1)Owner).OH.WindowsStartup == 1 ? true : false);
             MinimizeToTrayCheckBox.Checked = (((Form1)Owner).OH.MinimizeToTray == 1 ? true : false);
             DisableBadSources.Checked = (((Form1)Owner).OH.DisableInvalidNewsFiles == 1 ? true : false);
-            DownloadNewsAtStartup.Checked = (((Form1)Owner).OH.AutomaticNewsDownload == 1 ? true : false);
+            DownloadNewsAtStartup.Checked = (((Form1)Owner).OH.NewsDownloadAtStartup == 1 ? true : false);
+            AutomaticalDownload.Checked = (((Form1)Owner).OH.NewsDownloadAtInterval == 1 ? true : false);
+            NumericValue.Value = ((Form1)Owner).OH.IntervalNumber;
+            TimeInterval.SelectedIndex = ((Form1)Owner).OH.IntervalTime;
             switch (((Form1)Owner).OH.StartupOptions)
             {
                 case 1:
@@ -57,7 +60,7 @@ namespace ZanScore
 
         private void SetStartup(bool enable)
         //Instructiunile pentru pornirea sau nepornirea aplicatiei odata cu Windows
-        //todo bug:procedura scrie in registrul corect, conform teoriei, numai ca aplicatia nu porneste.
+        //bug procedura scrie in registrul corect, conform teoriei, numai ca aplicatia nu porneste.
         {
             string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
@@ -71,7 +74,7 @@ namespace ZanScore
                     startupKey.Close();
                     startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
                     //startupKey = Registry.LocalMachine.OpenSubKey(runKey, true);
-                    startupKey.SetValue("ZanNews","\""+Application.ExecutablePath+"\"");
+                    startupKey.SetValue("ZanNews", "\"" + Application.ExecutablePath + "\"");
                     startupKey.Close();
                 }
             }
@@ -116,7 +119,7 @@ namespace ZanScore
 
         private void DownloadAtStartupToggle(object sender, EventArgs e)
         {
-            ((Form1)Owner).OH.AutomaticNewsDownload = (DownloadNewsAtStartup.Checked ? 1 : 0);
+            ((Form1)Owner).OH.NewsDownloadAtStartup = (DownloadNewsAtStartup.Checked ? 1 : 0);
         }
 
         private void CloseWindow(object sender, EventArgs e)
@@ -127,6 +130,61 @@ namespace ZanScore
         private void ShowOptions(object sender, EventArgs e)
         {
             ShowOptionsInOptionsWindow();
+        }
+
+        private void ToggleIntervalEnabling(object sender, EventArgs e)
+        //Activeaza sau dezactiveaza controlalele pentru stabilirea duratei de asteptate intre descarcari
+        {
+            DownlInterval.Enabled = AutomaticalDownload.Checked;
+            NumericValue.Enabled = AutomaticalDownload.Checked;
+            TimeInterval.Enabled = AutomaticalDownload.Checked;
+            ((Form1)Owner).OH.NewsDownloadAtInterval = (AutomaticalDownload.Checked ? 1 : 0);
+        }
+
+        private void AdjustSuperiorValues()
+        //Modifica valoarea superioara a componentei de selectie a valorii numerice (60 in cazul secundelor si minutelor si 23 in cazul orelor
+        {
+            switch (TimeInterval.SelectedIndex)
+            {
+                case 0:
+                    {
+                        NumericValue.Maximum = 60;
+                        ((Form1)Owner).OH.IntervalTime = 0;
+                        break;
+                    }
+                case 1:
+                    {
+                        NumericValue.Maximum = 60;
+                        ((Form1)Owner).OH.IntervalTime = 1;
+                        break;
+                    }
+                case 2:
+                    {
+                        NumericValue.Maximum = 23;
+                        ((Form1)Owner).OH.IntervalTime = 2;
+                        break;
+                    }
+
+                default:
+                    break;
+            }
+        }
+
+        private void UnitSelectionEngine(object sender, EventArgs e)
+        //procesarile legate de selectarea unitatii de masura
+        {
+            AdjustSuperiorValues();
+        }
+
+        private void SetValueInOptionsStructure()
+        {
+            ((Form1)Owner).OH.IntervalNumber = (int)NumericValue.Value;
+        }
+
+        private void AdjustingValueEngine(object sender, EventArgs e)
+        //Seteaza valoarea numerica in structura optiunilor
+        {
+            SetValueInOptionsStructure();
         }
     }
 }
