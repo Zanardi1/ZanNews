@@ -58,6 +58,46 @@ namespace ZanScore
             }
         }
 
+        private int ComputeTimeInterval()
+        //Calculeaza intervalul de timp, in ms, care va fi transmis ca parametru Timerului
+        {
+            int Multiplier = 1;
+
+            switch (OH.IntervalTime)
+            {
+                case 0:
+                    {
+                        Multiplier = 1;
+                        break;
+                    }
+                case 1:
+                    {
+                        Multiplier = 60;
+                        break;
+                    }
+                case 2:
+                    {
+                        Multiplier = 3600;
+                        break;
+                    }
+            }
+            return Multiplier * OH.IntervalNumber * 1000;
+        }
+
+        public void SetTimerEngine()
+        //Actiunile necesare pornirii sau opririi cronometrului si, daca acesta e pornit, setarii cronometrului pentru descarcarea stirilor
+        {
+            if (OH.NewsDownloadAtInterval == 1)
+            {
+                DownloadNewsTimer.Interval = ComputeTimeInterval();
+                DownloadNewsTimer.Enabled = true;
+            }
+            else
+            {
+                DownloadNewsTimer.Enabled = false;
+            }
+        }
+
         private void SetInitialValues()
         //Stabileste valorile initiale pentru diferite caracteristici ale ferestrei si ale componentelor ei
         {
@@ -66,6 +106,7 @@ namespace ZanScore
             SetColumnsWidth();
             LoadWindowSizes();
             SetWindowMaximizationState();
+            SetTimerEngine();
         }
 
         private void AutomaticalNewsDownloadEngine()
