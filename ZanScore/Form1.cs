@@ -326,6 +326,12 @@ namespace ZanScore
             MinimizeToSystray.Visible = false;
         }
 
+        private void AutomaticalDownloadEngine(object sender, EventArgs e)
+        //Se ocupa de actiunile necesare descarcarii automate a stirilor
+        {
+            DownloadAllNewsProcess();
+        }
+
         private void StoreInitialSizes()
         {
             InitialHeight = Height;

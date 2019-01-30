@@ -95,10 +95,51 @@ namespace ZanScore
                 SetStartup(false);
         }
 
+        private int ComputeTimeInterval()
+        //Calculeaza intervalul de timp, in ms, care va fi transmis ca parametru Timerului
+        {
+            int Multiplier = 1;
+
+            switch (((Form1)Owner).OH.IntervalTime)
+            {
+                case 0:
+                    {
+                        Multiplier = 1;
+                        break;
+                    }
+                case 1:
+                    {
+                        Multiplier = 60;
+                        break;
+                    }
+                case 2:
+                    {
+                        Multiplier = 3600;
+                        break;
+                    }
+            }
+            return Multiplier * ((Form1)Owner).OH.IntervalNumber * 1000;
+        }
+
+        private void SetTimerEngine()
+        //Actiunile necesare pornirii sau opririi cronometrului si, daca acesta e pornit, setarii cronometrului pentru descarcarea stirilor
+        {
+            if (((Form1)Owner).OH.NewsDownloadAtInterval==1)
+            {
+                ((Form1)Owner).DownloadNewsTimer.Interval = ComputeTimeInterval();
+                ((Form1)Owner).DownloadNewsTimer.Enabled = true;
+            }
+            else
+            {
+                ((Form1)Owner).DownloadNewsTimer.Enabled = false;
+            }
+        }
+
         private void SaveChanges(object sender, EventArgs e)
         {
             ((Form1)Owner).OH.SaveOptionsToFile();
             ChooseStartup();
+            SetTimerEngine();
             Close();
         }
 

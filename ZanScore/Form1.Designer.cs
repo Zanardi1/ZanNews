@@ -48,6 +48,7 @@
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
             this.MinimizeToSystray = new System.Windows.Forms.NotifyIcon(this.components);
+            this.DownloadNewsTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -225,6 +226,10 @@
             this.MinimizeToSystray.Text = "Notification";
             this.MinimizeToSystray.Click += new System.EventHandler(this.RestoreApplication);
             // 
+            // DownloadNewsTimer
+            // 
+            this.DownloadNewsTimer.Tick += new System.EventHandler(this.AutomaticalDownloadEngine);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -272,6 +277,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
         private System.Windows.Forms.NotifyIcon MinimizeToSystray;
+        public System.Windows.Forms.Timer DownloadNewsTimer;
     }
 }
 
