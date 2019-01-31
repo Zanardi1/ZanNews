@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 //todo pe viitor sa incep sa tratez si exceptiile si cazurile de eroare. Pana acum m-am ocupat de cazurile ideale.
+//todo pe viitor sa implementez o biblioteca de surse de stiri
 
 namespace ZanScore
 {
@@ -371,6 +372,11 @@ namespace ZanScore
         //Se ocupa de actiunile necesare descarcarii automate a stirilor
         {
             DownloadAllNewsProcess();
+        }
+
+        private void ShowNewsLibraryWindow(object sender, EventArgs e)
+        {
+            
         }
 
         private void StoreInitialSizes()

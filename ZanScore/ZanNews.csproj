@@ -86,6 +86,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewsLibrary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewsLibrary.Designer.cs">
+      <DependentUpon>NewsLibrary.cs</DependentUpon>
+    </Compile>
     <Compile Include="OptionsHandling.cs" />
     <Compile Include="OptionsWindow.cs">
       <SubType>Form</SubType>

@@ -45,7 +45,7 @@ namespace ZanScore
         private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "NewsDownlAtStartup", "NewsDownlAtInterval", "IntervNumber", "IntervTime" };
         private readonly int[] OptionValues = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        //todo pe viitor sa implementez o biblioteca de surse de stiri
+        
         
         public OptionsHandling() //constructor
         {
