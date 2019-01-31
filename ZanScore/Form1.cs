@@ -376,7 +376,8 @@ namespace ZanScore
 
         private void ShowNewsLibraryWindow(object sender, EventArgs e)
         {
-            
+            NewsLibrary N = new NewsLibrary();
+            N.ShowDialog();
         }
 
         private void StoreInitialSizes()

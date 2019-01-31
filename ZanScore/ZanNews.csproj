@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{9A710FBE-4049-4639-8FA1-A0E522618112}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>ZanNews</RootNamespace>
-    <AssemblyName>ZanNews</AssemblyName>
+    <RootNamespace>ZanScore</RootNamespace>
+    <AssemblyName>ZanScore</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -120,6 +120,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewsLibrary.resx">
+      <DependentUpon>NewsLibrary.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="OptionsWindow.resx">
       <DependentUpon>OptionsWindow.cs</DependentUpon>

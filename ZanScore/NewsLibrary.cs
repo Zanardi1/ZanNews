@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ZanNews
+namespace ZanScore
 {
     public partial class NewsLibrary : Form
     {
