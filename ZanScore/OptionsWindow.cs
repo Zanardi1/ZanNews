@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace ZanScore
 {
