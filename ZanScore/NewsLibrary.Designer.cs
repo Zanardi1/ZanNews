@@ -71,7 +71,6 @@
             "Lifestyle",
             "Music",
             "Science",
-            "Regional News",
             "Technology",
             "Politics",
             "Entertainment",
