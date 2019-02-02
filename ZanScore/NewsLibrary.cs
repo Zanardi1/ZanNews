@@ -31,20 +31,22 @@ namespace ZanScore
         //Procedura citeste din biblioteca si umple cele trei liste
         {
             string[] ReadBuffer = new string[] { };
-            string[] BufferLine = new string[] { };
             ReadBuffer = File.ReadAllLines("Library.txt");
-            int i = 0;
-            while (i < ReadBuffer.Length)
+            int i = 0, found = 0, j = 0;
+            for (i = 0; i < ReadBuffer.Length; i += 3)
             {
-                BufferLine = ReadBuffer[i].Split(separator: new char[] { ':' });
-                NewsSourcesList.Add(BufferLine[1]);
-                i++;
-                BufferLine = ReadBuffer[i].Split(separator: new char[] { ':' });
-                NewsCategoriesList.Add(BufferLine[1]);
-                i++;
-                BufferLine = ReadBuffer[i].Split(separator: new char[] { ':' });
-                NewsSourcesRSSList.Add(BufferLine[1]);
-                i++;
+                NewsSourcesList.Add(ReadBuffer[i]);
+                found = ReadBuffer[i].IndexOf(":");
+                NewsSourcesList[j] = NewsSourcesList[j].Substring(found + 1);
+
+                NewsCategoriesList.Add(ReadBuffer[i + 1]);
+                found = ReadBuffer[i + 1].IndexOf(":");
+                NewsCategoriesList[j] = NewsCategoriesList[j].Substring(found + 1);
+
+                NewsSourcesRSSList.Add(ReadBuffer[i + 2]);
+                found = ReadBuffer[i + 2].IndexOf(":");
+                NewsSourcesRSSList[j] = NewsSourcesRSSList[j].Substring(found + 1);
+                j++;
             }
         }
 
@@ -61,7 +63,78 @@ namespace ZanScore
          8 - Entertainment;
          9 - Business;*/
         {
-
+            int LowerBound = 0, UpperBound = 0;
+            switch (Category)
+            {
+                case 0:
+                    {
+                        LowerBound = 0;
+                        UpperBound = 26;
+                        break;
+                    }
+                case 1:
+                    {
+                        LowerBound = 27;
+                        UpperBound = 43;
+                        break;
+                    }
+                case 2:
+                    {
+                        LowerBound = 44;
+                        UpperBound = 52;
+                        break;
+                    }
+                case 3:
+                    {
+                        LowerBound = 53;
+                        UpperBound = 94;
+                        break;
+                    }
+                case 4:
+                    {
+                        LowerBound = 95;
+                        UpperBound = 102;
+                        break;
+                    }
+                case 5:
+                    {
+                        LowerBound = 103;
+                        UpperBound = 117;
+                        break;
+                    }
+                case 6:
+                    {
+                        LowerBound = 118;
+                        UpperBound = 129;
+                        break;
+                    }
+                case 7:
+                    {
+                        LowerBound = 130;
+                        UpperBound = 136;
+                        break;
+                    }
+                case 8:
+                    {
+                        LowerBound = 137;
+                        UpperBound = 143;
+                        break;
+                    }
+                case 9:
+                    {
+                        LowerBound = 144;
+                        UpperBound = 150;
+                        break;
+                    }
+                default:
+                    {
+                        break;
+                    }
+            }
+            for (int i=LowerBound; i<=UpperBound; i++)
+            {
+                //de continuat
+            }
         }
 
         private void OpenLibraryFile()
