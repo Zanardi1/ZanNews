@@ -79,6 +79,7 @@
             this.CategoryListBox.Name = "CategoryListBox";
             this.CategoryListBox.Size = new System.Drawing.Size(275, 420);
             this.CategoryListBox.TabIndex = 1;
+            this.CategoryListBox.SelectedIndexChanged += new System.EventHandler(this.ChangeNewsSourcesCategory);
             // 
             // NewsLibrary
             // 
