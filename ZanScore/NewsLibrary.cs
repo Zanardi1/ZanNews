@@ -17,7 +17,15 @@ namespace ZanScore
         public NewsLibrary()
         {
             InitializeComponent();
+            ClearLists();
             OpenLibraryFile();
+        }
+
+        private void ClearLists()
+        {
+            NewsSourcesList.Clear();
+            NewsCategoriesList.Clear();
+            NewsSourcesRSSList.Clear();
         }
 
         private bool CheckIfFileExists()
@@ -185,47 +193,47 @@ namespace ZanScore
                     }
                 case 1:
                     {
-                        Category = 26;
+                        Category = 27;
                         break;
                     }
                 case 2:
                     {
-                        Category = 43;
+                        Category = 44;
                         break;
                     }
                 case 3:
                     {
-                        Category = 52;
+                        Category = 53;
                         break;
                     }
                 case 4:
                     {
-                        Category = 94;
+                        Category = 95;
                         break;
                     }
                 case 5:
                     {
-                        Category = 102;
+                        Category = 103;
                         break;
                     }
                 case 6:
                     {
-                        Category = 117;
+                        Category = 118;
                         break;
                     }
                 case 7:
                     {
-                        Category = 129;
+                        Category = 130;
                         break;
                     }
                 case 8:
                     {
-                        Category = 136;
+                        Category = 137;
                         break;
                     }
                 case 9:
                     {
-                        Category = 143;
+                        Category = 144;
                         break;
                     }
             }
