@@ -115,7 +115,7 @@ namespace ZanScore
         {
             if (OH.NewsDownloadAtStartup == 1)
             {
-                DownloadAllNewsProcess();
+                DownloadAllNewsProcess(true);
             }
         }
 
@@ -126,15 +126,18 @@ namespace ZanScore
             SetInitialValues();
         }
 
-        private void DownloadAllNewsInitialization()
+        private void DownloadAllNewsInitialization(bool AreSources)
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
-            DownloadProgressBar.Maximum = NewsSourcesCollection.NumberofSelectedSources;
+            if (AreSources)
+                DownloadProgressBar.Maximum = NewsSourcesCollection.NumberofSelectedSources;
+            else
+                DownloadProgressBar.Maximum = 1;
             DownloadProgressBar.Value = 0;
             NewsSourceData.EmptyFields();
             NewsDetailsGrid.Rows.Clear();
             NewsSourcesCollection.ClearSources();
-            NewsSourcesCollection.LoadSources();
+            NewsSourcesCollection.LoadSources(AreSources);
         }
 
         private void DownloadingEngine()
@@ -153,10 +156,11 @@ namespace ZanScore
             }
         }
 
-        public void DownloadAllNewsProcess()
-        //Intreg procesul de descarcare a stirilor
+        public void DownloadAllNewsProcess(bool AreSources)
+        //Intreg procesul de descarcare a stirilor. 
+        //Parametrul retine daca aceasta procedura a fost apelata pentru a citi din sursele de stiri (true) sau din biblioteca de surse (false)
         {
-            DownloadAllNewsInitialization();
+            DownloadAllNewsInitialization(AreSources);
 
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Reading selected news feeds...";
@@ -171,7 +175,7 @@ namespace ZanScore
         private void DownloadAllNews(object sender, EventArgs e)
         //Procesarea efectuata cu ocazia descarcarii stirilor din sursele alese
         {
-            DownloadAllNewsProcess();
+            DownloadAllNewsProcess(true);
         }
 
         private void FillGrid()
@@ -377,7 +381,7 @@ namespace ZanScore
         private void AutomaticalDownloadEngine(object sender, EventArgs e)
         //Se ocupa de actiunile necesare descarcarii automate a stirilor
         {
-            DownloadAllNewsProcess();
+            DownloadAllNewsProcess(true);
         }
 
         private void ShowNewsLibraryWindow(object sender, EventArgs e)

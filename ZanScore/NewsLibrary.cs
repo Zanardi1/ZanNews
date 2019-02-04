@@ -6,9 +6,11 @@ namespace ZanScore
 {
     public partial class NewsLibrary : Form
     {
-        List<string> NewsSourcesList = new List<string>() { };
-        List<string> NewsCategoriesList = new List<string>() { };
-        List<string> NewsSourcesRSSList = new List<string>() { };
+        static public List<string> NewsSourcesList = new List<string>() { };
+        public List<string> NewsCategoriesList = new List<string>() { };
+        static public List<string> NewsSourcesRSSList = new List<string>() { };
+
+        static public int AbsoluteIndex = 0;
 
         //todo de adaugat surse de stiri cautate de catre mine
 
@@ -171,10 +173,71 @@ namespace ZanScore
             return SelectedPosition;
         }
 
-        private void VisitTheSelectedSource(object sender, System.EventArgs e)
-            //Procedura de vizitare a sursei selectate
+        private int ComputeAbsoluteIndex()
         {
-            ((Form1)Owner).DownloadAllNewsProcess();
+            int Category = 0, Place = 0;
+            switch (CategoryListBox.SelectedIndex)
+            {
+                case 0:
+                    {
+                        Category = 0;
+                        break;
+                    }
+                case 1:
+                    {
+                        Category = 26;
+                        break;
+                    }
+                case 2:
+                    {
+                        Category = 43;
+                        break;
+                    }
+                case 3:
+                    {
+                        Category = 52;
+                        break;
+                    }
+                case 4:
+                    {
+                        Category = 94;
+                        break;
+                    }
+                case 5:
+                    {
+                        Category = 102;
+                        break;
+                    }
+                case 6:
+                    {
+                        Category = 117;
+                        break;
+                    }
+                case 7:
+                    {
+                        Category = 129;
+                        break;
+                    }
+                case 8:
+                    {
+                        Category = 136;
+                        break;
+                    }
+                case 9:
+                    {
+                        Category = 143;
+                        break;
+                    }
+            }
+            Place = ReturnFirstSelected(NewsLibrarySourcesView);
+            return Category + Place;
+        }
+
+        private void VisitTheSelectedSource(object sender, System.EventArgs e)
+        //Procedura de vizitare a sursei selectate
+        {
+            AbsoluteIndex = ComputeAbsoluteIndex();
+            ((Form1)Owner).DownloadAllNewsProcess(false);
             Close();
         }
     }

@@ -24,7 +24,7 @@ namespace ZanScore
         public RSSSourcesLibrary()
         {
             CheckForRSSFile();
-            LoadSources();
+            LoadSources(true);
         }
 
         public void EnableNewsSource(int SourceNo)
@@ -39,7 +39,7 @@ namespace ZanScore
             SaveSources();
         }
 
-        public void LoadSources()
+        private void ReadSourcesFile()
         {
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
             int j = 0;
@@ -65,6 +65,26 @@ namespace ZanScore
                     IsSourceSelected.Add(false);
                 j++;
                 NumberofSources++;
+            }
+        }
+
+        private void ReadLibraryFile()
+        {
+            SourceTitle.Add(NewsLibrary.NewsSourcesList[NewsLibrary.AbsoluteIndex]);
+            SourceURL.Add(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]); 
+            IsSourceSelected.Add(true);
+        }
+
+        public void LoadSources(bool AreSources)
+        {
+
+            if (AreSources)
+            {
+                ReadSourcesFile();
+            }
+            else
+            {
+                ReadLibraryFile();
             }
         }
 

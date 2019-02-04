@@ -28,39 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.NewsLibrarySourcesView = new System.Windows.Forms.DataGridView();
-            this.NewsSourceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CategoryListBox = new System.Windows.Forms.ListBox();
+            this.NewsSourceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsLibrarySourcesView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.NewsLibrarySourcesView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // NewsLibrarySourcesView
-            // 
-            this.NewsLibrarySourcesView.AllowUserToAddRows = false;
-            this.NewsLibrarySourcesView.AllowUserToDeleteRows = false;
-            this.NewsLibrarySourcesView.AllowUserToResizeColumns = false;
-            this.NewsLibrarySourcesView.AllowUserToResizeRows = false;
-            this.NewsLibrarySourcesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.NewsLibrarySourcesView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NewsSourceName});
-            this.NewsLibrarySourcesView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.NewsLibrarySourcesView.Location = new System.Drawing.Point(231, 12);
-            this.NewsLibrarySourcesView.MultiSelect = false;
-            this.NewsLibrarySourcesView.Name = "NewsLibrarySourcesView";
-            this.NewsLibrarySourcesView.ReadOnly = true;
-            this.NewsLibrarySourcesView.RowTemplate.Height = 24;
-            this.NewsLibrarySourcesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.NewsLibrarySourcesView.Size = new System.Drawing.Size(453, 420);
-            this.NewsLibrarySourcesView.TabIndex = 0;
-            this.NewsLibrarySourcesView.DoubleClick += new System.EventHandler(this.VisitTheSelectedSource);
-            // 
-            // NewsSourceName
-            // 
-            this.NewsSourceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.NewsSourceName.HeaderText = "News Source Name";
-            this.NewsSourceName.Name = "NewsSourceName";
-            this.NewsSourceName.ReadOnly = true;
-            this.NewsSourceName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
             // CategoryListBox
             // 
@@ -83,6 +55,34 @@
             this.CategoryListBox.TabIndex = 1;
             this.CategoryListBox.SelectedIndexChanged += new System.EventHandler(this.ChangeNewsSourcesCategory);
             // 
+            // NewsSourceName
+            // 
+            this.NewsSourceName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.NewsSourceName.HeaderText = "News Source Name";
+            this.NewsSourceName.Name = "NewsSourceName";
+            this.NewsSourceName.ReadOnly = true;
+            this.NewsSourceName.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
+            // NewsLibrarySourcesView
+            // 
+            this.NewsLibrarySourcesView.AllowUserToAddRows = false;
+            this.NewsLibrarySourcesView.AllowUserToDeleteRows = false;
+            this.NewsLibrarySourcesView.AllowUserToResizeColumns = false;
+            this.NewsLibrarySourcesView.AllowUserToResizeRows = false;
+            this.NewsLibrarySourcesView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.NewsLibrarySourcesView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.NewsSourceName});
+            this.NewsLibrarySourcesView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.NewsLibrarySourcesView.Location = new System.Drawing.Point(231, 12);
+            this.NewsLibrarySourcesView.MultiSelect = false;
+            this.NewsLibrarySourcesView.Name = "NewsLibrarySourcesView";
+            this.NewsLibrarySourcesView.ReadOnly = true;
+            this.NewsLibrarySourcesView.RowTemplate.Height = 24;
+            this.NewsLibrarySourcesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.NewsLibrarySourcesView.Size = new System.Drawing.Size(453, 420);
+            this.NewsLibrarySourcesView.TabIndex = 0;
+            this.NewsLibrarySourcesView.DoubleClick += new System.EventHandler(this.VisitTheSelectedSource);
+            // 
             // NewsLibrary
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -100,9 +100,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView NewsLibrarySourcesView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewsSourceName;
         private System.Windows.Forms.ListBox CategoryListBox;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsSourceName;
+        private System.Windows.Forms.DataGridView NewsLibrarySourcesView;
     }
 }
