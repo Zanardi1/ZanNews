@@ -45,11 +45,11 @@
             this.ManageNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AddNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
             this.EditNewsSourcesOption = new System.Windows.Forms.ToolStripMenuItem();
+            this.AccessNewsLibraryOption = new System.Windows.Forms.ToolStripMenuItem();
             this.OptionsWindowOption = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
             this.MinimizeToSystray = new System.Windows.Forms.NotifyIcon(this.components);
             this.DownloadNewsTimer = new System.Windows.Forms.Timer(this.components);
-            this.AccessNewsLibraryOption = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -202,6 +202,14 @@
             this.EditNewsSourcesOption.Click += new System.EventHandler(this.ShowEditSourcesWindow);
             this.EditNewsSourcesOption.MouseEnter += new System.EventHandler(this.DisplayEditHelpMessage);
             // 
+            // AccessNewsLibraryOption
+            // 
+            this.AccessNewsLibraryOption.Name = "AccessNewsLibraryOption";
+            this.AccessNewsLibraryOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
+            this.AccessNewsLibraryOption.Size = new System.Drawing.Size(222, 26);
+            this.AccessNewsLibraryOption.Text = "News Library";
+            this.AccessNewsLibraryOption.Click += new System.EventHandler(this.ShowNewsLibraryWindow);
+            // 
             // OptionsWindowOption
             // 
             this.OptionsWindowOption.Name = "OptionsWindowOption";
@@ -232,14 +240,6 @@
             // 
             this.DownloadNewsTimer.Tick += new System.EventHandler(this.AutomaticalDownloadEngine);
             // 
-            // AccessNewsLibraryOption
-            // 
-            this.AccessNewsLibraryOption.Name = "AccessNewsLibraryOption";
-            this.AccessNewsLibraryOption.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.AccessNewsLibraryOption.Size = new System.Drawing.Size(222, 26);
-            this.AccessNewsLibraryOption.Text = "News Library";
-            this.AccessNewsLibraryOption.Click += new System.EventHandler(this.ShowNewsLibraryWindow);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -269,7 +269,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.WebBrowser NewsWebPage;
         private System.Windows.Forms.DataGridView NewsDetailsGrid;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel StatusLabel;
@@ -289,6 +288,7 @@
         private System.Windows.Forms.NotifyIcon MinimizeToSystray;
         public System.Windows.Forms.Timer DownloadNewsTimer;
         private System.Windows.Forms.ToolStripMenuItem AccessNewsLibraryOption;
+        public System.Windows.Forms.WebBrowser NewsWebPage;
     }
 }
 

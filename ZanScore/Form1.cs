@@ -153,7 +153,7 @@ namespace ZanScore
             }
         }
 
-        private void DownloadAllNewsProcess()
+        public void DownloadAllNewsProcess()
         //Intreg procesul de descarcare a stirilor
         {
             DownloadAllNewsInitialization();
@@ -186,10 +186,16 @@ namespace ZanScore
             }
         }
 
+        public void LoadingNewsEngine(string URL)
+        //Instructiunile pentru incararea efectiva a stirii selectate
+        {
+            NewsWebPage.Navigate(new Uri(URL));
+        }
+
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
         //Incarca stirea selectata
         {
-            NewsWebPage.Navigate(new Uri(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]));
+            LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
         }
 
         private void SelectNewsSources(object sender, EventArgs e)
@@ -377,7 +383,7 @@ namespace ZanScore
         private void ShowNewsLibraryWindow(object sender, EventArgs e)
         {
             NewsLibrary N = new NewsLibrary();
-            N.ShowDialog();
+            N.ShowDialog(this);
         }
 
         private void StoreInitialSizes()

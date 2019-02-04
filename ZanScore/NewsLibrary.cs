@@ -63,7 +63,8 @@ namespace ZanScore
          8 - Entertainment;
          9 - Business;*/
         {
-            int LowerBound = 0, UpperBound = 0;
+            int LowerBound = 0, UpperBound = 0, j = 0;
+            NewsLibrarySourcesView.Rows.Clear();
             switch (Category)
             {
                 case 0:
@@ -131,10 +132,13 @@ namespace ZanScore
                         break;
                     }
             }
-            for (int i=LowerBound; i<=UpperBound; i++)
+            for (int i = LowerBound; i <= UpperBound; i++)
             {
-                //de continuat
+                NewsLibrarySourcesView.Rows.Add();
+                NewsLibrarySourcesView.Rows[j].Cells[0].Value = NewsSourcesList[i];
+                j++;
             }
+            NewsLibrarySourcesView.Rows[0].Selected = true;
         }
 
         private void OpenLibraryFile()
@@ -156,6 +160,22 @@ namespace ZanScore
         //Procedura afiseaza sursele in functie de categoria selectata
         {
             FillWindowDatagrid(CategoryListBox.SelectedIndex);
+        }
+
+        private int ReturnFirstSelected(DataGridView Grid)
+        {
+            int SelectedPosition = 0;
+            for (int i = 0; i < Grid.RowCount; i++)
+                if (Grid.Rows[i].Selected)
+                    SelectedPosition = i;
+            return SelectedPosition;
+        }
+
+        private void VisitTheSelectedSource(object sender, System.EventArgs e)
+            //Procedura de vizitare a sursei selectate
+        {
+            ((Form1)Owner).DownloadAllNewsProcess();
+            Close();
         }
     }
 }

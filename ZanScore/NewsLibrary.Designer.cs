@@ -44,13 +44,15 @@
             this.NewsLibrarySourcesView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NewsSourceName});
             this.NewsLibrarySourcesView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.NewsLibrarySourcesView.Location = new System.Drawing.Point(325, 12);
+            this.NewsLibrarySourcesView.Location = new System.Drawing.Point(231, 12);
             this.NewsLibrarySourcesView.MultiSelect = false;
             this.NewsLibrarySourcesView.Name = "NewsLibrarySourcesView";
             this.NewsLibrarySourcesView.ReadOnly = true;
             this.NewsLibrarySourcesView.RowTemplate.Height = 24;
+            this.NewsLibrarySourcesView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.NewsLibrarySourcesView.Size = new System.Drawing.Size(453, 420);
             this.NewsLibrarySourcesView.TabIndex = 0;
+            this.NewsLibrarySourcesView.DoubleClick += new System.EventHandler(this.VisitTheSelectedSource);
             // 
             // NewsSourceName
             // 
@@ -77,14 +79,14 @@
             "Business"});
             this.CategoryListBox.Location = new System.Drawing.Point(12, 12);
             this.CategoryListBox.Name = "CategoryListBox";
-            this.CategoryListBox.Size = new System.Drawing.Size(275, 420);
+            this.CategoryListBox.Size = new System.Drawing.Size(191, 420);
             this.CategoryListBox.TabIndex = 1;
             this.CategoryListBox.SelectedIndexChanged += new System.EventHandler(this.ChangeNewsSourcesCategory);
             // 
             // NewsLibrary
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(706, 450);
             this.Controls.Add(this.CategoryListBox);
             this.Controls.Add(this.NewsLibrarySourcesView);
             this.MaximizeBox = false;
