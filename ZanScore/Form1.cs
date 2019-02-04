@@ -139,19 +139,26 @@ namespace ZanScore
             NewsSourcesCollection.LoadSources(AreSources);
         }
 
-        private void DownloadingEngine()
+        private void DownloadingEngine(bool AreSources)
         //Motorul de download a stirilor
-        {
-            List<string> URLList = new List<string>();
-            URLList = NewsSourcesCollection.GetNewsURL();
-            for (int i = 0; i < URLList.Count; i++)
+        {           
+            if (AreSources)
             {
-                if (NewsSourcesCollection.IsSourceSelected[i])
+                List<string> URLList = new List<string>();
+                URLList = NewsSourcesCollection.GetNewsURL();
+                for (int i = 0; i < URLList.Count; i++)
                 {
-                    if ((!NewsSourceData.FillRSSData(URLList[i])) && (OH.DisableInvalidNewsFiles == 1))
-                        NewsSourcesCollection.DisableNewsSource(i);
-                    DownloadProgressBar.Value++;
+                    if (NewsSourcesCollection.IsSourceSelected[i])
+                    {
+                        if ((!NewsSourceData.FillRSSData(URLList[i])) && (OH.DisableInvalidNewsFiles == 1))
+                            NewsSourcesCollection.DisableNewsSource(i);
+                        DownloadProgressBar.Value++;
+                    }
                 }
+            }
+            else
+            {
+                NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
             }
         }
 
@@ -164,7 +171,7 @@ namespace ZanScore
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Reading selected news feeds...";
 
-            DownloadingEngine();
+            DownloadingEngine(AreSources);
 
             Cursor.Current = Cursors.Arrow;
             FillGrid();
