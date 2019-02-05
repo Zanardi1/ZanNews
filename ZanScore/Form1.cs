@@ -8,13 +8,45 @@ namespace ZanScore
 {
     public partial class Form1 : Form
     {
+        private static int initialwindowwidth = 0, initialwindowheight = 0;
+        private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu (atunci e true)
+        private static int InitialBrowserWidth; //retine latimea initiala a browserului
+
         public RSSSourceData NewsSourceData = new RSSSourceData();
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
         public OptionsHandling OH = new OptionsHandling();
-        static int InitialWidth, InitialHeight; //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
-        static int WidthDiff, HeightDiff; //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
-        private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu (atunci e true)
-        private static int InitialBrowserWidth; //retine latimea initiala a browserului
+
+        static public int InitialWindowWidth
+        {
+            get
+            {
+                return initialwindowwidth;
+            }
+            set
+            {
+                if (value > 0)
+                    initialwindowwidth = value;
+                else
+                    initialwindowwidth = 1;
+            }
+        }
+        static int InitialWindowHeight //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
+        {
+            get
+            {
+                return initialwindowheight;
+            }
+            set
+            {
+                if (value > 0)
+                    initialwindowheight = value;
+                else
+                    initialwindowheight = 1;
+            }
+        }
+
+        static int WidthDiff { get; set; }
+        static int HeightDiff { get; set; } //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
 
         private void SetColumnsWidth()
         //Seteaza latimile grilei cu stiri
@@ -141,7 +173,7 @@ namespace ZanScore
 
         private void DownloadingEngine(bool AreSources)
         //Motorul de download a stirilor
-        {           
+        {
             if (AreSources)
             {
                 List<string> URLList = new List<string>();
@@ -202,11 +234,8 @@ namespace ZanScore
             NewsWebPage.Navigate(new Uri(URL));
         }
 
-        private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
+        private void LoadNewsURL(object sender, DataGridViewCellEventArgs e) => LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
         //Incarca stirea selectata
-        {
-            LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
-        }
 
         private void SelectNewsSources(object sender, EventArgs e)
         //Afiseaza fereastra de selectie a surselor de stiri
@@ -320,8 +349,8 @@ namespace ZanScore
 
         private void ComputeSizeDifferences()
         {
-            HeightDiff = Height - InitialHeight;
-            WidthDiff = Width - InitialWidth;
+            HeightDiff = Height - InitialWindowHeight;
+            WidthDiff = Width - InitialWindowWidth;
         }
 
         private void ResizeControls()
@@ -398,8 +427,8 @@ namespace ZanScore
 
         private void StoreInitialSizes()
         {
-            InitialHeight = Height;
-            InitialWidth = Width;
+            InitialWindowHeight = Height;
+            InitialWindowWidth = Width;
         }
 
         private void BeginResize(object sender, EventArgs e)

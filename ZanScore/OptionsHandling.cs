@@ -31,22 +31,172 @@ namespace ZanScore
 {
     public class OptionsHandling
     {
-        public int WindowsStartup;
-        public int MinimizeToTray;
-        public int StartupOptions;
-        public int DisableInvalidNewsFiles;
-        public int WindowWidth;
-        public int WindowHeight;
-        public int NewsDownloadAtStartup;
-        public int NewsDownloadAtInterval;
-        public int IntervalNumber;
-        public int IntervalTime;
+        private int windowsstartup;
+        private int minimizetotray;
+        private int startupoptions;
+        private int disableinvalidnewsfiles;
+        private int windowwidth;
+        private int windowheight;
+        private int newsdownloadatstartup;
+        private int newsdownloadatinterval;
+        private int intervalnumber;
+        private int intervaltime;
+
+        public int WindowsStartup
+        {
+            get
+            {
+                return windowsstartup;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    windowsstartup = 0;
+                else
+                    windowsstartup = value;
+            }
+        }
+
+        public int MinimizeToTray
+        {
+            get
+            {
+                return minimizetotray;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    minimizetotray = 0;
+                else
+                    minimizetotray = value;
+            }
+        }
+
+        public int StartupOptions
+        {
+            get
+            {
+                return startupoptions;
+            }
+            set
+            {
+                if ((value < 1) || (value > 3))
+                    startupoptions = 2;
+                else
+                    startupoptions = value;
+            }
+        }
+
+        public int DisableInvalidNewsFiles
+        {
+            get
+            {
+                return disableinvalidnewsfiles;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    disableinvalidnewsfiles = 0;
+                else
+                    disableinvalidnewsfiles = value;
+            }
+        }
+
+        public int WindowWidth
+        {
+            get
+            {
+                return windowwidth;
+            }
+            set
+            {
+                if (value <= 0)
+                    windowwidth = 1200;
+                else
+                    windowwidth = value;
+            }
+        }
+
+        public int WindowHeight
+        {
+            get
+            {
+                return windowheight;
+            }
+            set
+            {
+                if (value <= 0)
+                    windowheight = 563;
+                else
+                    windowheight = value;
+            }
+        }
+
+        public int NewsDownloadAtStartup
+        {
+            get
+            {
+                return newsdownloadatstartup;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    newsdownloadatstartup = 1;
+                else
+                    newsdownloadatstartup = value;
+            }
+        }
+
+        public int NewsDownloadAtInterval
+        {
+            get
+            {
+                return newsdownloadatinterval;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    newsdownloadatinterval = 1;
+                else
+                    newsdownloadatinterval = value;
+            }
+        }
+
+        public int IntervalNumber
+        {
+            get
+            {
+                return intervalnumber;
+            }
+            set
+            {
+                if ((value != 0) && (value != 1))
+                    intervalnumber = 1;
+                else
+                    intervalnumber = value;
+            }
+        }
+
+        public int IntervalTime
+        {
+            get
+            {
+                return intervaltime;
+            }
+            set
+            {
+                if ((value < 0) || (value > 2))
+                    intervaltime = 1;
+                else
+                    intervaltime = value;
+            }
+        }
+
         private readonly int NumberOfOptions = 10; //retine numarul de optiuni. Daca mai apar sau dispar altele noi, acest numar se va modifica
         private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "NewsDownlAtStartup", "NewsDownlAtInterval", "IntervNumber", "IntervTime" };
         private readonly int[] OptionValues = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-        
-        
+
         public OptionsHandling() //constructor
         {
             OpenOptionsFile();

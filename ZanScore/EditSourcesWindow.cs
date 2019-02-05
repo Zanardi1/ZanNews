@@ -6,7 +6,23 @@ namespace ZanScore
 {
     public partial class EditSourcesWindow : Form
     {
-        int SelectedPositionInGrid = 0;
+        private int selectedpositioningrid = 0;
+
+        int SelectedPositionInGrid //retine pozitia selectata din grila
+        {
+            get
+            {
+                return selectedpositioningrid;
+            }
+            set
+            {
+                if (value >= 0)
+                    selectedpositioningrid = value;
+                else
+                    selectedpositioningrid = 0;
+            }
+        }
+
         public EditSourcesWindow()
         {
             InitializeComponent();

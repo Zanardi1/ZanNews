@@ -6,11 +6,26 @@ namespace ZanScore
 {
     public partial class NewsLibrary : Form
     {
+        private static int absoluteindex=0;
+
         static public List<string> NewsSourcesList = new List<string>() { };
         public List<string> NewsCategoriesList = new List<string>() { };
         static public List<string> NewsSourcesRSSList = new List<string>() { };
 
-        static public int AbsoluteIndex = 0;
+        static public int AbsoluteIndex //calculeaza numarul de ordine al unei stiri din lista de stiri citita si stocata in cele trei liste declarate mai sus
+        {
+            get
+            {
+                return absoluteindex;
+            }
+            set
+            {
+                if (value >= 0)
+                    absoluteindex = value;
+                else
+                    absoluteindex = 0;
+            }
+        }
 
         //todo de adaugat surse de stiri cautate de catre mine
 

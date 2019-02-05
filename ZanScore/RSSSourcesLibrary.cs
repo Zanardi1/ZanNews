@@ -15,11 +15,41 @@ namespace ZanScore
     // 6. Sortarea surselor;
 
     {
+        private int numberofsources = 0, numberofselectedsources = 0;
+
         public List<string> SourceTitle = new List<string>();
-        List<string> SourceURL = new List<string>();
+        private List<string> SourceURL = new List<string>();
         public List<bool> IsSourceSelected = new List<bool>();
-        public int NumberofSources = 0;
-        public int NumberofSelectedSources = 0;
+
+        public int NumberofSources
+        {
+            get
+            {
+                return numberofsources;
+            }
+            set
+            {
+                if (value < 0)
+                    numberofsources = 0;
+                else
+                    numberofsources = value;
+            }
+        }
+
+        public int NumberofSelectedSources
+        {
+            get
+            {
+                return numberofselectedsources;
+            }
+            set
+            {
+                if (value < 0)
+                    numberofselectedsources = 0;
+                else
+                    numberofselectedsources = value;
+            }
+        }
 
         public RSSSourcesLibrary()
         {
@@ -71,7 +101,7 @@ namespace ZanScore
         private void ReadLibraryFile()
         {
             SourceTitle.Add(NewsLibrary.NewsSourcesList[NewsLibrary.AbsoluteIndex]);
-            SourceURL.Add(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]); 
+            SourceURL.Add(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
             IsSourceSelected.Add(true);
         }
 
