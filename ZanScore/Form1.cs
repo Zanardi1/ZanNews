@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 
 //todo pe viitor sa incep sa tratez si exceptiile si cazurile de eroare. Pana acum m-am ocupat de cazurile ideale.
+//todo inainte de tratarea exceptiilor, sa fac optimziari de cod (sa modific codul astfel incat sa execute acelasi lucru cu cat mai putine linii), precum si modificari legate de claritatea intelegerii acestuia
 
 namespace ZanScore
 {
