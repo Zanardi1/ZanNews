@@ -30,6 +30,7 @@ namespace ZanScore
                     initialwindowwidth = 1;
             }
         }
+
         static int InitialWindowHeight //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
         {
             get
@@ -85,6 +86,10 @@ namespace ZanScore
                 case 3:
                     {
                         WindowState = FormWindowState.Maximized;
+                        break;
+                    }
+                default:
+                    {
                         break;
                     }
             }
