@@ -30,20 +30,30 @@ namespace ZanScore
             SourceURLToEdit.Width = 7 * AllTheSources.Width / 10;
         }
 
-        private void DeletingNewsEngine()
+        private void DeleteNewsFromGrid()
+        //Sterge stirile din grila
         {
-            List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
-            for (int i = 0; i < AllTheSources.RowCount; i++)
-                if (AllTheSources.Rows[i].Selected)
-                    Positions.Add(i);
-            ((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions);
-            ((Form1)Owner).NewsSourcesCollection.SaveSources();
             for (int i = 0; i < AllTheSources.Rows.Count; i++)
                 if (AllTheSources.Rows[i].Selected)
                     AllTheSources.Rows.RemoveAt(i);
         }
 
+        private void DeletingNewsEngine()
+        //instructiunile de stergere propriu-zisa a stirilor selectate
+        {
+            List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
+            for (int i = 0; i < AllTheSources.RowCount; i++)
+                if (AllTheSources.Rows[i].Selected)
+                    Positions.Add(i);
+
+            ((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions);
+            ((Form1)Owner).NewsSourcesCollection.SaveSources();
+
+            DeleteNewsFromGrid();
+        }
+
         private void DeleteSelectedNewsSources(object sender, EventArgs e)
+        //procedura de stergere a stirilor selectate
         {
             MessageBoxButtons Buttons = MessageBoxButtons.YesNo;
             MessageBoxIcon Icon = MessageBoxIcon.Question;
@@ -54,24 +64,21 @@ namespace ZanScore
         }
 
         private void SouceEditingEngine(int Pos)
+        //Instructiunile de editare propriu-zisa a sursei selectate
         {
             if (AllTheSources.Rows[Pos].Selected)
             {
-                int j = 0;
-
                 NewSourceNameText.Text = AllTheSources.Rows[Pos].Cells[0].Value.ToString();
                 NewSourceURLText.Text = AllTheSources.Rows[Pos].Cells[1].Value.ToString();
-                j = Pos + 1;
+
                 SelectedPositionInGrid = Pos;
-                while (j < AllTheSources.RowCount) //Deselecteaza toate stirile de dedesubtul primei stiri alese (care va fi si editata)
-                {
-                    AllTheSources.Rows[j].Selected = false;
-                    j++;
-                }
+
+                DisselectEverythingBelow(Pos);
             }
         }
 
         private void EditSelectedSource(object sender, EventArgs e)
+        //Procedura de editare a sursei selectate
         {
             int i = 0;
             EnableEditingControls();
@@ -83,11 +90,13 @@ namespace ZanScore
         }
 
         private void DiscardEditingChanges(object sender, EventArgs e)
+        //Procedura de renuntare la editare si de stergere a modificarilor aduse
         {
             DisableEditingControls();
         }
 
         private void SaveEditChanges(object sender, EventArgs e)
+        //Procedura de salvare a modificarilor efectuate
         {
             ((Form1)Owner).NewsSourcesCollection.EditSource(SelectedPositionInGrid, NewSourceNameText.Text, NewSourceURLText.Text);
             AllTheSources.Rows[SelectedPositionInGrid].Cells[0].Value = NewSourceNameText.Text;
@@ -96,6 +105,7 @@ namespace ZanScore
         }
 
         private void EnableEditingControls()
+        //Procedura de activare a controlalelor legate de editarea sursei
         {
             NewSourceNameLabel.Enabled = true;
             NewSourceURLLabel.Enabled = true;
@@ -108,6 +118,7 @@ namespace ZanScore
         }
 
         private void DisableEditingControls()
+        //Procedura de dezactivare a controlalelor legate de editarea sursei
         {
             NewSourceNameLabel.Enabled = false;
             NewSourceURLLabel.Enabled = false;
@@ -122,6 +133,7 @@ namespace ZanScore
         }
 
         private void DisableReorderingControls()
+        //Procedura de dezactivare a controlalelor legate de ordonarea surselor de stiri
         {
             MoveUpOnePositionButton.Enabled = false;
             MoveDownOnePositionButton.Enabled = false;
@@ -145,11 +157,13 @@ namespace ZanScore
         }
 
         private void ReorderSelectedNewsSources(object sender, EventArgs e)
+        //Reordonarea surselor de stiri
         {
             EnableReorderingControls();
         }
 
-        private void MoveUpOnePositionInGrid(int Position,int Cell)
+        private void MoveUpOnePositionInGrid(int Position, int Cell)
+        //Procedura de mutare cu o pozitie in sus a stirii selectate
         {
             string buffer;
 
@@ -182,6 +196,7 @@ namespace ZanScore
         }
 
         private void MoveDownOnePositionInGrid(int Position, int Cell)
+        //Procedura de mutare cu o pozitie in jos a stirii selectate
         {
             string buffer;
 
@@ -213,7 +228,8 @@ namespace ZanScore
                 MoveDownOnePositionEngine(i);
         }
 
-        private void MoveToFirstPositionInGrid(int Position,int Cell)
+        private void MoveToFirstPositionInGrid(int Position, int Cell)
+        //Procedura de mutare pe prima pozitie a stirii selectate
         {
             string buffer;
 
@@ -224,7 +240,7 @@ namespace ZanScore
         }
 
         private void MoveToFirstPositionEngine(int StartingPosition)
-        //Logica de mutare a stirii selectate pe prima pozitie 
+        //Instructiunile de mutare propriu-zisa a stirii selectate pe prima pozitie 
         {
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(StartingPosition, 3);
 
@@ -242,7 +258,8 @@ namespace ZanScore
                 MoveToFirstPositionEngine(i);
         }
 
-        private void MoveToLastPositionInGrid(int Position,int Cell)
+        private void MoveToLastPositionInGrid(int Position, int Cell)
+        //Instructiunile de mutare propriu-zisa a stirii selectate pe ultima pozitie 
         {
             string buffer;
 
@@ -250,7 +267,6 @@ namespace ZanScore
             for (int j = Position; j < AllTheSources.RowCount - 1; j++)
                 AllTheSources.Rows[j].Cells[Cell].Value = AllTheSources.Rows[j + 1].Cells[Cell].Value;
             AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[Cell].Value = buffer;
-
         }
 
         private void MovingToLastPositionEngine(int StartingPosition)
@@ -266,14 +282,18 @@ namespace ZanScore
         //Subrutina muta sursa aleasa pe ultima pozitie
         {
             int i = 0;
+
             while (AllTheSources.Rows[i].Selected == false)
                 i++; //Cauta prima sursa selectata si-i retine pozitia
+
             DisselectEverythingBelow(i);
+
             if (i < AllTheSources.RowCount)
                 MovingToLastPositionEngine(i);
         }
 
         private void FinishReorderingSelectedNewsSource(object sender, EventArgs e)
+        //Procedura de salvare a modificarilor stirii editate
         {
             DisableReorderingControls();
             ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
@@ -291,6 +311,7 @@ namespace ZanScore
         }
 
         private void CloseWindow(object sender, FormClosedEventArgs e)
+        //Procedura de inchidere a ferestrei
         {
             ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
         }

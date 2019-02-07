@@ -269,7 +269,6 @@
 
         private System.Windows.Forms.Button EditNewsButton;
         private System.Windows.Forms.Button DeleteNewsButton;
-        private System.Windows.Forms.DataGridView AllTheSources;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceNameToEdit;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceURLToEdit;
         private System.Windows.Forms.GroupBox NewsSourceSelectGroupBox;
@@ -285,5 +284,6 @@
         private System.Windows.Forms.Button MoveDownOnePositionButton;
         private System.Windows.Forms.Button MoveUpOnePositionButton;
         private System.Windows.Forms.Button FinishReorderingButton;
+        public System.Windows.Forms.DataGridView AllTheSources;
     }
 }

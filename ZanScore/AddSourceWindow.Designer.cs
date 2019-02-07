@@ -127,13 +127,12 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox SourceNameText;
-        private System.Windows.Forms.TextBox SourceURLText;
         private System.Windows.Forms.Label NameLabel;
         private System.Windows.Forms.Label URLRSSLabel;
         private System.Windows.Forms.GroupBox NewDataSource;
         private System.Windows.Forms.Button SaveChanges;
         private System.Windows.Forms.Button DiscardChanges;
+        public System.Windows.Forms.TextBox SourceNameText;
+        public System.Windows.Forms.TextBox SourceURLText;
     }
 }

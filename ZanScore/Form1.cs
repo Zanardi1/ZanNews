@@ -64,7 +64,7 @@ namespace ZanScore
             StoreInitialSizes();
             Height = OH.WindowHeight;
             Width = OH.WindowWidth;
-            ApplyResize();
+            ApplyResizeEngine();
         }
 
         private void SetWindowMaximizationState()
@@ -99,7 +99,7 @@ namespace ZanScore
         private int ComputeTimeInterval()
         //Calculeaza intervalul de timp, in ms, care va fi transmis ca parametru Timerului
         {
-            int Multiplier = 1;
+            int Multiplier = 1; //transforma din ore, minute, secunde in secunde
 
             switch (OH.IntervalTime)
             {
@@ -253,22 +253,12 @@ namespace ZanScore
         }
 
         private void ShowAddNewsSourcesWindow(object sender, EventArgs e)
-        /* Liniile de cod scrise intre "//*" arata modalitatea de a citi numele si URL-ul sursei noi, introduse de catre utilizator. Deoarece acestea se afla intr-o alta fereastra si deoarece componentele sunt marcate cu private, metoda corecta de ajungere la acele valori este urmatoarea:
-         1. Se cicleaza prin fiecare component al ferestrei;
-         2. In cazul in care ajungem la un GroupBox, se cicleaza prin componentele acestuia
-         3. In cazul in care o componenta din GroupBox are numele pe care il vreau eu, atunci citeste valoarea dorita
-
-         E nevoie de doua ciclari, deoarece componentele din GroupBox sunt copii pentru acesta, iar GroupBox este copil pentru fereastra. In ambele cazuri, trebuie cautat ceea ce doresc prin toate componentele copil*/
         {
             AddSourceWindow A = new AddSourceWindow();
-            string s = "", s2 = "";
             A.ShowDialog(this);
             if (A.DialogResult == DialogResult.OK) //*
             {
-                s = A.NewName;
-                s2 = A.NewURL;
-
-                NewsSourcesCollection.AddNewSource(s, s2);
+                NewsSourcesCollection.AddNewSource(A.SourceNameText.Text, A.SourceURLText.Text);
                 NewsSourcesCollection.SaveSources();
             }
         }
@@ -276,9 +266,7 @@ namespace ZanScore
         private void ShowEditSourcesWindow(object sender, EventArgs e)
         {
             EditSourcesWindow E = new EditSourcesWindow();
-            foreach (Control c in E.Controls)
-                if (c is DataGridView)
-                    NewsSourcesCollection.ShowNewsSourcesInDataGrid(c as DataGridView);
+            NewsSourcesCollection.ShowNewsSourcesInDataGrid(E.AllTheSources);
             E.ShowDialog(owner: this);
         }
 
@@ -334,7 +322,7 @@ namespace ZanScore
             StatusLabel.Text = "About ZanNews";
         }
 
-        private void ApplyResize()
+        private void ApplyResizeEngine()
         {
             if (Width > MinimumSize.Width)
                 NewsWebPage.Width += WidthDiff;
@@ -350,7 +338,7 @@ namespace ZanScore
         private void EndResize(object sender, EventArgs e)
         //Rutina mareste sau micsoreaza controalele in cu diferenta calculata
         {
-            ApplyResize();
+            ApplyResizeEngine();
         }
 
         private void ComputeSizeDifferences()
@@ -359,7 +347,8 @@ namespace ZanScore
             WidthDiff = Width - InitialWindowWidth;
         }
 
-        private void ResizeControls()
+        private void ResizeControlsEngine()
+        //Procedura de redimensionare a controlalelor ferestrei
         {
             if (WindowState == FormWindowState.Maximized)
             {
@@ -375,7 +364,7 @@ namespace ZanScore
                 ComputeSizeDifferences();
                 /*Necesitatea variabilei WasMaximized apare deoarece pe ramura else se ajunge in doua feluri: atunci cand fereastra e redimensionata si atunci cand fereastra revine la dimensiunile sale initiale dupa ce a fost maximizata. In al doilea caz, trebuie redimensionate, efectiv, controalele ferestrei pe cand in primul caz, acest lucru se face automat prin declansarea evenimentului ResizeEnd*/
                 if (WasMaximized)
-                    ApplyResize();
+                    ApplyResizeEngine();
             }
         }
 
@@ -393,7 +382,7 @@ namespace ZanScore
         private void ResizeEngine(object sender, EventArgs e)
         //Rutina calculeaza valorile latimilor si ale inaltimilor cu care controalele vor fi marite sau micsorate
         {
-            ResizeControls();
+            ResizeControlsEngine();
             MinimizeToSystrayEngine();
         }
 
@@ -432,6 +421,7 @@ namespace ZanScore
         }
 
         private void StoreInitialSizes()
+            //Stocheaza dimensiunile initiale ale ferestrei. Utile la redimensionarea acesteia
         {
             InitialWindowHeight = Height;
             InitialWindowWidth = Width;
