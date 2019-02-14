@@ -37,6 +37,10 @@ namespace ZanScore
                         StartMaximized.Checked = true;
                         break;
                     }
+                default:
+                    {
+                        break;
+                    }
             }
         }
 
@@ -58,7 +62,7 @@ namespace ZanScore
                 ((Form1)Owner).OH.StartupOptions = 3;
         }
 
-        private void SetStartup(bool enable)
+        private void StartupEngine(bool enable)
         //Instructiunile pentru pornirea sau nepornirea aplicatiei odata cu Windows
         //bug functia scrie in registrul corect, conform teoriei, numai ca aplicatia nu porneste odata cu sistemul de operare
         {
@@ -88,9 +92,9 @@ namespace ZanScore
         //Alege daca sa porneasca sau nu aplicatia odata cu Windows
         {
             if (((Form1)Owner).OH.WindowsStartup == 1)
-                SetStartup(true);
+                StartupEngine(true);
             else
-                SetStartup(false);
+                StartupEngine(false);
         }
 
         private void SaveChanges(object sender, EventArgs e)

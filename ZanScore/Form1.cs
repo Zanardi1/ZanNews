@@ -90,9 +90,7 @@ namespace ZanScore
                         break;
                     }
                 default:
-                    {
-                        break;
-                    }
+                    break;
             }
         }
 
@@ -118,6 +116,8 @@ namespace ZanScore
                         Multiplier = 3600;
                         break;
                     }
+                default:
+                    break;
             }
             return Multiplier * OH.IntervalNumber * 1000;
         }
@@ -421,7 +421,7 @@ namespace ZanScore
         }
 
         private void StoreInitialSizes()
-            //Stocheaza dimensiunile initiale ale ferestrei. Utile la redimensionarea acesteia
+        //Stocheaza dimensiunile initiale ale ferestrei. Utile la redimensionarea acesteia
         {
             InitialWindowHeight = Height;
             InitialWindowWidth = Width;

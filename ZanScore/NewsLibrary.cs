@@ -44,7 +44,7 @@ namespace ZanScore
         }
 
         private bool CheckIfFileExists()
-        //Verifica daca fisierul ce contine biblioteca exista
+        //Verifica daca exista fisierul ce contine biblioteca 
         {
             if (!File.Exists("Library.txt"))
                 return false;

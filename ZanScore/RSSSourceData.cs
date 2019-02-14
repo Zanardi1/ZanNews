@@ -52,25 +52,10 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
             foreach (SyndicationItem item in feed.Items)
             {
-                if (feed.Title == null)
-                    NewsChannelTitle.Add("");
-                else
-                    NewsChannelTitle.Add(feed.Title.Text.ToString());
-
-                if (item.Title == null)
-                    NewsTitle.Add("");
-                else
-                    NewsTitle.Add(item.Title.Text);
-
-                if (item.Links[0].Uri.ToString() == null)
-                    NewsLink.Add("");
-                else
-                    NewsLink.Add(item.Links[0].Uri.ToString());
-
-                if (item.Summary == null)
-                    NewsDescription.Add("");
-                else
-                    NewsDescription.Add(item.Summary.Text);
+                NewsChannelTitle.Add(feed.Title == null ? "" : feed.Title.Text.ToString());
+                NewsTitle.Add(item.Title == null ? "" : item.Title.Text);
+                NewsLink.Add(item.Links[0].Uri.ToString() == null ? "" : item.Links[0].Uri.ToString());
+                NewsDescription.Add(item.Summary == null ? "" : item.Summary.Text);
             }
             return true;
         }

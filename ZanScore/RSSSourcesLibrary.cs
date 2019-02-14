@@ -72,8 +72,7 @@ namespace ZanScore
         private void ReadSourcesFile()
         {
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
-            int j = 0;
-            int found = 0;
+            int j = 0, found = 0;
             TextToRead = File.ReadAllLines("Sources.txt");
             for (int i = 0; i < TextToRead.Length; i += 3) //Imparte fiecare text in sursa si URL
             {
@@ -93,6 +92,7 @@ namespace ZanScore
                 }
                 else
                     IsSourceSelected.Add(false);
+
                 j++;
                 NumberofSources++;
             }
@@ -235,6 +235,8 @@ namespace ZanScore
 
                         break;
                     }
+                default:
+                    break;
             }
         }
 
