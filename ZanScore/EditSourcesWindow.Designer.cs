@@ -86,6 +86,7 @@
             this.AllTheSources.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.AllTheSources.Size = new System.Drawing.Size(486, 320);
             this.AllTheSources.TabIndex = 4;
+            this.AllTheSources.RowsRemoved += new System.Windows.Forms.DataGridViewRowsRemovedEventHandler(this.CheckForEmptyGrid);
             // 
             // SourceNameToEdit
             // 
@@ -258,6 +259,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit News Sources";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.CloseWindow);
+            this.Shown += new System.EventHandler(this.StuffAfterTheFormIsShown);
             ((System.ComponentModel.ISupportInitialize)(this.AllTheSources)).EndInit();
             this.NewsSourceSelectGroupBox.ResumeLayout(false);
             this.NewsSourceSelectGroupBox.PerformLayout();

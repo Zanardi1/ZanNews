@@ -113,8 +113,8 @@ namespace ZanScore
             NewSourceURLText.Enabled = true;
             SaveNewsEditButton.Enabled = true;
             DiscardNewsEditButton.Enabled = true;
-            ReorderNewsButton.Enabled = false;
-            DeleteNewsButton.Enabled = false;
+            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
         }
 
         private void DisableEditingControls()
@@ -126,8 +126,8 @@ namespace ZanScore
             NewSourceURLText.Enabled = false;
             SaveNewsEditButton.Enabled = false;
             DiscardNewsEditButton.Enabled = false;
-            ReorderNewsButton.Enabled = true;
-            DeleteNewsButton.Enabled = true;
+            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             NewSourceNameText.Text = "";
             NewSourceURLText.Text = "";
         }
@@ -139,8 +139,8 @@ namespace ZanScore
             MoveDownOnePositionButton.Enabled = false;
             MoveToFirstPositionButton.Enabled = false;
             MoveToLastPositionButton.Enabled = false;
-            EditNewsButton.Enabled = true;
-            DeleteNewsButton.Enabled = true;
+            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             FinishReorderingButton.Enabled = false;
         }
 
@@ -151,8 +151,8 @@ namespace ZanScore
             MoveDownOnePositionButton.Enabled = true;
             MoveToFirstPositionButton.Enabled = true;
             MoveToLastPositionButton.Enabled = true;
-            EditNewsButton.Enabled = false;
-            DeleteNewsButton.Enabled = false;
+            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             FinishReorderingButton.Enabled = true;
         }
 
@@ -314,6 +314,20 @@ namespace ZanScore
         //Procedura de inchidere a ferestrei
         {
             ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
+        }
+
+        private void StuffAfterTheFormIsShown(object sender, EventArgs e)
+        {
+            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+        }
+
+        private void CheckForEmptyGrid(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
         }
     }
 }
