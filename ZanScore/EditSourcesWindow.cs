@@ -113,8 +113,8 @@ namespace ZanScore
             NewSourceURLText.Enabled = true;
             SaveNewsEditButton.Enabled = true;
             DiscardNewsEditButton.Enabled = true;
-            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
-            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            ReorderNewsButton.Enabled = false;
+            DeleteNewsButton.Enabled = false;
         }
 
         private void DisableEditingControls()
@@ -126,8 +126,8 @@ namespace ZanScore
             NewSourceURLText.Enabled = false;
             SaveNewsEditButton.Enabled = false;
             DiscardNewsEditButton.Enabled = false;
-            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
-            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            ReorderNewsButton.Enabled = true;
+            DeleteNewsButton.Enabled = true;
             NewSourceNameText.Text = "";
             NewSourceURLText.Text = "";
         }
@@ -151,8 +151,8 @@ namespace ZanScore
             MoveDownOnePositionButton.Enabled = true;
             MoveToFirstPositionButton.Enabled = true;
             MoveToLastPositionButton.Enabled = true;
-            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
-            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            EditNewsButton.Enabled = false;
+            DeleteNewsButton.Enabled = false;
             FinishReorderingButton.Enabled = true;
         }
 
@@ -316,18 +316,22 @@ namespace ZanScore
             ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
         }
 
-        private void StuffAfterTheFormIsShown(object sender, EventArgs e)
+        private void CheckForButtonAvailability()
+        //procedura testeaza daca cele trei butoane sunt activate sau nu, in functie de numarul de stiri din aceasta fereastra
         {
+            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
-            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+        }
+
+        private void StuffAfterTheFormIsShown(object sender, EventArgs e)
+        {
+            CheckForButtonAvailability();
         }
 
         private void CheckForEmptyGrid(object sender, DataGridViewRowsRemovedEventArgs e)
         {
-            EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
-            DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
-            ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
+            CheckForButtonAvailability();
         }
     }
 }
