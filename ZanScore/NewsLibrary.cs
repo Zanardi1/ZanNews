@@ -1,12 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using System.IO;
+using System.Security;
+using System;
 
 namespace ZanScore
 {
     public partial class NewsLibrary : Form
     {
-        private static int absoluteindex=0;
+        private static int absoluteindex = 0;
 
         static public List<string> NewsSourcesList = new List<string>() { };
         public List<string> NewsCategoriesList = new List<string>() { };
@@ -43,35 +45,66 @@ namespace ZanScore
             NewsSourcesRSSList.Clear();
         }
 
-        private bool CheckIfFileExists()
-        //Verifica daca exista fisierul ce contine biblioteca 
-        {
-            if (!File.Exists("Library.txt"))
-                return false;
-            else
-                return true;
-        }
-
-        private void ReadFromLibrary()
+        private bool ReadFromLibrary()
         //Procedura citeste din biblioteca si umple cele trei liste
         {
             string[] ReadBuffer = new string[] { };
-            ReadBuffer = File.ReadAllLines("Library.txt");
-            int i = 0, found = 0, j = 0;
-            for (i = 0; i < ReadBuffer.Length; i += 3)
+            try
             {
-                NewsSourcesList.Add(ReadBuffer[i]);
-                found = ReadBuffer[i].IndexOf(":");
-                NewsSourcesList[j] = NewsSourcesList[j].Substring(found + 1);
+                ReadBuffer = File.ReadAllLines("Library.txt");
+                int i = 0, found = 0, j = 0;
+                for (i = 0; i < ReadBuffer.Length; i += 3)
+                {
+                    NewsSourcesList.Add(ReadBuffer[i]);
+                    found = ReadBuffer[i].IndexOf(":");
+                    NewsSourcesList[j] = (found == -1 ? "" : NewsSourcesList[j].Substring(found + 1));
 
-                NewsCategoriesList.Add(ReadBuffer[i + 1]);
-                found = ReadBuffer[i + 1].IndexOf(":");
-                NewsCategoriesList[j] = NewsCategoriesList[j].Substring(found + 1);
+                    NewsCategoriesList.Add(ReadBuffer[i + 1]);
+                    found = ReadBuffer[i + 1].IndexOf(":");
+                    NewsCategoriesList[j] = (found == -1 ? "" : NewsCategoriesList[j].Substring(found + 1));
 
-                NewsSourcesRSSList.Add(ReadBuffer[i + 2]);
-                found = ReadBuffer[i + 2].IndexOf(":");
-                NewsSourcesRSSList[j] = NewsSourcesRSSList[j].Substring(found + 1);
-                j++;
+                    NewsSourcesRSSList.Add(ReadBuffer[i + 2]);
+                    found = ReadBuffer[i + 2].IndexOf(":");
+                    NewsSourcesRSSList[j] = (found == -1 ? "" : NewsSourcesRSSList[j].Substring(found + 1));
+
+                    j++;
+                }
+                return true;
+            }
+            catch (FileNotFoundException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
+            }
+            catch (FileLoadException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
+            }
+            catch (IOException I)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(I.Message, "Error!", MB, MI);
+                return false;
+            }
+            catch (SecurityException S)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(S.Message, "Error!", MB, MI);
+                return false;
+            }
+            catch (ArgumentOutOfRangeException A) //Exceptie pentru Substring. Ma indoiesc ca va fi ridicata vreodata, dar mai bine sa fiu precaut.
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error!", MB, MI);
+                return false;
             }
         }
 
@@ -167,17 +200,16 @@ namespace ZanScore
         }
 
         private void OpenLibraryFile()
+        //Instructiunile de deschidere a bibliotecii
         {
-            if (!CheckIfFileExists())
+            if (ReadFromLibrary())
             {
-                MessageBox.Show("Library file missing. This window will now close.");
-                Close();
+                CategoryListBox.SelectedIndex = 0;
+                FillWindowDatagrid(0);
             }
             else
             {
-                ReadFromLibrary();
-                CategoryListBox.SelectedIndex = 0;
-                FillWindowDatagrid(0);
+                Close();
             }
         }
 

@@ -417,7 +417,8 @@ namespace ZanScore
         private void ShowNewsLibraryWindow(object sender, EventArgs e)
         {
             NewsLibrary N = new NewsLibrary();
-            N.ShowDialog(this);
+            if (!N.IsDisposed)
+                N.ShowDialog(this);
         }
 
         private void StoreInitialSizes()
