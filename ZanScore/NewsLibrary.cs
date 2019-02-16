@@ -122,81 +122,90 @@ namespace ZanScore
          9 - Business;*/
         {
             int LowerBound = 0, UpperBound = 0, j = 0;
-            NewsLibrarySourcesView.Rows.Clear();
-            switch (Category)
+            try
             {
-                case 0:
-                    {
-                        LowerBound = 0;
-                        UpperBound = 26;
-                        break;
-                    }
-                case 1:
-                    {
-                        LowerBound = 27;
-                        UpperBound = 43;
-                        break;
-                    }
-                case 2:
-                    {
-                        LowerBound = 44;
-                        UpperBound = 52;
-                        break;
-                    }
-                case 3:
-                    {
-                        LowerBound = 53;
-                        UpperBound = 94;
-                        break;
-                    }
-                case 4:
-                    {
-                        LowerBound = 95;
-                        UpperBound = 102;
-                        break;
-                    }
-                case 5:
-                    {
-                        LowerBound = 103;
-                        UpperBound = 117;
-                        break;
-                    }
-                case 6:
-                    {
-                        LowerBound = 118;
-                        UpperBound = 129;
-                        break;
-                    }
-                case 7:
-                    {
-                        LowerBound = 130;
-                        UpperBound = 136;
-                        break;
-                    }
-                case 8:
-                    {
-                        LowerBound = 137;
-                        UpperBound = 143;
-                        break;
-                    }
-                case 9:
-                    {
-                        LowerBound = 144;
-                        UpperBound = 150;
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
+                NewsLibrarySourcesView.Rows.Clear();
+                switch (Category)
+                {
+                    case 0:
+                        {
+                            LowerBound = 0;
+                            UpperBound = 26;
+                            break;
+                        }
+                    case 1:
+                        {
+                            LowerBound = 27;
+                            UpperBound = 43;
+                            break;
+                        }
+                    case 2:
+                        {
+                            LowerBound = 44;
+                            UpperBound = 52;
+                            break;
+                        }
+                    case 3:
+                        {
+                            LowerBound = 53;
+                            UpperBound = 94;
+                            break;
+                        }
+                    case 4:
+                        {
+                            LowerBound = 95;
+                            UpperBound = 102;
+                            break;
+                        }
+                    case 5:
+                        {
+                            LowerBound = 103;
+                            UpperBound = 117;
+                            break;
+                        }
+                    case 6:
+                        {
+                            LowerBound = 118;
+                            UpperBound = 129;
+                            break;
+                        }
+                    case 7:
+                        {
+                            LowerBound = 130;
+                            UpperBound = 136;
+                            break;
+                        }
+                    case 8:
+                        {
+                            LowerBound = 137;
+                            UpperBound = 143;
+                            break;
+                        }
+                    case 9:
+                        {
+                            LowerBound = 144;
+                            UpperBound = 150;
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
+                for (int i = LowerBound; i <= UpperBound; i++)
+                {
+                    NewsLibrarySourcesView.Rows.Add();
+                    NewsLibrarySourcesView.Rows[j].Cells[0].Value = NewsSourcesList[i];
+                    j++;
+                }
+                NewsLibrarySourcesView.Rows[0].Selected = true;
             }
-            for (int i = LowerBound; i <= UpperBound; i++)
+            catch (InvalidOperationException I)
             {
-                NewsLibrarySourcesView.Rows.Add();
-                NewsLibrarySourcesView.Rows[j].Cells[0].Value = NewsSourcesList[i];
-                j++;
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(I.Message, "Error!", MB, MI);
             }
-            NewsLibrarySourcesView.Rows[0].Selected = true;
         }
 
         private void OpenLibraryFile()
