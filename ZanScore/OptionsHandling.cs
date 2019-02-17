@@ -261,8 +261,10 @@ namespace ZanScore
             try
             {
                 ReadBuffer = File.ReadAllLines("Options.txt");
+
                 for (int i = 0; i < ReadBuffer.Length; i++)
                     ReadBuffer[i] = ReadBuffer[i].Trim();
+
                 WindowsStartup = int.Parse(ReadBuffer[0].Substring(ReadBuffer[0].IndexOf("=") + 1));
                 MinimizeToTray = int.Parse(ReadBuffer[1].Substring(ReadBuffer[1].IndexOf("=") + 1));
                 StartupOptions = int.Parse(ReadBuffer[2].Substring(ReadBuffer[2].IndexOf("=") + 1));
@@ -274,7 +276,7 @@ namespace ZanScore
                 IntervalNumber = int.Parse(ReadBuffer[8].Substring(ReadBuffer[8].IndexOf("=") + 1));
                 IntervalTime = int.Parse(ReadBuffer[9].Substring(ReadBuffer[9].IndexOf("=") + 1));
             }
-            catch (FileNotFoundException F)
+            catch (FileNotFoundException F) //Exceptii pentru ReadAllLines
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
@@ -303,6 +305,25 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error!", MB, MI);
+            }
+            catch (ArgumentOutOfRangeException A) //Exceptii de la Substring
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error!", MB, MI);
+            }
+            catch (FormatException F) //Exceptii de la Parse
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+            }
+
+            catch (OverflowException O)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(O.Message, "Error!", MB, MI);
             }
         }
 
