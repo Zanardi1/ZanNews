@@ -55,14 +55,17 @@ namespace ZanScore
                 int i = 0, found = 0, j = 0;
                 for (i = 0; i < ReadBuffer.Length; i += 3)
                 {
+                    ReadBuffer[i] = ReadBuffer[i].Trim();
                     NewsSourcesList.Add(ReadBuffer[i]);
                     found = ReadBuffer[i].IndexOf(":");
                     NewsSourcesList[j] = (found == -1 ? "" : NewsSourcesList[j].Substring(found + 1));
 
+                    ReadBuffer[i + 1] = ReadBuffer[i + 1].Trim();
                     NewsCategoriesList.Add(ReadBuffer[i + 1]);
                     found = ReadBuffer[i + 1].IndexOf(":");
                     NewsCategoriesList[j] = (found == -1 ? "" : NewsCategoriesList[j].Substring(found + 1));
 
+                    ReadBuffer[i + 2] = ReadBuffer[i + 2].Trim();
                     NewsSourcesRSSList.Add(ReadBuffer[i + 2]);
                     found = ReadBuffer[i + 2].IndexOf(":");
                     NewsSourcesRSSList[j] = (found == -1 ? "" : NewsSourcesRSSList[j].Substring(found + 1));

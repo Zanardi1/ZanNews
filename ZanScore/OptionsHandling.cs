@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System;
+using System.Windows.Forms;
+using System.Security;
 
 /*Clasa ce se ocpa de manipularea fisierului de optiuni si de punerea in aplicare a optiunilor citite.
  Proprietati:
@@ -212,10 +215,8 @@ namespace ZanScore
         {
             if (!File.Exists("Options.txt"))
             {
-                FileStream FS = File.Create("Options.txt");
                 SetDefaultOptions();
                 SaveOptionsToFile();
-                FS.Close();
             }
         }
 
@@ -232,30 +233,81 @@ namespace ZanScore
             OptionValues[7] = NewsDownloadAtInterval;
             OptionValues[8] = IntervalNumber;
             OptionValues[9] = IntervalTime;
+
             for (int i = 0; i < NumberOfOptions; i++)
                 WriteBuffer.Add(OptionNames[i] + "=" + OptionValues[i]);
-            File.WriteAllLines("Options.txt", WriteBuffer.ToArray());
+
+            try
+            {
+                File.WriteAllLines("Options.txt", WriteBuffer.ToArray());
+            }
+            catch (UnauthorizedAccessException U)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(U.Message, "Error!", MB, MI);
+            }
+            catch (SecurityException S)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(S.Message, "Error!", MB, MI);
+            }
         }
 
         public void ReadOptionsFromFile() //citeste optiunile din fisier
         {
             string[] ReadBuffer = new string[] { };
-            ReadBuffer = File.ReadAllLines("Options.txt");
-            for (int i = 0; i < ReadBuffer.Length; i++)
-                ReadBuffer[i] = ReadBuffer[i].Trim();
-            WindowsStartup = int.Parse(ReadBuffer[0].Substring(ReadBuffer[0].IndexOf("=") + 1));
-            MinimizeToTray = int.Parse(ReadBuffer[1].Substring(ReadBuffer[1].IndexOf("=") + 1));
-            StartupOptions = int.Parse(ReadBuffer[2].Substring(ReadBuffer[2].IndexOf("=") + 1));
-            DisableInvalidNewsFiles = int.Parse(ReadBuffer[3].Substring(ReadBuffer[3].IndexOf("=") + 1));
-            WindowWidth = int.Parse(ReadBuffer[4].Substring(ReadBuffer[4].IndexOf("=") + 1));
-            WindowHeight = int.Parse(ReadBuffer[5].Substring(ReadBuffer[5].IndexOf("=") + 1));
-            NewsDownloadAtStartup = int.Parse(ReadBuffer[6].Substring(ReadBuffer[6].IndexOf("=") + 1));
-            NewsDownloadAtInterval = int.Parse(ReadBuffer[7].Substring(ReadBuffer[7].IndexOf("=") + 1));
-            IntervalNumber = int.Parse(ReadBuffer[8].Substring(ReadBuffer[8].IndexOf("=") + 1));
-            IntervalTime = int.Parse(ReadBuffer[9].Substring(ReadBuffer[9].IndexOf("=") + 1));
+            try
+            {
+                ReadBuffer = File.ReadAllLines("Options.txt");
+                for (int i = 0; i < ReadBuffer.Length; i++)
+                    ReadBuffer[i] = ReadBuffer[i].Trim();
+                WindowsStartup = int.Parse(ReadBuffer[0].Substring(ReadBuffer[0].IndexOf("=") + 1));
+                MinimizeToTray = int.Parse(ReadBuffer[1].Substring(ReadBuffer[1].IndexOf("=") + 1));
+                StartupOptions = int.Parse(ReadBuffer[2].Substring(ReadBuffer[2].IndexOf("=") + 1));
+                DisableInvalidNewsFiles = int.Parse(ReadBuffer[3].Substring(ReadBuffer[3].IndexOf("=") + 1));
+                WindowWidth = int.Parse(ReadBuffer[4].Substring(ReadBuffer[4].IndexOf("=") + 1));
+                WindowHeight = int.Parse(ReadBuffer[5].Substring(ReadBuffer[5].IndexOf("=") + 1));
+                NewsDownloadAtStartup = int.Parse(ReadBuffer[6].Substring(ReadBuffer[6].IndexOf("=") + 1));
+                NewsDownloadAtInterval = int.Parse(ReadBuffer[7].Substring(ReadBuffer[7].IndexOf("=") + 1));
+                IntervalNumber = int.Parse(ReadBuffer[8].Substring(ReadBuffer[8].IndexOf("=") + 1));
+                IntervalTime = int.Parse(ReadBuffer[9].Substring(ReadBuffer[9].IndexOf("=") + 1));
+            }
+            catch (FileNotFoundException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+            }
+            catch (FileLoadException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+            }
+            catch (IOException I)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(I.Message, "Error!", MB, MI);
+            }
+            catch (SecurityException S)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(S.Message, "Error!", MB, MI);
+            }
+            catch (ArgumentNullException A)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error!", MB, MI);
+            }
         }
 
         public bool CheckOptionsFileContent()
+        //todo de adugat instructiuni
         {
             return true;
         }
