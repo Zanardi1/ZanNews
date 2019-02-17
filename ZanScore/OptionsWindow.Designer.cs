@@ -32,13 +32,13 @@
             this.DiscardChanges = new System.Windows.Forms.Button();
             this.ManageTabs = new System.Windows.Forms.TabControl();
             this.StartupTab = new System.Windows.Forms.TabPage();
-            this.NewsSourcesTab = new System.Windows.Forms.TabPage();
             this.AppStartGB = new System.Windows.Forms.GroupBox();
             this.StartMaximized = new System.Windows.Forms.RadioButton();
             this.StartMinimized = new System.Windows.Forms.RadioButton();
             this.StartNormal = new System.Windows.Forms.RadioButton();
             this.MinimizeToTrayCheckBox = new System.Windows.Forms.CheckBox();
             this.StartWithWindowsCheckBox = new System.Windows.Forms.CheckBox();
+            this.NewsSourcesTab = new System.Windows.Forms.TabPage();
             this.DownloadNewsAtStartup = new System.Windows.Forms.CheckBox();
             this.DisableBadSources = new System.Windows.Forms.CheckBox();
             this.NewsDownloadTab = new System.Windows.Forms.TabPage();
@@ -48,8 +48,8 @@
             this.AutomaticalDownload = new System.Windows.Forms.CheckBox();
             this.ManageTabs.SuspendLayout();
             this.StartupTab.SuspendLayout();
-            this.NewsSourcesTab.SuspendLayout();
             this.AppStartGB.SuspendLayout();
+            this.NewsSourcesTab.SuspendLayout();
             this.NewsDownloadTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericValue)).BeginInit();
             this.SuspendLayout();
@@ -98,18 +98,6 @@
             this.StartupTab.TabIndex = 0;
             this.StartupTab.Text = "Startup";
             this.StartupTab.UseVisualStyleBackColor = true;
-            // 
-            // NewsSourcesTab
-            // 
-            this.NewsSourcesTab.Controls.Add(this.DownloadNewsAtStartup);
-            this.NewsSourcesTab.Controls.Add(this.DisableBadSources);
-            this.NewsSourcesTab.Location = new System.Drawing.Point(4, 25);
-            this.NewsSourcesTab.Name = "NewsSourcesTab";
-            this.NewsSourcesTab.Padding = new System.Windows.Forms.Padding(3);
-            this.NewsSourcesTab.Size = new System.Drawing.Size(616, 252);
-            this.NewsSourcesTab.TabIndex = 1;
-            this.NewsSourcesTab.Text = "News Sources";
-            this.NewsSourcesTab.UseVisualStyleBackColor = true;
             // 
             // AppStartGB
             // 
@@ -180,6 +168,18 @@
             this.StartWithWindowsCheckBox.Text = "Start with Windows";
             this.StartWithWindowsCheckBox.UseVisualStyleBackColor = true;
             this.StartWithWindowsCheckBox.CheckedChanged += new System.EventHandler(this.StartWithWindowsToggle);
+            // 
+            // NewsSourcesTab
+            // 
+            this.NewsSourcesTab.Controls.Add(this.DownloadNewsAtStartup);
+            this.NewsSourcesTab.Controls.Add(this.DisableBadSources);
+            this.NewsSourcesTab.Location = new System.Drawing.Point(4, 25);
+            this.NewsSourcesTab.Name = "NewsSourcesTab";
+            this.NewsSourcesTab.Padding = new System.Windows.Forms.Padding(3);
+            this.NewsSourcesTab.Size = new System.Drawing.Size(616, 252);
+            this.NewsSourcesTab.TabIndex = 1;
+            this.NewsSourcesTab.Text = "News Sources";
+            this.NewsSourcesTab.UseVisualStyleBackColor = true;
             // 
             // DownloadNewsAtStartup
             // 
@@ -269,7 +269,7 @@
             this.AcceptButton = this.AcceptChanges;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.CancelButton = this.DiscardChanges;
-            this.ClientSize = new System.Drawing.Size(658, 373);
+            this.ClientSize = new System.Drawing.Size(658, 338);
             this.ControlBox = false;
             this.Controls.Add(this.DiscardChanges);
             this.Controls.Add(this.AcceptChanges);
@@ -284,10 +284,10 @@
             this.ManageTabs.ResumeLayout(false);
             this.StartupTab.ResumeLayout(false);
             this.StartupTab.PerformLayout();
-            this.NewsSourcesTab.ResumeLayout(false);
-            this.NewsSourcesTab.PerformLayout();
             this.AppStartGB.ResumeLayout(false);
             this.AppStartGB.PerformLayout();
+            this.NewsSourcesTab.ResumeLayout(false);
+            this.NewsSourcesTab.PerformLayout();
             this.NewsDownloadTab.ResumeLayout(false);
             this.NewsDownloadTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NumericValue)).EndInit();

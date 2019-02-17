@@ -167,9 +167,10 @@ namespace ZanScore
                         ((Form1)Owner).OH.IntervalTime = 2;
                         break;
                     }
-
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
         }
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-using System.IO;
+﻿using System.Windows.Forms;
 using System.Xml;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
@@ -40,15 +38,19 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             {
                 feed = SyndicationFeed.Load(reader);
             }
+
             catch (XmlException e)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
-                MessageBox.Show("Error reading file " + e.SourceUri + ". File format unknown. Program will go to the next news source", "Error loading news source file", buttons, icon);
+                MessageBox.Show("Error reading file " + e.SourceUri + " at line " + e.LineNumber + ", position " + e.LinePosition + ". Program will go to the next news source", "Error loading news source file", buttons, icon);
                 return false;
             }
 
-            reader.Close();
+            finally
+            {
+                reader.Close();
+            }
 
             foreach (SyndicationItem item in feed.Items)
             {
