@@ -43,7 +43,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
-                MessageBox.Show("Error reading file " + e.SourceUri + " at line " + e.LineNumber + ", position " + e.LinePosition + ". Program will go to the next news source", "Error loading news source file", buttons, icon);
+                MessageBox.Show(e.Message+ " Program will go to the next news source", "Error loading news source file", buttons, icon);
                 return false;
             }
 

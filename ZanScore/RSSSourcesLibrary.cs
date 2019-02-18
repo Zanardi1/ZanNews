@@ -1,6 +1,8 @@
 ﻿using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System;
+using System.Security;
 
 namespace ZanScore
 {
@@ -73,28 +75,55 @@ namespace ZanScore
         {
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
             int j = 0, found = 0;
-            TextToRead = File.ReadAllLines("Sources.txt");
-            for (int i = 0; i < TextToRead.Length; i += 3) //Imparte fiecare text in sursa si URL
+            try
             {
-                SourceTitle.Add(TextToRead[i]);
-                found = TextToRead[i].IndexOf(":");
-                SourceTitle[j] = SourceTitle[j].Substring(found + 1);
-
-                SourceURL.Add(TextToRead[i + 1]);
-                found = TextToRead[i + 1].IndexOf(":");
-                SourceURL[j] = SourceURL[j].Substring(found + 1);
-
-
-                if (TextToRead[i + 2].Contains("True"))
+                TextToRead = File.ReadAllLines("Sources.txt");
+                for (int i = 0; i < TextToRead.Length; i += 3) //Imparte fiecare text in sursa si URL
                 {
-                    IsSourceSelected.Add(true);
-                    NumberofSelectedSources++;
-                }
-                else
-                    IsSourceSelected.Add(false);
+                    SourceTitle.Add(TextToRead[i]);
+                    found = TextToRead[i].IndexOf(":");
+                    SourceTitle[j] = SourceTitle[j].Substring(found + 1);
 
-                j++;
-                NumberofSources++;
+                    SourceURL.Add(TextToRead[i + 1]);
+                    found = TextToRead[i + 1].IndexOf(":");
+                    SourceURL[j] = SourceURL[j].Substring(found + 1);
+
+
+                    if (TextToRead[i + 2].Contains("True"))
+                    {
+                        IsSourceSelected.Add(true);
+                        NumberofSelectedSources++;
+                    }
+                    else
+                        IsSourceSelected.Add(false);
+
+                    j++;
+                    NumberofSources++;
+                }
+            }
+            catch (FileNotFoundException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+            }
+            catch(FileLoadException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+            }
+            catch (UnauthorizedAccessException U)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(U.Message, "Error!", MB, MI);
+            }
+            catch (SecurityException S)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(S.Message, "Error!", MB, MI);
             }
         }
 
