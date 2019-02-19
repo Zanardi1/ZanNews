@@ -59,12 +59,17 @@ namespace ZanScore
             NewsDescription.Width = NewsDetailsGrid.Width / 3;
         }
 
-        private void LoadWindowSizes()
-        //Incarca dimensiunile ferestrei din fisierul de optiuni si ajusteaza dimensiunile controlalelor in functie de proportiile stabilite
+        private void GetInitialWindowSizes()
         {
-            StoreInitialSizes();
             Height = OH.WindowHeight;
             Width = OH.WindowWidth;
+        }
+
+        private void LoadWindowSizes()
+        //Incarca dimensiunile ferestrei din fisierul de optiuni si ajusteaza dimensiunile controalelor in functie de proportiile stabilite
+        {
+            StoreInitialSizes();
+            GetInitialWindowSizes();
             ApplyResizeEngine();
         }
 
@@ -90,8 +95,11 @@ namespace ZanScore
                         WindowState = FormWindowState.Maximized;
                         break;
                     }
+
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
         }
 
@@ -118,7 +126,9 @@ namespace ZanScore
                         break;
                     }
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
             return Multiplier * OH.IntervalNumber * 1000;
         }
@@ -176,6 +186,8 @@ namespace ZanScore
             NewsDetailsGrid.Rows.Clear();
             NewsSourcesCollection.ClearSources();
             NewsSourcesCollection.LoadSources(AreSources);
+            Cursor.Current = Cursors.WaitCursor;
+            StatusLabel.Text = "Reading selected news feeds...";
         }
 
         private void DownloadingEngine(bool AreSources)
@@ -201,20 +213,20 @@ namespace ZanScore
             }
         }
 
+        private void DownloadAllNewsFinalization()
+        {
+            Cursor.Current = Cursors.Arrow;
+            FillGrid();
+            StatusLabel.Text = "Download complete. " + NewsDetailsGrid.RowCount.ToString() + " news downloaded.";
+        }
+
         public void DownloadAllNewsProcess(bool AreSources)
         //Intreg procesul de descarcare a stirilor. 
         //Parametrul retine daca aceasta procedura a fost apelata pentru a citi din sursele de stiri (true) sau din biblioteca de surse (false)
         {
             DownloadAllNewsInitialization(AreSources);
-
-            Cursor.Current = Cursors.WaitCursor;
-            StatusLabel.Text = "Reading selected news feeds...";
-
             DownloadingEngine(AreSources);
-
-            Cursor.Current = Cursors.Arrow;
-            FillGrid();
-            StatusLabel.Text = "Download complete. " + NewsDetailsGrid.RowCount.ToString() + " news downloaded.";
+            DownloadAllNewsFinalization();
         }
 
         private void DownloadAllNews(object sender, EventArgs e)
@@ -238,7 +250,31 @@ namespace ZanScore
         public void LoadingNewsEngine(string URL)
         //Instructiunile pentru incararea efectiva a stirii selectate
         {
-            NewsWebPage.Navigate(new Uri(URL));
+            try
+            {
+                NewsWebPage.Navigate(new Uri(URL));
+            }
+
+            catch (ObjectDisposedException O)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(O.Message, "Error!", MB, MI);
+            }
+
+            catch (InvalidOperationException I)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(I.Message, "Error!", MB, MI);
+            }
+
+            catch (ArgumentException A)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error!", MB, MI);
+            }
         }
 
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e) => LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
@@ -256,7 +292,7 @@ namespace ZanScore
         private void ShowAddNewsSourcesWindow(object sender, EventArgs e)
         {
             AddSourceWindow A = new AddSourceWindow();
-            A.ShowDialog(this);
+            A.ShowDialog(owner: this);
             if (A.DialogResult == DialogResult.OK) //*
             {
                 NewsSourcesCollection.AddNewSource(A.SourceNameText.Text, A.SourceURLText.Text);
