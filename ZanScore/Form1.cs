@@ -5,6 +5,8 @@ using System.Collections.Generic;
 //todo pe viitor sa incep sa tratez si exceptiile si cazurile de eroare. Pana acum m-am ocupat de cazurile ideale.
 //todo sa testez toate exceptiile tratate in acest program, cu ajutorul unitatilor de test
 //todo sa generez documentatia XML
+//todo sa testez la pornirea programului daca exista conexiune la internet
+//todo sa introduc o functie de tiparire a paginii vizualizate
 
 namespace ZanScore
 {
@@ -279,6 +281,7 @@ namespace ZanScore
 
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e) => LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
         //Incarca stirea selectata
+
 
         private void SelectNewsSources(object sender, EventArgs e)
         //Afiseaza fereastra de selectie a surselor de stiri

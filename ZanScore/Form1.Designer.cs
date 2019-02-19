@@ -57,6 +57,7 @@
             // 
             // NewsWebPage
             // 
+            this.NewsWebPage.AllowWebBrowserDrop = false;
             this.NewsWebPage.Location = new System.Drawing.Point(495, 50);
             this.NewsWebPage.MinimumSize = new System.Drawing.Size(20, 20);
             this.NewsWebPage.Name = "NewsWebPage";
