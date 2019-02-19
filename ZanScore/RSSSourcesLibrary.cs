@@ -55,7 +55,6 @@ namespace ZanScore
 
         public RSSSourcesLibrary()
         {
-            CheckForRSSFile();
             LoadSources(true);
         }
 
@@ -161,7 +160,24 @@ namespace ZanScore
                 TextToWrite.Add("URL:" + SourceURL[i]);
                 TextToWrite.Add("selected:" + IsSourceSelected[i]);
             }
-            File.WriteAllLines("Sources.txt", TextToWrite.ToArray());
+
+            try
+            {
+                File.WriteAllLines("Sources.txt", TextToWrite.ToArray());
+            }
+
+            catch (UnauthorizedAccessException U)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(U.Message, "Error!", MB, MI);
+            }
+            catch (SecurityException S)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(S.Message, "Error!", MB, MI);
+            }
         }
 
         public void AddNewSource(string NewSourceName, string NewSourceURL)
@@ -202,16 +218,6 @@ namespace ZanScore
         }
 
         public List<string> GetNewsURL() => SourceURL;
-
-        private void CheckForRSSFile()
-        //Subrutina verifica daca exista fisierul "Sources.txt". Daca nu exista, creaza un fisier gol
-        {
-            if (!File.Exists("Sources.txt"))
-            {
-                FileStream FS = File.Create("Sources.txt");
-                FS.Close();
-            }
-        }
 
         public void ClearSources()
         //Goleste datele legate de sursele de stiri. Utila in cazul in care nu vreau ca aceleasi stiri sa apara de 2+ ori
@@ -265,7 +271,9 @@ namespace ZanScore
                         break;
                     }
                 default:
-                    break;
+                    {
+                        break;
+                    }
             }
         }
 

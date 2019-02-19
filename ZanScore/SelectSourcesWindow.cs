@@ -19,6 +19,7 @@ namespace ZanScore
                 NewsSourcesDataGrid.Rows[i].Cells[0].Value = ((Form1)Owner).NewsSourcesCollection.IsSourceSelected[i];
                 NewsSourcesDataGrid.Rows[i].Cells[1].Value = ((Form1)Owner).NewsSourcesCollection.SourceTitle[i];
             }
+
             NewsSourcesDataGrid.RefreshEdit();
         }
 
