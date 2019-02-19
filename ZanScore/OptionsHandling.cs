@@ -4,7 +4,7 @@ using System;
 using System.Windows.Forms;
 using System.Security;
 
-/*Clasa ce se ocpa de manipularea fisierului de optiuni si de punerea in aplicare a optiunilor citite.
+/*Clasa ce se ocupa de manipularea fisierului de optiuni si de punerea in aplicare a optiunilor citite.
  Proprietati:
  
      1. WindowsStartup. 1 daca aplicatia porneste odata cu Windows, 0 altfel
@@ -198,7 +198,7 @@ namespace ZanScore
         private readonly int NumberOfOptions = 10; //retine numarul de optiuni. Daca mai apar sau dispar altele noi, acest numar se va modifica
         private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "NewsDownlAtStartup", "NewsDownlAtInterval", "IntervNumber", "IntervTime" };
         private readonly int[] OptionValues = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        
+
         public OptionsHandling() //constructor
         {
             OpenOptionsFile();
@@ -219,9 +219,9 @@ namespace ZanScore
             }
         }
 
-        public void SaveOptionsToFile() //salvarea optiunilor in fisier
+        private void FillOptionValues()
+        //Procedura umple sirul valorilor pentru optiuni cu valorile variabilelor corespunzatoare
         {
-            List<string> WriteBuffer = new List<string>() { };
             OptionValues[0] = WindowsStartup;
             OptionValues[1] = MinimizeToTray;
             OptionValues[2] = StartupOptions;
@@ -232,6 +232,13 @@ namespace ZanScore
             OptionValues[7] = NewsDownloadAtInterval;
             OptionValues[8] = IntervalNumber;
             OptionValues[9] = IntervalTime;
+        }
+
+        public void SaveOptionsToFile() //salvarea optiunilor in fisier
+        {
+            List<string> WriteBuffer = new List<string>() { };
+
+            FillOptionValues();
 
             for (int i = 0; i < NumberOfOptions; i++)
                 WriteBuffer.Add(OptionNames[i] + "=" + OptionValues[i]);

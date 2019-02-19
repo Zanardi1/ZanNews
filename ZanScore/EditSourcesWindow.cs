@@ -89,11 +89,8 @@ namespace ZanScore
             }
         }
 
-        private void DiscardEditingChanges(object sender, EventArgs e)
+        private void DiscardEditingChanges(object sender, EventArgs e) => DisableEditingControls();
         //Procedura de renuntare la editare si de stergere a modificarilor aduse
-        {
-            DisableEditingControls();
-        }
 
         private void SaveEditChanges(object sender, EventArgs e)
         //Procedura de salvare a modificarilor efectuate
@@ -156,11 +153,8 @@ namespace ZanScore
             FinishReorderingButton.Enabled = true;
         }
 
-        private void ReorderSelectedNewsSources(object sender, EventArgs e)
+        private void ReorderSelectedNewsSources(object sender, EventArgs e) => EnableReorderingControls();
         //Reordonarea surselor de stiri
-        {
-            EnableReorderingControls();
-        }
 
         private void MoveUpOnePositionInGrid(int Position, int Cell)
         //Procedura de mutare cu o pozitie in sus a stirii selectate
@@ -310,11 +304,8 @@ namespace ZanScore
             }
         }
 
-        private void CloseWindow(object sender, FormClosedEventArgs e)
+        private void CloseWindow(object sender, FormClosedEventArgs e) => ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
         //Procedura de inchidere a ferestrei
-        {
-            ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
-        }
 
         private void CheckForButtonAvailability()
         //procedura testeaza daca cele trei butoane sunt activate sau nu, in functie de numarul de stiri din aceasta fereastra
@@ -324,14 +315,10 @@ namespace ZanScore
             ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
         }
 
-        private void StuffAfterTheFormIsShown(object sender, EventArgs e)
-        {
-            CheckForButtonAvailability();
-        }
+        private void StuffAfterTheFormIsShown(object sender, EventArgs e) => CheckForButtonAvailability();
+        //Procesari efectuate dupa afisarea ferestrei
 
-        private void CheckForEmptyGrid(object sender, DataGridViewRowsRemovedEventArgs e)
-        {
-            CheckForButtonAvailability();
-        }
+        private void CheckForEmptyGrid(object sender, DataGridViewRowsRemovedEventArgs e) => CheckForButtonAvailability();
+        //Procedura verifica daca, dupa eliminearea unei surse de stiri, grila devine goala, deoarece nu mai e nicio sursa de stiri
     }
 }

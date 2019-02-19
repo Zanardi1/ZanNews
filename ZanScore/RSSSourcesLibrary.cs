@@ -106,7 +106,7 @@ namespace ZanScore
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(F.Message, "Error!", MB, MI);
             }
-            catch(FileLoadException F)
+            catch (FileLoadException F)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
@@ -181,6 +181,7 @@ namespace ZanScore
         }
 
         public void AddNewSource(string NewSourceName, string NewSourceURL)
+        //Procedura de adaugare a unei noi surse de stiri
         {
             SourceTitle.Add(NewSourceName);
             SourceURL.Add(NewSourceURL);
@@ -189,7 +190,7 @@ namespace ZanScore
         }
 
         public void EditSource(int SourcePosition, string NewSourceName, string NewSourceURL)
-        //Functia editeaza sursa care se afla la pozitia SourcePosition
+        //Procedura de editare a sursei care se afla la pozitia SourcePosition
         {
             SourceTitle[SourcePosition] = NewSourceName;
             SourceURL[SourcePosition] = NewSourceURL;
@@ -278,6 +279,7 @@ namespace ZanScore
         }
 
         private void ExchangeElementsString(List<string> List, int Pos1, int Pos2)
+        //Procedura interschimba doua elemente de tip string dintr-o lista de tip List<string>
         {
             string buffer = List[Pos1];
             List[Pos1] = List[Pos2];
@@ -285,6 +287,7 @@ namespace ZanScore
         }
 
         private void ExchangeElementsBoolean(List<bool> List, int Pos1, int Pos2)
+        //Procedura interschimba doua elemente de tip boolean dintr-o lista de tip List<bool>
         {
             bool buffer = List[Pos1];
             List[Pos1] = List[Pos2];
@@ -292,6 +295,7 @@ namespace ZanScore
         }
 
         private void MoveToFirstPositionString(List<string> List, int PosFrom)
+        //Procedura muta pe prima pozitie a unei liste de tip List<string> elementul de pe pozitia PosFrom
         {
             string buffer = List[PosFrom];
             for (int i = PosFrom; i > 0; i--)
@@ -300,6 +304,7 @@ namespace ZanScore
         }
 
         private void MoveToFirstPositionBoolean(List<bool> List, int PosFrom)
+        //Procedura muta pe prima pozitie a unei liste de tip List<bool> elementul de pe pozitia PosFrom
         {
             bool buffer = List[PosFrom];
             for (int i = PosFrom; i > 0; i--)
@@ -308,6 +313,7 @@ namespace ZanScore
         }
 
         private void MoveToLastPositionString(List<string> List, int PosFrom)
+        //Procedura muta pe ultima pozitie a unei liste de tip List<string> elementul de pe pozitia PosFrom
         {
             string buffer = List[PosFrom];
             for (int i = PosFrom; i < List.Count - 1; i++)
@@ -316,6 +322,7 @@ namespace ZanScore
         }
 
         private void MoveToLastPositionBoolean(List<bool> List, int PosFrom)
+        //Procedura muta pe ultima pozitie a unei liste de tip List<bool> elementul de pe pozitia PosFrom
         {
             bool buffer = List[PosFrom];
             for (int i = PosFrom; i < List.Count - 1; i++)

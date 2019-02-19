@@ -20,6 +20,7 @@ namespace ZanScore
             AutomaticalDownload.Checked = (((Form1)Owner).OH.NewsDownloadAtInterval == 1 ? true : false);
             NumericValue.Value = ((Form1)Owner).OH.IntervalNumber;
             TimeInterval.SelectedIndex = ((Form1)Owner).OH.IntervalTime;
+
             switch (((Form1)Owner).OH.StartupOptions)
             {
                 case 1:
@@ -44,19 +45,19 @@ namespace ZanScore
             }
         }
 
-        private void Assign1ToVar(object sender, EventArgs e)
+        private void Assign1ToStartupOptionsVar(object sender, EventArgs e)
         {
             if (StartMinimized.Checked)
                 ((Form1)Owner).OH.StartupOptions = 1;
         }
 
-        private void Assign2ToVar(object sender, EventArgs e)
+        private void Assign2ToStartupOptionsVar(object sender, EventArgs e)
         {
             if (StartNormal.Checked)
                 ((Form1)Owner).OH.StartupOptions = 2;
         }
 
-        private void Assign3ToVar(object sender, EventArgs e)
+        private void Assign3ToStartupOptionsVar(object sender, EventArgs e)
         {
             if (StartMaximized.Checked)
                 ((Form1)Owner).OH.StartupOptions = 3;
@@ -105,35 +106,23 @@ namespace ZanScore
             Close();
         }
 
-        private void StartWithWindowsToggle(object sender, EventArgs e)
-        {
-            ((Form1)Owner).OH.WindowsStartup = (StartWithWindowsCheckBox.Checked ? 1 : 0);
-        }
+        private void StartWithWindowsToggle(object sender, EventArgs e) => ((Form1)Owner).OH.WindowsStartup = (StartWithWindowsCheckBox.Checked ? 1 : 0);
+        //Procedura bifeaza sau debifeaza checkbox-ul legat de pornirea programului odata cu sistemul de operare
 
-        private void MinimizeToTrayToggle(object sender, EventArgs e)
-        {
-            ((Form1)Owner).OH.MinimizeToTray = (MinimizeToTrayCheckBox.Checked ? 1 : 0);
-        }
+        private void MinimizeToTrayToggle(object sender, EventArgs e) => ((Form1)Owner).OH.MinimizeToTray = (MinimizeToTrayCheckBox.Checked ? 1 : 0);
+        //Procedura bifeaza sau debifeaza checkbox-ul legat de minimizarea in Systray a programului
 
-        private void DisableNewsSourcesToggle(object sender, EventArgs e)
-        {
-            ((Form1)Owner).OH.DisableInvalidNewsFiles = (DisableBadSources.Checked ? 1 : 0);
-        }
+        private void DisableNewsSourcesToggle(object sender, EventArgs e) => ((Form1)Owner).OH.DisableInvalidNewsFiles = (DisableBadSources.Checked ? 1 : 0);
+        //Procedura bifeaza sau debifeaza checkbox-ul legat de dezactivarea surselor de stiri cu un RSS ce nu poate fi citit
 
-        private void DownloadAtStartupToggle(object sender, EventArgs e)
-        {
-            ((Form1)Owner).OH.NewsDownloadAtStartup = (DownloadNewsAtStartup.Checked ? 1 : 0);
-        }
+        private void DownloadAtStartupToggle(object sender, EventArgs e) => ((Form1)Owner).OH.NewsDownloadAtStartup = (DownloadNewsAtStartup.Checked ? 1 : 0);
+        //Procedura bifeaza sau debifeaza checkbox-ul legat de descarcarea stirilor la pornirea programului
 
-        private void CloseWindow(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void CloseWindow(object sender, EventArgs e) => Close();
+        //Procedura inchide freastra de optiuni
 
-        private void ShowOptions(object sender, EventArgs e)
-        {
-            ShowOptionsInOptionsWindow();
-        }
+        private void ShowOptions(object sender, EventArgs e) => ShowOptionsInOptionsWindow();
+        //Procedura afiseaza optiunile in fereastra
 
         private void ToggleIntervalEnabling(object sender, EventArgs e)
         //Activeaza sau dezactiveaza controlalele pentru stabilirea duratei de asteptate intre descarcari
@@ -174,21 +163,13 @@ namespace ZanScore
             }
         }
 
-        private void UnitSelectionEngine(object sender, EventArgs e)
-        //procesarile legate de selectarea unitatii de masura
-        {
-            AdjustSuperiorValues();
-        }
+        private void UnitSelectionEngine(object sender, EventArgs e) => AdjustSuperiorValues();
+        //Procedura efectueaza procesarile legate de selectarea unitatii de masura
 
-        private void SetValueInOptionsStructure()
-        {
-            ((Form1)Owner).OH.IntervalNumber = (int)NumericValue.Value;
-        }
+        private void SetValueInOptionsStructure() => ((Form1)Owner).OH.IntervalNumber = (int)NumericValue.Value;
+        //Procedura atribuie valoarea numerica in variabila potrivita, variabila citita din fereastra
 
-        private void AdjustingValueEngine(object sender, EventArgs e)
+        private void AdjustingValueEngine(object sender, EventArgs e) => SetValueInOptionsStructure();
         //Seteaza valoarea numerica in structura optiunilor
-        {
-            SetValueInOptionsStructure();
-        }
     }
 }

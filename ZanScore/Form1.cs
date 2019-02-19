@@ -387,14 +387,19 @@ namespace ZanScore
             WidthDiff = Width - InitialWindowWidth;
         }
 
+        private void SetControlSizeWhenMaximized()
+        {
+            NewsWebPage.Width = Width - NewsWebPage.Left - (int)(Width * 0.02);
+            NewsWebPage.Height = NewsDetailsGrid.Height;
+            NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height - statusStrip1.Height - MainMenu.Height - (int)(Height * 0.12);
+        }
+
         private void ResizeControlsEngine()
         //Procedura de redimensionare a controlalelor ferestrei
         {
             if (WindowState == FormWindowState.Maximized)
             {
-                NewsWebPage.Width = Width - NewsWebPage.Left - (int)(Width * 0.02);
-                NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height - statusStrip1.Height - MainMenu.Height - (int)(Height * 0.12);
-                NewsWebPage.Height = NewsDetailsGrid.Height;
+                SetControlSizeWhenMaximized();
                 StoreInitialSizes();
                 ComputeSizeDifferences();
                 WasMaximized = true;

@@ -121,7 +121,7 @@
             this.StartMaximized.TabIndex = 4;
             this.StartMaximized.Text = "Start maximized";
             this.StartMaximized.UseVisualStyleBackColor = true;
-            this.StartMaximized.CheckedChanged += new System.EventHandler(this.Assign3ToVar);
+            this.StartMaximized.CheckedChanged += new System.EventHandler(this.Assign3ToStartupOptionsVar);
             // 
             // StartMinimized
             // 
@@ -132,7 +132,7 @@
             this.StartMinimized.TabIndex = 3;
             this.StartMinimized.Text = "Start minimized";
             this.StartMinimized.UseVisualStyleBackColor = true;
-            this.StartMinimized.CheckedChanged += new System.EventHandler(this.Assign1ToVar);
+            this.StartMinimized.CheckedChanged += new System.EventHandler(this.Assign1ToStartupOptionsVar);
             // 
             // StartNormal
             // 
@@ -143,7 +143,7 @@
             this.StartNormal.TabIndex = 3;
             this.StartNormal.Text = "Start normal";
             this.StartNormal.UseVisualStyleBackColor = true;
-            this.StartNormal.CheckedChanged += new System.EventHandler(this.Assign2ToVar);
+            this.StartNormal.CheckedChanged += new System.EventHandler(this.Assign2ToStartupOptionsVar);
             // 
             // MinimizeToTrayCheckBox
             // 
