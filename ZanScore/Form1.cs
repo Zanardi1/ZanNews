@@ -2,7 +2,6 @@
 using System.Windows.Forms;
 using System.Collections.Generic;
 
-//todo pe viitor sa incep sa tratez si exceptiile si cazurile de eroare. Pana acum m-am ocupat de cazurile ideale.
 //todo sa testez toate exceptiile tratate in acest program, cu ajutorul unitatilor de test
 //todo sa generez documentatia XML
 //todo sa testez la pornirea programului daca exista conexiune la internet

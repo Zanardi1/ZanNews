@@ -79,15 +79,18 @@ namespace ZanScore
                 TextToRead = File.ReadAllLines("Sources.txt");
                 for (int i = 0; i < TextToRead.Length; i += 3) //Imparte fiecare text in sursa si URL
                 {
+                    TextToRead[i] = TextToRead[i].Trim();
                     SourceTitle.Add(TextToRead[i]);
                     found = TextToRead[i].IndexOf(":");
                     SourceTitle[j] = SourceTitle[j].Substring(found + 1);
 
+                    TextToRead[i + 1] = TextToRead[i + 1].Trim();
                     SourceURL.Add(TextToRead[i + 1]);
                     found = TextToRead[i + 1].IndexOf(":");
                     SourceURL[j] = SourceURL[j].Substring(found + 1);
 
 
+                    TextToRead[i + 2] = TextToRead[i + 2].Trim();
                     if (TextToRead[i + 2].Contains("True"))
                     {
                         IsSourceSelected.Add(true);
