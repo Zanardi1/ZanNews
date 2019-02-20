@@ -2,6 +2,7 @@
 using System.Xml;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
+using System.Net;
 
 namespace ZanScore
 /*
@@ -31,9 +32,15 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         public bool FillRSSData(string FileToLoad)
         //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         {
+            if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show("No internet connection detected!", "Error!", buttons, icon);
+                return false;
+            }
             XmlReader reader = XmlReader.Create(FileToLoad);
             SyndicationFeed feed = new SyndicationFeed();
-
             try
             {
                 feed = SyndicationFeed.Load(reader);
@@ -43,7 +50,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
-                MessageBox.Show(e.Message+ " Program will go to the next news source", "Error loading news source file", buttons, icon);
+                MessageBox.Show(e.Message + " Program will go to the next news source", "Error loading news source file", buttons, icon);
                 return false;
             }
 

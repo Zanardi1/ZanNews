@@ -65,48 +65,47 @@ namespace ZanScore
                 ((Form1)Owner).OH.StartupOptions = 3;
         }
 
+        private void CreateTheShortcut()
+        {
+            WshShell wshShell = new WshShell();
+            IWshRuntimeLibrary.IWshShortcut shortcut;
+            string startUpFolderPath = Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+
+            // Create the shortcut
+            shortcut = (IWshShortcut)wshShell.CreateShortcut(startUpFolderPath + "\\" + Application.ProductName + ".lnk");
+            shortcut.TargetPath = Application.ExecutablePath;
+            shortcut.WorkingDirectory = Application.StartupPath;
+            shortcut.Description = "Launch My Application";
+            // shortcut.IconLocation = Application.StartupPath + @"\App.ico";
+            shortcut.Save();
+        }
+
+        private void DeleteTheShortcut()
+        {
+            string PathToShortcut = "";
+            PathToShortcut = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + Application.ProductName + ".lnk";
+            try
+            {
+                System.IO.File.Delete(PathToShortcut);
+            }
+            catch (FileNotFoundException F)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message, "Error!", MB, MI);
+            }
+        }
+
         private void StartupEngine(bool enable)
         //Instructiunile pentru pornirea sau nepornirea aplicatiei odata cu Windows
         {
-            string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
-
-            RegistryKey startupKey = Registry.CurrentUser.OpenSubKey(runKey);
-
             if (enable)
             {
-
-                WshShell wshShell = new WshShell();
-
-                IWshRuntimeLibrary.IWshShortcut shortcut;
-                string startUpFolderPath =
-                  Environment.GetFolderPath(Environment.SpecialFolder.Startup);
-
-                // Create the shortcut
-                shortcut =
-                  (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(
-                    startUpFolderPath + "\\" +
-                    Application.ProductName + ".lnk");
-
-                shortcut.TargetPath = Application.ExecutablePath;
-                shortcut.WorkingDirectory = Application.StartupPath;
-                shortcut.Description = "Launch My Application";
-                // shortcut.IconLocation = Application.StartupPath + @"\App.ico";
-                shortcut.Save();
+                CreateTheShortcut();
             }
             else
             {
-                string PathToShortcut = "";
-                PathToShortcut = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + Application.ProductName + ".lnk";
-                try
-                {
-                    System.IO.File.Delete(PathToShortcut);
-                }
-                catch (FileNotFoundException F)
-                {
-                    MessageBoxButtons MB = MessageBoxButtons.OK;
-                    MessageBoxIcon MI = MessageBoxIcon.Error;
-                    MessageBox.Show(F.Message, "Error!", MB, MI);
-                }
+                DeleteTheShortcut();
             }
         }
 

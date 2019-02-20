@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 //todo sa testez toate exceptiile tratate in acest program, cu ajutorul unitatilor de test
 //todo sa generez documentatia XML
-//todo sa testez la pornirea programului daca exista conexiune la internet
+//todo sa testez la incarcarea unei stiri si la orice operatie ce face trafic pe retea daca exista conexiune la internet
 //todo sa introduc o functie de tiparire a paginii vizualizate
 
 namespace ZanScore
@@ -167,6 +167,9 @@ namespace ZanScore
                 DownloadAllNewsProcess(true);
             }
         }
+
+        public bool CheckForNetwork() => System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        //Functia verifica daca exista sau nu retea
 
         public Form1()
         //Constructor
@@ -441,6 +444,11 @@ namespace ZanScore
         private void StuffAfterFormIsShown(object sender, EventArgs e)
         //Questii efectuate atunci cand fereastra este afisata
         {
+            if (!CheckForNetwork())
+            {
+                MessageBox.Show("No internet connection available. Application will now terminate.");
+                Close();
+            }
             AutomaticalNewsDownloadEngine();
         }
 
