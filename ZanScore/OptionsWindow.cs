@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using IWshRuntimeLibrary;
+using System.IO;
 
 namespace ZanScore
 {
@@ -65,7 +67,6 @@ namespace ZanScore
 
         private void StartupEngine(bool enable)
         //Instructiunile pentru pornirea sau nepornirea aplicatiei odata cu Windows
-        //bug functia scrie in registrul corect, conform teoriei, numai ca aplicatia nu porneste odata cu sistemul de operare
         {
             string runKey = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run";
 
@@ -73,19 +74,39 @@ namespace ZanScore
 
             if (enable)
             {
-                if (startupKey.GetValue("ZanNews") == null)
-                {
-                    startupKey.Close();
-                    startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
-                    startupKey.SetValue("ZanNews", "\"" + Application.ExecutablePath + "\"");
-                    startupKey.Close();
-                }
+
+                WshShell wshShell = new WshShell();
+
+                IWshRuntimeLibrary.IWshShortcut shortcut;
+                string startUpFolderPath =
+                  Environment.GetFolderPath(Environment.SpecialFolder.Startup);
+
+                // Create the shortcut
+                shortcut =
+                  (IWshRuntimeLibrary.IWshShortcut)wshShell.CreateShortcut(
+                    startUpFolderPath + "\\" +
+                    Application.ProductName + ".lnk");
+
+                shortcut.TargetPath = Application.ExecutablePath;
+                shortcut.WorkingDirectory = Application.StartupPath;
+                shortcut.Description = "Launch My Application";
+                // shortcut.IconLocation = Application.StartupPath + @"\App.ico";
+                shortcut.Save();
             }
             else
             {
-                startupKey = Registry.CurrentUser.OpenSubKey(runKey, true);
-                startupKey.DeleteValue("ZanNews", false);
-                startupKey.Close();
+                string PathToShortcut = "";
+                PathToShortcut = Environment.GetFolderPath(Environment.SpecialFolder.Startup) + "\\" + Application.ProductName + ".lnk";
+                try
+                {
+                    System.IO.File.Delete(PathToShortcut);
+                }
+                catch (FileNotFoundException F)
+                {
+                    MessageBoxButtons MB = MessageBoxButtons.OK;
+                    MessageBoxIcon MI = MessageBoxIcon.Error;
+                    MessageBox.Show(F.Message, "Error!", MB, MI);
+                }
             }
         }
 
