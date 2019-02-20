@@ -4,8 +4,6 @@ using System.Collections.Generic;
 
 //todo sa testez toate exceptiile tratate in acest program, cu ajutorul unitatilor de test
 //todo sa generez documentatia XML
-//todo sa testez la incarcarea unei stiri si la orice operatie ce face trafic pe retea daca exista conexiune la internet
-//todo sa introduc o functie de tiparire a paginii vizualizate
 
 namespace ZanScore
 {
