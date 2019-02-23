@@ -333,12 +333,6 @@ namespace ZanScore
             }
         }
 
-        public bool CheckOptionsFileContent()
-        //todo de adugat instructiuni
-        {
-            return true;
-        }
-
         private void SetDefaultOptions() //setul de optiuni prestabilite
         {
             WindowsStartup = 0;
