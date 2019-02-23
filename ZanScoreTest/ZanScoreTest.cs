@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace MainFormTesting
+namespace ZanScoreTest
 {
     [TestClass]
-    public class UnitTest1
+    public class ZanScoreTest
     {
         [TestMethod]
         public void TestMethod1()
