@@ -36,6 +36,120 @@ namespace ZanScore.Tests
         {
             throw new NotImplementedException();
         }
+
+        [TestMethod()]
+        public void OptionsHandlingTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void OpenOptionsFileTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void SaveOptionsToFileTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void ReadOptionsFromFileTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void RSSSourceDataTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void FillRSSDataTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void EmptyFieldsTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void RSSSourcesLibraryTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void EnableNewsSourceTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void DisableNewsSourceTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void LoadSourcesTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void SaveSourcesTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void AddNewSourceTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void EditSourceTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void RemoveSourceTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void ShowNewsSourcesInDataGridTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void GetNewsURLTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void ClearSourcesTest()
+        {
+            throw new NotImplementedException();
+        }
+
+        [TestMethod()]
+        public void SortSourcesTest()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
