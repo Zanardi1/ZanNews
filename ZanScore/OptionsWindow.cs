@@ -65,6 +65,7 @@ namespace ZanScore
         }
 
         private void CreateTheShortcut()
+        //Creaza scurtatura care va fi pusa la startup
         {
             WshShell wshShell = new WshShell();
             IWshRuntimeLibrary.IWshShortcut shortcut;

@@ -1,5 +1,4 @@
 ﻿using System;
-using ZanScore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ZanScore.Tests
