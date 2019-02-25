@@ -132,17 +132,19 @@ namespace ZanScore
             return Multiplier * OH.IntervalNumber * 1000;
         }
 
-        public void SetTimerEngine()
-        //Actiunile necesare pornirii sau opririi cronometrului si, daca acesta e pornit, setarii cronometrului pentru descarcarea stirilor
+        public bool SetAutomaticDownloadTimerEngine(int DownloadAtInterval)
+        //Actiunile necesare pornirii sau opririi cronometrului si, daca acesta e pornit, setarii cronometrului pentru descarcarea stirilor.
+        //DownloadAtInterval are rolul de a porni (cand are valoarea 1) sau de a opri acest proces (cand are valoarea 0)
+        //Functia intoarce true daca se porneste descarcarea la un anumit interval
         {
-            if (OH.NewsDownloadAtInterval == 1)
+            if (DownloadAtInterval == 1)
             {
                 DownloadNewsTimer.Interval = ComputeTimeInterval();
-                DownloadNewsTimer.Enabled = true;
+                return true;
             }
             else
             {
-                DownloadNewsTimer.Enabled = false;
+                return false;
             }
         }
 
@@ -154,7 +156,7 @@ namespace ZanScore
             SetColumnsWidth();
             LoadWindowSizes();
             SetWindowMaximizationState();
-            SetTimerEngine();
+            DownloadNewsTimer.Enabled = SetAutomaticDownloadTimerEngine(OH.NewsDownloadAtInterval);
         }
 
         private void AutomaticalNewsDownloadEngine()
@@ -173,7 +175,6 @@ namespace ZanScore
         //Constructor
         {
             InitializeComponent();
-            SetInitialValues();
         }
 
         private void DownloadAllNewsInitialization(bool AreSources)
@@ -448,6 +449,7 @@ namespace ZanScore
                 Close();
             }
             AutomaticalNewsDownloadEngine();
+            SetInitialValues();
         }
 
         private void RestoreApplication(object sender, EventArgs e)

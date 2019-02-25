@@ -122,7 +122,7 @@ namespace ZanScore
         {
             ((Form1)Owner).OH.SaveOptionsToFile();
             ChooseStartup();
-            ((Form1)Owner).SetTimerEngine();
+            ((Form1)Owner).DownloadNewsTimer.Enabled = ((Form1)Owner).SetAutomaticDownloadTimerEngine(((Form1)Owner).OH.NewsDownloadAtInterval);
             Close();
         }
 

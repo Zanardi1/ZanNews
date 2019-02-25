@@ -1,5 +1,4 @@
-﻿using ZanScore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ZanScore.Tests
 {
@@ -9,22 +8,34 @@ namespace ZanScore.Tests
         [TestMethod()]
         public void SetTimerEngineTest()
         {
+            //Arrange
+            int flag = 1;
+            bool Result = true;
             Form1 f = new Form1();
-            f.OH.NewsDownloadAtInterval = 0;
-            f.SetTimerEngine();
-            Assert.AreEqual(f.DownloadNewsTimer.Enabled, false);
+
+            //Act
+            for (flag = -5; flag <= 10; flag++)
+                Result = f.SetAutomaticDownloadTimerEngine(flag);
+
+            //Assert
+            if (flag == 1)
+                Assert.AreEqual(Result, true);
+            else
+                Assert.AreEqual(Result, false);
         }
 
         [TestMethod()]
         public void CheckForNetworkTest()
         {
-            Assert.Fail();
-        }
+            //Arrange
+            bool Result = true;
+            Form1 f = new Form1();
 
-        [TestMethod()]
-        public void Form1Test()
-        {
-            Assert.Fail();
+            //Act
+            Result = f.CheckForNetwork();
+
+            //Assert
+            Assert.AreEqual(Result,true);
         }
 
         [TestMethod()]
