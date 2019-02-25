@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZanNews", "ZanScore\ZanNews.csproj", "{9A710FBE-4049-4639-8FA1-A0E522618112}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZanScoreTest", "ZanScoreTest\ZanScoreTest.csproj", "{1A112599-A6EC-4BE1-8B17-420F132B722C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZanNewsTest", "ZanNewsTest\ZanNewsTest.csproj", "{C4C4CC21-3BF7-418A-B9DD-0095683170BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{9A710FBE-4049-4639-8FA1-A0E522618112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A710FBE-4049-4639-8FA1-A0E522618112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A710FBE-4049-4639-8FA1-A0E522618112}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1A112599-A6EC-4BE1-8B17-420F132B722C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1A112599-A6EC-4BE1-8B17-420F132B722C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1A112599-A6EC-4BE1-8B17-420F132B722C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1A112599-A6EC-4BE1-8B17-420F132B722C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4C4CC21-3BF7-418A-B9DD-0095683170BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4C4CC21-3BF7-418A-B9DD-0095683170BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4C4CC21-3BF7-418A-B9DD-0095683170BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4C4CC21-3BF7-418A-B9DD-0095683170BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
