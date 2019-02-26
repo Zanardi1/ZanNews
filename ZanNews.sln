@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZanNews", "ZanScore\ZanNews.csproj", "{9A710FBE-4049-4639-8FA1-A0E522618112}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZanNewsTest", "UnitTestProject1\ZanNewsTest.csproj", "{D489025B-A315-4E12-A8EC-76C1511F5B3D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{9A710FBE-4049-4639-8FA1-A0E522618112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A710FBE-4049-4639-8FA1-A0E522618112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A710FBE-4049-4639-8FA1-A0E522618112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D489025B-A315-4E12-A8EC-76C1511F5B3D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D489025B-A315-4E12-A8EC-76C1511F5B3D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D489025B-A315-4E12-A8EC-76C1511F5B3D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D489025B-A315-4E12-A8EC-76C1511F5B3D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
