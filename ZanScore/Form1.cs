@@ -170,7 +170,7 @@ namespace ZanScore
 
         public bool CheckForNetwork() => System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
         //Functia verifica daca exista sau nu retea
-
+        
         public Form1()
         //Constructor
         {

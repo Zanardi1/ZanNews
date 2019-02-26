@@ -9,6 +9,35 @@ using System.Threading.Tasks;
 namespace ZanScore.Tests
 {
     [TestFixture()]
+    public class ZanScoreTestingUnit
+    {
+        [Test()]
+        public void OptionsHandlingTest()
+        {
+            Assert.Fail();
+        }
+
+        [Test()]
+        public void OpenOptionsFileTest()
+        {
+            Assert.Fail();
+        }
+
+        [Test()]
+        public void SaveOptionsToFileTest()
+        {
+            throw new UnauthorizedAccessException();
+            //Assert.Fail();
+        }
+
+        [Test()]
+        public void ReadOptionsFromFileTest()
+        {
+            Assert.Fail();
+        }
+    }
+
+    [TestFixture()]
     public class Form1Tests
     {
         [SetUp]
@@ -26,8 +55,7 @@ namespace ZanScore.Tests
             Form1 f = new Form1();
 
             //Act
-            for (flag = -5; flag <= 10; flag++)
-                Result = f.SetAutomaticDownloadTimerEngine(flag);
+            Result = f.SetAutomaticDownloadTimerEngine(flag);
 
             //Assert
             if (flag == 1)
