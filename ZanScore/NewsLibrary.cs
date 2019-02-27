@@ -45,7 +45,7 @@ namespace ZanScore
             NewsSourcesRSSList.Clear();
         }
 
-        private bool ReadFromLibrary()
+        public bool ReadFromLibrary() 
         //Procedura citeste din biblioteca si umple cele trei liste
         {
             string[] ReadBuffer = new string[] { };

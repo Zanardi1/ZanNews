@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EditSourcesWindowTests.cs" />
+    <Compile Include="NewsLibraryTests.cs" />
     <Compile Include="ZanNewsTestingUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -66,15 +66,12 @@ namespace ZanScore
         private void SouceEditingEngine(int Pos)
         //Instructiunile de editare propriu-zisa a sursei selectate
         {
-            if (AllTheSources.Rows[Pos].Selected)
-            {
-                NewSourceNameText.Text = AllTheSources.Rows[Pos].Cells[0].Value.ToString();
-                NewSourceURLText.Text = AllTheSources.Rows[Pos].Cells[1].Value.ToString();
+            NewSourceNameText.Text = AllTheSources.Rows[Pos].Cells[0].Value.ToString();
+            NewSourceURLText.Text = AllTheSources.Rows[Pos].Cells[1].Value.ToString();
 
-                SelectedPositionInGrid = Pos;
+            SelectedPositionInGrid = Pos;
 
-                DisselectEverythingBelow(Pos);
-            }
+            DisselectEverythingBelow(Pos);
         }
 
         private void EditSelectedSource(object sender, EventArgs e)
@@ -82,7 +79,7 @@ namespace ZanScore
         {
             int i = 0;
             EnableEditingControls();
-            while (i < AllTheSources.RowCount)
+            while ((i < AllTheSources.RowCount) && (AllTheSources.Rows[i].Selected))
             {
                 SouceEditingEngine(i);
                 i++;
