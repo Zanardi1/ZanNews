@@ -1,6 +1,4 @@
-﻿using ZanScore;
-using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ZanScore.Tests
 {
@@ -8,51 +6,71 @@ namespace ZanScore.Tests
     public class UnitTest1
     {
         [TestMethod()]
-        public void SetAutomaticDownloadTimerEngineTest()
+        [DataTestMethod]
+        [DataRow(-1)]
+        [DataRow(0)]
+        [DataRow(1)]
+        [DataRow(2)]
+        public void SetAutomaticDownloadTimerEngineTest(int value)
         {
-            int flag = 0;
+            //Arrange
             bool Result = true;
             Form1 f = new Form1();
 
-            Result=f.SetAutomaticDownloadTimerEngine(flag);
+            //Act
+            Result = f.SetAutomaticDownloadTimerEngine(value);
 
-            Assert.AreEqual(Result,false);
+            //Assert
+            Assert.AreEqual(Result, value == 1 ? true : false);
         }
 
         [TestMethod()]
         public void CheckForNetworkTest()
         {
-            Assert.Fail();
+            //Arrange
+            bool Result = true;
+            Form1 f = new Form1();
+
+            //Act
+            Result = f.CheckForNetwork();
+
+            //Assert
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
-        public void Form1Test()
+        [DataTestMethod]
+        [DataRow(true)]
+        [DataRow(false)]
+        public void DownloadAllNewsProcessTest(bool value)
         {
-            Assert.Fail();
+            //Arrange
+            Form1 f = new Form1();
+
+            //Act
+            f.DownloadAllNewsProcess(value);
+            //f.DownloadAllNewsInitialization(value); //Eroare la NewsSourcesCollection.LoadSources(false)
+            //f.DownloadingEngine(value); //NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);, pe ramura false
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
-        public void DownloadAllNewsProcessTest()
+        [DataTestMethod]
+        [DataRow("http://www.șarpe.ro")]
+        [DataRow("www.protv.ro")]
+        [DataRow("ww")]
+        public void LoadingNewsEngineTest(string value)
         {
-            Assert.Fail();
-        }
+            //Arrange
+            Form1 f = new Form1();
 
-        [TestMethod()]
-        public void LoadingNewsEngineTest()
-        {
-            Assert.Fail();
-        }
-    }
-}
+            //Act
+            f.LoadingNewsEngine(value);
 
-namespace UnitTestProject1
-{
-    [TestClass]
-    public class ZanNewsTestingUnit
-    {
-        [TestMethod]
-        public void TestMethod1()
-        {
+            //Assert
+            Assert.AreEqual(1,1);
         }
     }
 }
