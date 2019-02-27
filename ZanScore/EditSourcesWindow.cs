@@ -30,7 +30,7 @@ namespace ZanScore
             SourceURLToEdit.Width = 7 * AllTheSources.Width / 10;
         }
 
-        public void DeleteNewsFromGrid()
+        private void DeleteNewsFromGrid()
         //Sterge stirile din grila
         {
             for (int i = 0; i < AllTheSources.Rows.Count; i++)
