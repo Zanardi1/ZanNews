@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZanScore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace ZanScore.Tests
 {
@@ -12,27 +8,42 @@ namespace ZanScore.Tests
     public class OptionsHandlingTests
     {
         [TestMethod()]
-        public void OptionsHandlingTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
         public void OpenOptionsFileTest()
         {
-            Assert.Fail();
+            //Arrange
+            OptionsHandling O = new OptionsHandling();
+
+            //Act
+            O.OpenOptionsFile();
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
         public void SaveOptionsToFileTest()
         {
-            Assert.Fail();
+            //Arrange
+            OptionsHandling O = new OptionsHandling();
+
+            //Act
+            O.SaveOptionsToFile();
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
         public void ReadOptionsFromFileTest()
         {
-            Assert.Fail();
+            //Arrange
+            OptionsHandling O = new OptionsHandling();
+
+            //Act
+            O.ReadOptionsFromFile();
+
+            //Assert
+            Assert.AreEqual(1,1);
         }
     }
 }

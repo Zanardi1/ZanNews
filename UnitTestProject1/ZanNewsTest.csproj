@@ -56,6 +56,7 @@
     <Compile Include="MainWindowTestingUnit.cs" />
     <Compile Include="OptionsHandlingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RSSSourceDataTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
