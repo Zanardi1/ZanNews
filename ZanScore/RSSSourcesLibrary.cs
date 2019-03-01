@@ -60,14 +60,34 @@ namespace ZanScore
 
         public void EnableNewsSource(int SourceNo)
         {
-            IsSourceSelected[SourceNo] = true;
-            SaveSources();
+            try
+            {
+                IsSourceSelected[SourceNo] = true;
+                SaveSources();
+            }
+
+            catch (ArgumentOutOfRangeException A) //Pentru cazul in care parametrul SourceNo e in afara intervalului de date existent. Nu cred ca va aparea aceasta exceptie, dar sa fiu sigur
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error loading news source file", buttons, icon);
+            }
         }
 
         public void DisableNewsSource(int SourceNo)
         {
-            IsSourceSelected[SourceNo] = false;
-            SaveSources();
+            try
+            {
+                IsSourceSelected[SourceNo] = false;
+                SaveSources();
+            }
+
+            catch (ArgumentOutOfRangeException A)//Pentru cazul in care parametrul SourceNo e in afara intervalului de date existent. Nu cred ca va aparea aceasta exceptie, dar sa fiu sigur
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error loading news source file", buttons, icon);
+            }
         }
 
         private void ReadSourcesFile()
@@ -138,7 +158,6 @@ namespace ZanScore
 
         public void LoadSources(bool AreSources)
         {
-
             if (AreSources)
             {
                 ReadSourcesFile();

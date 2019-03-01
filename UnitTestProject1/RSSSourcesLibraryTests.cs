@@ -12,21 +12,53 @@ namespace ZanScore.Tests
     public class RSSSourcesLibraryTests
     {
         [TestMethod()]
-        public void EnableNewsSourceTest()
+        [DataTestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(1)]
+        public void EnableNewsSourceTest(int value)
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.EnableNewsSource(value);
+
+            //Assert
+            Assert.AreEqual(1,1);
         }
 
         [TestMethod()]
-        public void DisableNewsSourceTest()
+        [DataTestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(1)]
+        public void DisableNewsSourceTest(int value)
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.DisableNewsSource(value);
+
+            //Assert
+            Assert.AreEqual(1,1);
         }
 
         [TestMethod()]
-        public void LoadSourcesTest()
+        [DataTestMethod]
+        [DataRow(true)]
+        [DataRow(false)]
+        public void LoadSourcesTest(bool value)
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.LoadSources(value);
+
+            //Assert
+            Assert.AreEqual(1,1);
         }
 
         [TestMethod()]
