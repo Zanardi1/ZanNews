@@ -12,12 +12,6 @@ namespace ZanScore.Tests
     public class RSSSourcesLibraryTests
     {
         [TestMethod()]
-        public void RSSSourcesLibraryTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
         public void EnableNewsSourceTest()
         {
             Assert.Fail();
