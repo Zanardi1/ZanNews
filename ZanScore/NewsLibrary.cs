@@ -45,8 +45,8 @@ namespace ZanScore
             NewsSourcesRSSList.Clear();
         }
 
-        public bool ReadFromLibrary() 
-        //Procedura citeste din biblioteca si umple cele trei liste
+        public bool ReadFromLibrary()
+        //Procedura citeste din biblioteca si umple cele trei liste. Am setat-o ca publica pentru a putea fi testata.
         {
             string[] ReadBuffer = new string[] { };
             try
@@ -190,8 +190,10 @@ namespace ZanScore
                             UpperBound = 150;
                             break;
                         }
-                    default:
+                    default: //Pentru cazurile in care functia primeste o alta valoare, care nu se afla in vreo categorie. Nu cred ca acest lucru se va intampla, dar prefer sa fiu precaut
                         {
+                            LowerBound = 0;
+                            UpperBound = 26;
                             break;
                         }
                 }
@@ -232,6 +234,7 @@ namespace ZanScore
         }
 
         private int ReturnFirstSelected(DataGridView Grid)
+        //Functia intoarce pozitia primului element selectat din grila.
         {
             int SelectedPosition = 0;
             for (int i = 0; i < Grid.RowCount; i++)

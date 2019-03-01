@@ -1,10 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZanScore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 
 namespace ZanScore.Tests
 {
@@ -24,10 +20,13 @@ namespace ZanScore.Tests
             NewsLibrary N = new NewsLibrary();
 
             //Act
-            N.ReadFromLibrary(); //Sa schimb prototipul functiei in private dupa ce termin testele
+            NewsLibrary.NewsSourcesList.Clear();
+            N.NewsCategoriesList.Clear();
+            NewsLibrary.NewsSourcesRSSList.Clear();
+            N.ReadFromLibrary();
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.Fail();
         }
     }
 }

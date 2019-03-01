@@ -102,6 +102,6 @@
         #endregion
         private System.Windows.Forms.ListBox CategoryListBox;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsSourceName;
-        private System.Windows.Forms.DataGridView NewsLibrarySourcesView;
+        public System.Windows.Forms.DataGridView NewsLibrarySourcesView;
     }
 }
