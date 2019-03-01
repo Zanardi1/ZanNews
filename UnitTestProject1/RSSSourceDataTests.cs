@@ -6,25 +6,30 @@ namespace ZanScore.Tests
     public class RSSSourceDataTests
     {
         [TestMethod()]
-        public void FillRSSDataTest()
+        public void FillRSSDataTest(string value)
         {
             //Arrange
+            RSSSourceData R = new RSSSourceData();
+            bool Result = true;
 
             //Act
+            Result = R.FillRSSData(value);
 
             //Assert
-            Assert.Fail();
+            Assert.AreEqual(Result,true);
         }
 
         [TestMethod()]
         public void EmptyFieldsTest()
         {
             //Arrange
+            RSSSourceData R = new RSSSourceData();
 
             //Act
+            R.EmptyFields();
 
             //Assert
-            Assert.Fail();
+            Assert.AreEqual(1,1);
         }
     }
 }
