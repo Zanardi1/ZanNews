@@ -2,7 +2,7 @@
 using System.Xml;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
-using System.Net;
+using System.IO;
 
 namespace ZanScore
 /*
@@ -51,6 +51,14 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
                 MessageBox.Show(e.Message + " Program will go to the next news source", "Error loading news source file", buttons, icon);
+                return false;
+            }
+
+            catch (FileNotFoundException F) //In cazul in care nu gaseste fisierul XML. Nu cred ca va aparea vreodata exceptia asta, avand in vedere ca lucreaza online, dar sa fiu sigur
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show(F.Message + " Program will go to the next news source", "Error loading news source file", buttons, icon);
                 return false;
             }
 

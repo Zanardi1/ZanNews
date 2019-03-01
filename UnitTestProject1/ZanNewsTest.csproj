@@ -57,6 +57,7 @@
     <Compile Include="OptionsHandlingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RSSSourceDataTests.cs" />
+    <Compile Include="RSSSourcesLibraryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

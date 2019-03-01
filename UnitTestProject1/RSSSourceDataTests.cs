@@ -6,6 +6,10 @@ namespace ZanScore.Tests
     public class RSSSourceDataTests
     {
         [TestMethod()]
+        [DataTestMethod]
+        [DataRow("www.xml.ro")]
+        [DataRow("https://www.afp.com/en/search/site/rss")]
+        [DataRow("https://www.digi24.ro/rss")]
         public void FillRSSDataTest(string value)
         {
             //Arrange
