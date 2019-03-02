@@ -3,7 +3,7 @@
 namespace ZanScore.Tests
 {
     [TestClass()]
-    public class UnitTest1
+    public class MainWindowTest
     {
         [TestMethod()]
         [DataTestMethod]

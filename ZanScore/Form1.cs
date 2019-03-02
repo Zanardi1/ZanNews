@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-//todo sa testez toate exceptiile tratate in acest program, cu ajutorul unitatilor de test
 //todo sa generez documentatia XML
 
 namespace ZanScore
@@ -95,8 +94,9 @@ namespace ZanScore
                         break;
                     }
 
-                default:
+                default: //Pentru cazul in care, cumva, optiunea de pornire are o valoare diferita de 1, 2 sau 3.
                     {
+                        WindowState = FormWindowState.Normal;
                         break;
                     }
             }
