@@ -133,19 +133,50 @@ namespace ZanScore.Tests
         [TestMethod()]
         public void GetNewsURLTest()
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+            List<string> Result = new List<string>() { };
+
+            //Act
+            Result = R.GetNewsURL();
+
+            //Assert
+            Assert.AreNotEqual(Result, null);
         }
 
         [TestMethod()]
         public void ClearSourcesTest()
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.ClearSources();
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
-        public void SortSourcesTest()
+        [DataTestMethod]
+        [DataRow(1, 1)]
+        [DataRow(1, 2)]
+        [DataRow(1, 3)]
+        [DataRow(1, 4)]
+        [DataRow(0, 1)]
+        [DataRow(0, 2)]
+        [DataRow(0, 3)]
+        [DataRow(0, 4)]
+        public void SortSourcesTest(int Pos, int Way)
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.SortSources(Pos, Way);
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
     }
 }

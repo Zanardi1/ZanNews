@@ -1,10 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZanScore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using ZanScore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace ZanScore.Tests
 {
@@ -12,8 +7,28 @@ namespace ZanScore.Tests
     public class SelectSourcesWindowTests
     {
         [TestMethod()]
-        public void SelectSourcesWindowTest()
+        public void UpdateSelectedSourcesListEngineTest()
         {
+            //Arrange
+            SelectSourcesWindow S = new SelectSourcesWindow();
+
+            //Act
+            S.UpdateSelectedSourcesListEngine();
+
+            //Assert
+            Assert.AreEqual(1, 1);
+        }
+
+        [TestMethod()]
+        public void DisplaySourceNamesEngineTest()
+        {
+            //Arrange
+            SelectSourcesWindow S = new SelectSourcesWindow();
+
+            //Act
+            S.DisplaySourceNamesEngine();
+            
+            //Assert
             Assert.Fail();
         }
     }

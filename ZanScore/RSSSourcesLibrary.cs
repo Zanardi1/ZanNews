@@ -250,7 +250,10 @@ namespace ZanScore
             }
         }
 
-        public List<string> GetNewsURL() => SourceURL;
+        public List<string> GetNewsURL()
+        {
+            return SourceURL;
+        }
 
         public void ClearSources()
         //Goleste datele legate de sursele de stiri. Utila in cazul in care nu vreau ca aceleasi stiri sa apara de 2+ ori
