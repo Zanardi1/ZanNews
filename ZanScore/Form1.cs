@@ -297,7 +297,7 @@ namespace ZanScore
         {
             AddSourceWindow A = new AddSourceWindow();
             A.ShowDialog(owner: this);
-            if (A.DialogResult == DialogResult.OK) //*
+            if (A.DialogResult == DialogResult.OK) 
             {
                 NewsSourcesCollection.AddNewSource(A.SourceNameText.Text, A.SourceURLText.Text);
                 NewsSourcesCollection.SaveSources();

@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.NewsSourcesDataGrid = new System.Windows.Forms.DataGridView();
-            this.SaveChanges = new System.Windows.Forms.Button();
-            this.DiscardChanges = new System.Windows.Forms.Button();
             this.SelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.SourceNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SaveChanges = new System.Windows.Forms.Button();
+            this.DiscardChanges = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.NewsSourcesDataGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -54,6 +54,24 @@
             this.NewsSourcesDataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.NewsSourcesDataGrid.Size = new System.Drawing.Size(346, 367);
             this.NewsSourcesDataGrid.TabIndex = 0;
+            // 
+            // SelectedColumn
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle7.NullValue = false;
+            this.SelectedColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.SelectedColumn.HeaderText = "Selected";
+            this.SelectedColumn.Name = "SelectedColumn";
+            this.SelectedColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
+            // SourceNameColumn
+            // 
+            this.SourceNameColumn.HeaderText = "Source name";
+            this.SourceNameColumn.Name = "SourceNameColumn";
+            this.SourceNameColumn.ReadOnly = true;
+            this.SourceNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.SourceNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // SaveChanges
             // 
@@ -76,24 +94,6 @@
             this.DiscardChanges.Text = "Cancel";
             this.DiscardChanges.UseVisualStyleBackColor = true;
             // 
-            // SelectedColumn
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.NullValue = false;
-            this.SelectedColumn.DefaultCellStyle = dataGridViewCellStyle1;
-            this.SelectedColumn.HeaderText = "Selected";
-            this.SelectedColumn.Name = "SelectedColumn";
-            this.SelectedColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            // 
-            // SourceNameColumn
-            // 
-            this.SourceNameColumn.HeaderText = "Source name";
-            this.SourceNameColumn.Name = "SourceNameColumn";
-            this.SourceNameColumn.ReadOnly = true;
-            this.SourceNameColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.SourceNameColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // SelectSourcesWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -115,11 +115,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView NewsSourcesDataGrid;
         private System.Windows.Forms.Button SaveChanges;
         private System.Windows.Forms.Button DiscardChanges;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceNameColumn;
+        public System.Windows.Forms.DataGridView NewsSourcesDataGrid;
     }
 }

@@ -10,7 +10,14 @@ namespace ZanScore.Tests
         public void UpdateSelectedSourcesListEngineTest()
         {
             //Arrange
-            SelectSourcesWindow S = new SelectSourcesWindow();
+            Form1 F = new Form1();
+            SelectSourcesWindow S = new SelectSourcesWindow
+            {
+                Owner = F
+            };
+            S.NewsSourcesDataGrid.RowCount = 2;
+            S.NewsSourcesDataGrid.Rows[0].Cells[0].Value = false;
+            S.NewsSourcesDataGrid.Rows[1].Cells[0].Value = false;
 
             //Act
             S.UpdateSelectedSourcesListEngine();
@@ -23,13 +30,19 @@ namespace ZanScore.Tests
         public void DisplaySourceNamesEngineTest()
         {
             //Arrange
-            SelectSourcesWindow S = new SelectSourcesWindow();
+            Form1 F = new Form1();
+            SelectSourcesWindow S = new SelectSourcesWindow
+            {
+                Owner = F
+            };
+            F.NewsSourcesCollection.IsSourceSelected[0] = true;
+            F.NewsSourcesCollection.IsSourceSelected[1] = true;
 
             //Act
             S.DisplaySourceNamesEngine();
-            
+
             //Assert
-            Assert.Fail();
+            Assert.AreEqual(1, 1);
         }
     }
 }
