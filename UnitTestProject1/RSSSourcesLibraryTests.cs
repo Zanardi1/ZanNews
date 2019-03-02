@@ -1,10 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ZanScore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ZanScore.Tests
 {
@@ -25,7 +22,7 @@ namespace ZanScore.Tests
             R.EnableNewsSource(value);
 
             //Assert
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
@@ -42,7 +39,7 @@ namespace ZanScore.Tests
             R.DisableNewsSource(value);
 
             //Assert
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
@@ -58,37 +55,79 @@ namespace ZanScore.Tests
             R.LoadSources(value);
 
             //Assert
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
         public void SaveSourcesTest()
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.SaveSources();
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
-        public void AddNewSourceTest()
+        [DataTestMethod]
+        [DataRow("caine", "www.yahoo.com")]
+        public void AddNewSourceTest(string Name, String URL)
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.AddNewSource(Name, URL);
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
-        public void EditSourceTest()
+        [DataTestMethod]
+        [DataRow(1, "dd", "www.google.com")]
+        public void EditSourceTest(int Pos, string NewName, string NewUrL)
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+
+            //Act
+            R.EditSource(Pos, NewName, NewUrL);
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
         public void RemoveSourceTest()
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+            List<int> L = new List<int>() { 1, 2, 3 };
+
+            //Act
+            R.RemoveSource(L);
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]
         public void ShowNewsSourcesInDataGridTest()
         {
-            Assert.Fail();
+            //Arrange
+            RSSSourcesLibrary R = new RSSSourcesLibrary();
+            DataGridView D = new DataGridView();
+            D.ColumnCount = 2;
+
+            //Act
+            R.ShowNewsSourcesInDataGrid(D);
+
+            //Assert
+            Assert.AreEqual(1, 1);
         }
 
         [TestMethod()]

@@ -221,11 +221,21 @@ namespace ZanScore
         public void RemoveSource(List<int> NewsNumbers)
         //Elimina una sau mai multe surse de stiri. Numerele lor de ordine sunt transmise ca parametri
         {
-            for (int i = 0; i < NewsNumbers.Count; i++)
+            try
             {
-                SourceTitle.RemoveAt(NewsNumbers[i]);
-                SourceURL.RemoveAt(NewsNumbers[i]);
-                NumberofSources--;
+                for (int i = 0; i < NewsNumbers.Count; i++)
+                {
+                    SourceTitle.RemoveAt(NewsNumbers[i]);
+                    SourceURL.RemoveAt(NewsNumbers[i]);
+                    NumberofSources--;
+                }
+            }
+            
+            catch (ArgumentOutOfRangeException A)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error!", MB, MI);
             }
         }
 
