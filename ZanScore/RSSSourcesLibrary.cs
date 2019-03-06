@@ -260,6 +260,7 @@ namespace ZanScore
         {
             SourceTitle.Clear();
             SourceURL.Clear();
+            IsSourceSelected.Clear();
             NumberofSources = 0;
             NumberofSelectedSources = 0;
         }

@@ -168,16 +168,19 @@ namespace ZanScore
             }
         }
 
-        public bool CheckForNetwork() => System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        public bool CheckForNetwork()
         //Functia verifica daca exista sau nu retea
-        
+        {
+            return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
+        }
+
         public Form1()
         //Constructor
         {
             InitializeComponent();
         }
 
-        private void DownloadAllNewsInitialization(bool AreSources)
+        public void DownloadAllNewsInitialization(bool AreSources) //O fac private dupa ce termin testele
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
             if (AreSources)

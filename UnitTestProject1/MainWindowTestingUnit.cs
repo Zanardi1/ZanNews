@@ -40,7 +40,7 @@ namespace ZanScore.Tests
 
         [TestMethod()]
         [DataTestMethod]
-        [DataRow(true)]
+        //[DataRow(true)]
         [DataRow(false)]
         public void DownloadAllNewsProcessTest(bool value)
         {
@@ -48,8 +48,8 @@ namespace ZanScore.Tests
             Form1 f = new Form1();
 
             //Act
-            f.DownloadAllNewsProcess(value);
-            //f.DownloadAllNewsInitialization(value); //Eroare la NewsSourcesCollection.LoadSources(false)
+            //f.DownloadAllNewsProcess(value);
+            f.DownloadAllNewsInitialization(value); //Eroare la NewsSourcesCollection.LoadSources(false)
             //f.DownloadingEngine(value); //NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);, pe ramura false
 
             //Assert
