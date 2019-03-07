@@ -29,8 +29,6 @@ namespace ZanScore
             }
         }
 
-        //todo de adaugat surse de stiri cautate de catre mine
-
         public NewsLibrary()
         {
             InitializeComponent();

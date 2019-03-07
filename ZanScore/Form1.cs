@@ -180,7 +180,7 @@ namespace ZanScore
             InitializeComponent();
         }
 
-        public void DownloadAllNewsInitialization(bool AreSources) //O fac private dupa ce termin testele
+        private void DownloadAllNewsInitialization(bool AreSources) //O fac private dupa ce termin testele
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
             if (AreSources)
@@ -196,7 +196,7 @@ namespace ZanScore
             StatusLabel.Text = "Reading selected news feeds...";
         }
 
-        private void DownloadingEngine(bool AreSources)
+        public void DownloadingEngine(bool AreSources)
         //Motorul de download a stirilor
         {
             if (AreSources)
@@ -281,11 +281,20 @@ namespace ZanScore
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error!", MB, MI);
             }
+
+            catch (UriFormatException U)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(U.Message, "Error!", MB, MI);
+            }
         }
 
-        private void LoadNewsURL(object sender, DataGridViewCellEventArgs e) => LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
+        private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
         //Incarca stirea selectata
-
+        {
+            LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
+        }
 
         private void SelectNewsSources(object sender, EventArgs e)
         //Afiseaza fereastra de selectie a surselor de stiri
