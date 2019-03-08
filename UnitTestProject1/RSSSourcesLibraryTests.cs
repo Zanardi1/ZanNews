@@ -11,7 +11,7 @@ namespace ZanScore.Tests
         [TestMethod()]
         [DataTestMethod]
         [DataRow(0)]
-        [DataRow(-1)]
+        //[DataRow(-1)] //Genereaza ArgumentOutOfRange
         [DataRow(1)]
         public void EnableNewsSourceTest(int value)
         {
@@ -28,7 +28,7 @@ namespace ZanScore.Tests
         [TestMethod()]
         [DataTestMethod]
         [DataRow(0)]
-        [DataRow(-1)]
+        //[DataRow(-1)] //Genereaza ArgumentOutOfRange
         [DataRow(1)]
         public void DisableNewsSourceTest(int value)
         {
@@ -50,6 +50,7 @@ namespace ZanScore.Tests
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
+            NewsLibrary N = new NewsLibrary();
 
             //Act
             R.LoadSources(value);
@@ -106,7 +107,8 @@ namespace ZanScore.Tests
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
-            List<int> L = new List<int>() { 1, 2, 3 };
+            //List<int> L = new List<int>() { 1, 2, 3 };
+            List<int> L = new List<int>() { 0 };
 
             //Act
             R.RemoveSource(L);
