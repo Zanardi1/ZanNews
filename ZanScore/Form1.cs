@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 //todo sa generez documentatia XML
+//todo sa modific toate functiile testate cu ajutorul unitatilor, astfel incat sa intoarca un rezultat, daca ele intorc in prezent void. Rezultatul va fi folosit de catre aceste unitati
 
 namespace ZanScore
 {
@@ -180,7 +181,7 @@ namespace ZanScore
             InitializeComponent();
         }
 
-        private void DownloadAllNewsInitialization(bool AreSources) //O fac private dupa ce termin testele
+        private void DownloadAllNewsInitialization(bool AreSources) 
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
             if (AreSources)
@@ -196,7 +197,7 @@ namespace ZanScore
             StatusLabel.Text = "Reading selected news feeds...";
         }
 
-        public void DownloadingEngine(bool AreSources)
+        private void DownloadingEngine(bool AreSources)
         //Motorul de download a stirilor
         {
             if (AreSources)

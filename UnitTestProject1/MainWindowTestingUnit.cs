@@ -52,10 +52,8 @@ namespace ZanScore.Tests
             };
 
             //Act
-            //f.DownloadAllNewsProcess(value);
-            //f.DownloadAllNewsInitialization(value); //Eroare la NewsSourcesCollection.LoadSources(false)
-            f.DownloadingEngine(value); //NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);, pe ramura false
-
+            f.DownloadAllNewsProcess(value);
+            
             //Assert
             Assert.AreEqual(1, 1);
         }
