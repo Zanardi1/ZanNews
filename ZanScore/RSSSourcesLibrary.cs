@@ -230,7 +230,7 @@ namespace ZanScore
                     NumberofSources--;
                 }
             }
-            
+
             catch (ArgumentOutOfRangeException A)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
@@ -276,37 +276,43 @@ namespace ZanScore
             {
                 case 1:
                     {
-                        ExchangeElementsString(SourceTitle, Position - 1, Position);
-                        ExchangeElementsString(SourceURL, Position - 1, Position);
-                        ExchangeElementsBoolean(IsSourceSelected, Position - 1, Position);
-
+                        if (Position > 0) //Nu pot muta mai sus cu o pozitie un element de pe prima pozitie
+                        {
+                            ExchangeElementsString(SourceTitle, Position - 1, Position);
+                            ExchangeElementsString(SourceURL, Position - 1, Position);
+                            ExchangeElementsBoolean(IsSourceSelected, Position - 1, Position);
+                        }
                         break;
                     }
+
                 case 2:
                     {
-                        ExchangeElementsString(SourceTitle, Position + 1, Position);
-                        ExchangeElementsString(SourceURL, Position + 1, Position);
-                        ExchangeElementsBoolean(IsSourceSelected, Position + 1, Position);
-
+                        if (Position < SourceTitle.Count - 1) //Nu pot muta cu o pozitie mai jos un element de pe ultima pozitie
+                        {
+                            ExchangeElementsString(SourceTitle, Position + 1, Position);
+                            ExchangeElementsString(SourceURL, Position + 1, Position);
+                            ExchangeElementsBoolean(IsSourceSelected, Position + 1, Position);
+                        }
                         break;
                     }
+
                 case 3:
                     {
                         MoveToFirstPositionString(SourceTitle, Position);
                         MoveToFirstPositionString(SourceURL, Position);
                         MoveToFirstPositionBoolean(IsSourceSelected, Position);
-
                         break;
                     }
+
                 case 4:
                     {
 
                         MoveToLastPositionString(SourceTitle, Position);
                         MoveToLastPositionString(SourceURL, Position);
                         MoveToLastPositionBoolean(IsSourceSelected, Position);
-
                         break;
                     }
+
                 default:
                     {
                         break;

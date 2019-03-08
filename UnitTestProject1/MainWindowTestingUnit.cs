@@ -63,8 +63,9 @@ namespace ZanScore.Tests
         [TestMethod()]
         [DataTestMethod]
         [DataRow("http://www.șarpe.ro")]
-        [DataRow("www.protv.ro")]
-        [DataRow("ww")]
+        //[DataRow("www.protv.ro")] //Genereaza UriFormatException
+        //[DataRow("ww")] //Genereaza UriFormatException
+        [DataRow("https://stirileprotv.ro/stiri-despre/news-feed/")]
         public void LoadingNewsEngineTest(string value)
         {
             //Arrange

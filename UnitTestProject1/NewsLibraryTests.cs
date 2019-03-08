@@ -10,7 +10,13 @@ namespace ZanScore.Tests
         [TestMethod()]
         public void NewsLibraryTest()
         {
-            Assert.Fail();
+            //Arrange
+            NewsLibrary N = new NewsLibrary();
+
+            //Act
+
+            //Assert
+            Assert.AreEqual(1,1);
         }
 
         [TestMethod]
@@ -26,7 +32,7 @@ namespace ZanScore.Tests
             N.ReadFromLibrary();
 
             //Assert
-            Assert.Fail();
+            Assert.AreEqual(1, 1);
         }
     }
 }

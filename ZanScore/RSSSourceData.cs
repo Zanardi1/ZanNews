@@ -39,7 +39,15 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 MessageBox.Show("No internet connection detected!", "Error!", buttons, icon);
                 return false;
             }
-            XmlReader reader = XmlReader.Create(FileToLoad);
+
+            XmlReaderSettings settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Parse,
+                IgnoreComments = true,
+                IgnoreWhitespace = true
+            };
+            XmlReader reader = XmlReader.Create(FileToLoad, settings);
+
             SyndicationFeed feed = new SyndicationFeed();
             try
             {
@@ -62,6 +70,22 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 return false;
             }
 
+            catch (System.IO.IOException I)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show(I.Message + " Program will go to the next news source", "Error loading news source file", buttons, icon);
+                return false;
+            }
+
+            catch (System.Net.WebException W)
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show(W.Message + " Program will go to the next news source", "Error loading news source file", buttons, icon);
+                return false;
+            }
+
             finally
             {
                 reader.Close();
@@ -74,6 +98,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 NewsLink.Add(item.Links[0].Uri.ToString() == null ? "" : item.Links[0].Uri.ToString());
                 NewsDescription.Add(item.Summary == null ? "" : item.Summary.Text);
             }
+
             return true;
         }
 
