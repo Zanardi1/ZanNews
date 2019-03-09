@@ -17,12 +17,13 @@ namespace ZanScore.Tests
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
+            bool Result;
 
             //Act
-            R.EnableNewsSource(value);
+            Result = R.EnableNewsSource(value);
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
@@ -34,12 +35,13 @@ namespace ZanScore.Tests
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
+            bool Result;
 
             //Act
-            R.DisableNewsSource(value);
+            Result = R.DisableNewsSource(value);
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
@@ -51,12 +53,13 @@ namespace ZanScore.Tests
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
             NewsLibrary N = new NewsLibrary();
+            bool Result;
 
             //Act
-            R.LoadSources(value);
+            Result = R.LoadSources(value);
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
@@ -64,12 +67,13 @@ namespace ZanScore.Tests
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
+            bool Result;
 
             //Act
-            R.SaveSources();
+            Result = R.SaveSources();
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]

@@ -181,7 +181,7 @@ namespace ZanScore
             InitializeComponent();
         }
 
-        public bool DownloadAllNewsInitialization(bool AreSources)
+        private bool DownloadAllNewsInitialization(bool AreSources)
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
             bool Result = true;
@@ -200,7 +200,7 @@ namespace ZanScore
             return Result;
         }
 
-        private bool DownloadingEngine(bool AreSources)
+        public bool DownloadingEngine(bool AreSources)
         //Motorul de download a stirilor
         {
             if (AreSources)
@@ -216,15 +216,28 @@ namespace ZanScore
                         DownloadProgressBar.Value++;
                     }
                 }
+                return true;
             }
             else
             {
-                NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
+                try
+                {
+                    NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
+                    return true;
+                }
+
+                catch (ArgumentOutOfRangeException A) //In cazul in care AbsoluteIndex arata spre o pozitie inexistenta. Nu cred ca va aparea, dar sa fiu sigur
+                {
+                    MessageBoxButtons buttons = MessageBoxButtons.OK;
+                    MessageBoxIcon icon = MessageBoxIcon.Error;
+                    MessageBox.Show(A.Message, "Error downloading news from library", buttons, icon);
+                    return false;
+                }
             }
-            return true;
         }
 
         private bool DownloadAllNewsFinalization()
+        //Functia afiseaza stirile descarcate in program. Va intoarce intotdeauna true pentru a scrie mai simplu rezultatul functiei DownloadAllNewsProcess si pentru ca nu poate avea loc nicio eroare, ca sa forteze aceasta functie sa intoarca false;
         {
             Cursor.Current = Cursors.Arrow;
             FillGrid();
@@ -258,12 +271,13 @@ namespace ZanScore
             }
         }
 
-        public void LoadingNewsEngine(string URL)
+        public bool LoadingNewsEngine(string URL)
         //Instructiunile pentru incararea efectiva a stirii selectate
         {
             try
             {
                 NewsWebPage.Navigate(new Uri(URL));
+                return true;
             }
 
             catch (ObjectDisposedException O)
@@ -271,6 +285,7 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(O.Message, "Error!", MB, MI);
+                return false;
             }
 
             catch (InvalidOperationException I)
@@ -278,6 +293,7 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(I.Message, "Error!", MB, MI);
+                return false;
             }
 
             catch (ArgumentException A)
@@ -285,6 +301,7 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error!", MB, MI);
+                return false;
             }
 
             catch (UriFormatException U)
@@ -292,6 +309,7 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(U.Message, "Error!", MB, MI);
+                return false;
             }
         }
 

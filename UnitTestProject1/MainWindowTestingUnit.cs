@@ -46,15 +46,15 @@ namespace ZanScore.Tests
         {
             //Arrange
             Form1 f = new Form1();
-            //NewsLibrary N = new NewsLibrary
-            //{
-            //    Owner = f
-            //};
+            NewsLibrary N = new NewsLibrary
+            {
+                Owner = f
+            };
             bool Result;
 
             //Act
             //Result = f.DownloadAllNewsProcess(value);
-            Result = f.DownloadAllNewsInitialization(value);
+            Result = f.DownloadingEngine(value);
 
             //Assert
             Assert.AreEqual(Result, true);
@@ -70,12 +70,13 @@ namespace ZanScore.Tests
         {
             //Arrange
             Form1 f = new Form1();
+            bool Result;
 
             //Act
-            f.LoadingNewsEngine(value);
+            Result = f.LoadingNewsEngine(value);
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
     }
 }

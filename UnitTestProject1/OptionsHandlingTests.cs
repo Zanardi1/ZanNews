@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Windows;
 
 namespace ZanScore.Tests
 {
@@ -12,12 +10,13 @@ namespace ZanScore.Tests
         {
             //Arrange
             OptionsHandling O = new OptionsHandling();
+            bool Result;
 
             //Act
-            O.OpenOptionsFile();
+            Result = O.OpenOptionsFile();
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
@@ -25,25 +24,13 @@ namespace ZanScore.Tests
         {
             //Arrange
             OptionsHandling O = new OptionsHandling();
+            bool Result;
 
             //Act
-            O.SaveOptionsToFile();
+            Result = O.SaveOptionsToFile();
 
             //Assert
-            Assert.AreEqual(1, 1);
-        }
-
-        [TestMethod()]
-        public void ReadOptionsFromFileTest()
-        {
-            //Arrange
-            OptionsHandling O = new OptionsHandling();
-
-            //Act
-            O.ReadOptionsFromFile();
-
-            //Assert
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(Result, true);
         }
     }
 }

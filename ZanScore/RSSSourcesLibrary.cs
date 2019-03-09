@@ -58,12 +58,13 @@ namespace ZanScore
             LoadSources(true);
         }
 
-        public void EnableNewsSource(int SourceNo)
+        public bool EnableNewsSource(int SourceNo)
         {
             try
             {
                 IsSourceSelected[SourceNo] = true;
                 SaveSources();
+                return true;
             }
 
             catch (ArgumentOutOfRangeException A) //Pentru cazul in care parametrul SourceNo e in afara intervalului de date existent. Nu cred ca va aparea aceasta exceptie, dar sa fiu sigur
@@ -71,15 +72,17 @@ namespace ZanScore
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error loading news source file", buttons, icon);
+                return false;
             }
         }
 
-        public void DisableNewsSource(int SourceNo)
+        public bool DisableNewsSource(int SourceNo)
         {
             try
             {
                 IsSourceSelected[SourceNo] = false;
                 SaveSources();
+                return true;
             }
 
             catch (ArgumentOutOfRangeException A)//Pentru cazul in care parametrul SourceNo e in afara intervalului de date existent. Nu cred ca va aparea aceasta exceptie, dar sa fiu sigur
@@ -87,6 +90,7 @@ namespace ZanScore
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error loading news source file", buttons, icon);
+                return false;
             }
         }
 
@@ -187,7 +191,7 @@ namespace ZanScore
             return Result;
         }
 
-        public void SaveSources()
+        public bool SaveSources()
         /*Functia salveaza sursele de stiri in fisier. 
         Forma fisierului este: 
         name:numele sursei (dat de utilizator)
@@ -205,6 +209,7 @@ namespace ZanScore
             try
             {
                 File.WriteAllLines("Sources.txt", TextToWrite.ToArray());
+                return true;
             }
 
             catch (UnauthorizedAccessException U)
@@ -212,16 +217,18 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(U.Message, "Error!", MB, MI);
+                return false;
             }
             catch (SecurityException S)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(S.Message, "Error!", MB, MI);
+                return false;
             }
         }
 
-        public void AddNewSource(string NewSourceName, string NewSourceURL)
+       public void AddNewSource(string NewSourceName, string NewSourceURL)
         //Procedura de adaugare a unei noi surse de stiri
         {
             SourceTitle.Add(NewSourceName);

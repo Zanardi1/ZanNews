@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Windows;
 
 namespace ZanScore.Tests
 {
@@ -8,31 +6,20 @@ namespace ZanScore.Tests
     public class NewsLibraryTests
     {
         [TestMethod()]
-        public void NewsLibraryTest()
-        {
-            //Arrange
-            NewsLibrary N = new NewsLibrary();
-
-            //Act
-
-            //Assert
-            Assert.AreEqual(1,1);
-        }
-
-        [TestMethod]
         public void ReadFromLibraryTest()
         {
             //Arrange
             NewsLibrary N = new NewsLibrary();
+            bool Result;
 
             //Act
             NewsLibrary.NewsSourcesList.Clear();
             N.NewsCategoriesList.Clear();
             NewsLibrary.NewsSourcesRSSList.Clear();
-            N.ReadFromLibrary();
+            Result = N.ReadFromLibrary();
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
     }
 }

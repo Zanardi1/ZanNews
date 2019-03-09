@@ -22,18 +22,5 @@ namespace ZanScore.Tests
             //Assert
             Assert.AreEqual(Result,true);
         }
-
-        [TestMethod()]
-        public void EmptyFieldsTest()
-        {
-            //Arrange
-            RSSSourceData R = new RSSSourceData();
-
-            //Act
-            R.EmptyFields();
-
-            //Assert
-            Assert.AreEqual(1,1);
-        }
     }
 }

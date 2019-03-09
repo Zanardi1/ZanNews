@@ -204,19 +204,22 @@ namespace ZanScore
             OpenOptionsFile();
         }
 
-        public void OpenOptionsFile() //deschiderea fisierului de optiuni
+        public bool OpenOptionsFile() //deschiderea fisierului de optiuni
         {
-            CheckOptionsFileExistence();
-            ReadOptionsFromFile();
+            return CheckOptionsFileExistence() && ReadOptionsFromFile();
         }
 
-        private void CheckOptionsFileExistence() //verificarea existentei acestuia
+        private bool CheckOptionsFileExistence() //verificarea existentei acestuia
         {
+            bool Result = true;
             if (!File.Exists("Options.txt"))
             {
                 SetDefaultOptions();
-                SaveOptionsToFile();
+                Result = SaveOptionsToFile();
             }
+            else
+                Result = true;
+            return Result;
         }
 
         private void FillOptionValues()
@@ -234,7 +237,7 @@ namespace ZanScore
             OptionValues[9] = IntervalTime;
         }
 
-        public void SaveOptionsToFile() //salvarea optiunilor in fisier
+        public bool SaveOptionsToFile() //salvarea optiunilor in fisier
         {
             List<string> WriteBuffer = new List<string>() { };
 
@@ -246,22 +249,25 @@ namespace ZanScore
             try
             {
                 File.WriteAllLines("Options.txt", WriteBuffer.ToArray());
+                return true;
             }
             catch (UnauthorizedAccessException U)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(U.Message, "Error!", MB, MI);
+                return false;
             }
             catch (SecurityException S)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(S.Message, "Error!", MB, MI);
+                return false;
             }
         }
 
-        public void ReadOptionsFromFile() //citeste optiunile din fisier
+        private bool ReadOptionsFromFile() //citeste optiunile din fisier
         {
             string[] ReadBuffer = new string[] { };
             try
@@ -281,48 +287,56 @@ namespace ZanScore
                 NewsDownloadAtInterval = int.Parse(ReadBuffer[7].Substring(ReadBuffer[7].IndexOf("=") + 1));
                 IntervalNumber = int.Parse(ReadBuffer[8].Substring(ReadBuffer[8].IndexOf("=") + 1));
                 IntervalTime = int.Parse(ReadBuffer[9].Substring(ReadBuffer[9].IndexOf("=") + 1));
+                return true;
             }
             catch (FileNotFoundException F) //Exceptii pentru ReadAllLines
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
             }
             catch (FileLoadException F)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
             }
             catch (IOException I)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(I.Message, "Error!", MB, MI);
+                return false;
             }
             catch (SecurityException S)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(S.Message, "Error!", MB, MI);
+                return false;
             }
             catch (ArgumentNullException A)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error!", MB, MI);
+                return false;
             }
             catch (ArgumentOutOfRangeException A) //Exceptii de la Substring
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error!", MB, MI);
+                return false;
             }
             catch (FormatException F) //Exceptii de la Parse
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
             }
 
             catch (OverflowException O)
@@ -330,6 +344,7 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(O.Message, "Error!", MB, MI);
+                return false;
             }
         }
 
