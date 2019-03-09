@@ -46,16 +46,18 @@ namespace ZanScore.Tests
         {
             //Arrange
             Form1 f = new Form1();
-            NewsLibrary N = new NewsLibrary
-            {
-                Owner = f
-            };
+            //NewsLibrary N = new NewsLibrary
+            //{
+            //    Owner = f
+            //};
+            bool Result;
 
             //Act
-            f.DownloadAllNewsProcess(value);
-            
+            //Result = f.DownloadAllNewsProcess(value);
+            Result = f.DownloadAllNewsInitialization(value);
+
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
@@ -73,7 +75,7 @@ namespace ZanScore.Tests
             f.LoadingNewsEngine(value);
 
             //Assert
-            Assert.AreEqual(1,1);
+            Assert.AreEqual(1, 1);
         }
     }
 }

@@ -90,7 +90,7 @@ namespace ZanScore
             }
         }
 
-        private void ReadSourcesFile()
+        private bool ReadSourcesFile()
         {
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
             int j = 0, found = 0;
@@ -122,50 +122,69 @@ namespace ZanScore
                     j++;
                     NumberofSources++;
                 }
+                return true;
             }
             catch (FileNotFoundException F)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
             }
             catch (FileLoadException F)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(F.Message, "Error!", MB, MI);
+                return false;
             }
             catch (UnauthorizedAccessException U)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(U.Message, "Error!", MB, MI);
+                return false;
             }
             catch (SecurityException S)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(S.Message, "Error!", MB, MI);
+                return false;
             }
         }
 
-        private void ReadLibraryFile()
+        private bool ReadLibraryFile()
         {
-            SourceTitle.Add(NewsLibrary.NewsSourcesList[NewsLibrary.AbsoluteIndex]);
-            SourceURL.Add(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
-            IsSourceSelected.Add(true);
+            try
+            {
+                SourceTitle.Add(NewsLibrary.NewsSourcesList[NewsLibrary.AbsoluteIndex]);
+                SourceURL.Add(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
+                IsSourceSelected.Add(true);
+                return true;
+            }
+            catch (ArgumentOutOfRangeException A) //In cazul in care AbsoluteIndex arata spre o pozitie inexistenta. Nu cred ca va aparea, dar sa fiu sigur
+            {
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                MessageBoxIcon icon = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error loading news source file", buttons, icon);
+                return false;
+            }
         }
 
-        public void LoadSources(bool AreSources)
+        public bool LoadSources(bool AreSources)
         {
+            bool Result = true;
+
             if (AreSources)
             {
-                ReadSourcesFile();
+                Result = ReadSourcesFile();
             }
             else
             {
-                ReadLibraryFile();
+                Result = ReadLibraryFile();
             }
+            return Result;
         }
 
         public void SaveSources()

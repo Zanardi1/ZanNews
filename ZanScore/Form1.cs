@@ -181,9 +181,11 @@ namespace ZanScore
             InitializeComponent();
         }
 
-        private void DownloadAllNewsInitialization(bool AreSources) 
+        public bool DownloadAllNewsInitialization(bool AreSources)
         //Initializarea variabilelor necesare pentru downloadul stirilor
         {
+            bool Result = true;
+
             if (AreSources)
                 DownloadProgressBar.Maximum = NewsSourcesCollection.NumberofSelectedSources;
             else
@@ -192,12 +194,13 @@ namespace ZanScore
             NewsSourceData.EmptyFields();
             NewsDetailsGrid.Rows.Clear();
             NewsSourcesCollection.ClearSources();
-            NewsSourcesCollection.LoadSources(AreSources);
+            Result = NewsSourcesCollection.LoadSources(AreSources);
             Cursor.Current = Cursors.WaitCursor;
             StatusLabel.Text = "Reading selected news feeds...";
+            return Result;
         }
 
-        private void DownloadingEngine(bool AreSources)
+        private bool DownloadingEngine(bool AreSources)
         //Motorul de download a stirilor
         {
             if (AreSources)
@@ -218,22 +221,23 @@ namespace ZanScore
             {
                 NewsSourceData.FillRSSData(NewsLibrary.NewsSourcesRSSList[NewsLibrary.AbsoluteIndex]);
             }
+            return true;
         }
 
-        private void DownloadAllNewsFinalization()
+        private bool DownloadAllNewsFinalization()
         {
             Cursor.Current = Cursors.Arrow;
             FillGrid();
             StatusLabel.Text = "Download complete. " + NewsDetailsGrid.RowCount.ToString() + " news downloaded.";
+            return true;
         }
 
-        public void DownloadAllNewsProcess(bool AreSources)
+        public bool DownloadAllNewsProcess(bool AreSources)
         //Intreg procesul de descarcare a stirilor. 
         //Parametrul retine daca aceasta procedura a fost apelata pentru a citi din sursele de stiri (true) sau din biblioteca de surse (false)
+        //Functia este booleana deoarece rezultatul intors de catre aceasta este folosit in unitatea de testare. Intoarce true daca procesul s-a incheiat fara erori, false altfel
         {
-            DownloadAllNewsInitialization(AreSources);
-            DownloadingEngine(AreSources);
-            DownloadAllNewsFinalization();
+            return DownloadAllNewsInitialization(AreSources) && DownloadingEngine(AreSources) && DownloadAllNewsFinalization();
         }
 
         private void DownloadAllNews(object sender, EventArgs e)
@@ -310,7 +314,7 @@ namespace ZanScore
         {
             AddSourceWindow A = new AddSourceWindow();
             A.ShowDialog(owner: this);
-            if (A.DialogResult == DialogResult.OK) 
+            if (A.DialogResult == DialogResult.OK)
             {
                 NewsSourcesCollection.AddNewSource(A.SourceNameText.Text, A.SourceURLText.Text);
                 NewsSourcesCollection.SaveSources();
