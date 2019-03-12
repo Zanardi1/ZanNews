@@ -31,6 +31,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
 
         public bool FillRSSData(string FileToLoad)
         //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
+        //todo de rescris astfel incat sa faca aceleasi lucruri si sa testeze aparitia exceptiilor pentru crearea variabilei reader
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
             {

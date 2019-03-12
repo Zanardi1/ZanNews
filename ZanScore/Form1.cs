@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 
 //todo sa generez documentatia XML
-//todo sa modific toate functiile testate cu ajutorul unitatilor, astfel incat sa intoarca un rezultat, daca ele intorc in prezent void. Rezultatul va fi folosit de catre aceste unitati
 
 namespace ZanScore
 {
