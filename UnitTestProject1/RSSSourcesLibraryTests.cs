@@ -78,32 +78,20 @@ namespace ZanScore.Tests
 
         [TestMethod()]
         [DataTestMethod]
-        [DataRow("caine", "www.yahoo.com")]
-        public void AddNewSourceTest(string Name, String URL)
-        {
-            //Arrange
-            RSSSourcesLibrary R = new RSSSourcesLibrary();
-
-            //Act
-            R.AddNewSource(Name, URL);
-
-            //Assert
-            Assert.AreEqual(1, 1);
-        }
-
-        [TestMethod()]
-        [DataTestMethod]
         [DataRow(1, "dd", "www.google.com")]
+        //[DataRow(-1, "dd", "ee")] //Genereaza ArgumentOutOfRangeException
+        //[DataRow(4, "gg", "hh")] //Genereaza ArgumentOutOfRangeException
         public void EditSourceTest(int Pos, string NewName, string NewUrL)
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
+            bool Result;
 
             //Act
-            R.EditSource(Pos, NewName, NewUrL);
+            Result = R.EditSource(Pos, NewName, NewUrL);
 
             //Assert
-            Assert.AreEqual(1, 1);
+            Assert.AreEqual(Result, true);
         }
 
         [TestMethod()]
@@ -111,29 +99,17 @@ namespace ZanScore.Tests
         {
             //Arrange
             RSSSourcesLibrary R = new RSSSourcesLibrary();
-            //List<int> L = new List<int>() { 1, 2, 3 };
-            List<int> L = new List<int>() { 0 };
+            //List<int> L1 = new List<int>() { 1, 2, 3 }; //Genereaza ArgumentOutOfRangeException
+            List<int> L2 = new List<int>() { 0 };
+            bool /*Result1,*/ Result2;
 
             //Act
-            R.RemoveSource(L);
+            //Result1 = R.RemoveSource(L1);
+            Result2 = R.RemoveSource(L2);
 
             //Assert
-            Assert.AreEqual(1, 1);
-        }
-
-        [TestMethod()]
-        public void ShowNewsSourcesInDataGridTest()
-        {
-            //Arrange
-            RSSSourcesLibrary R = new RSSSourcesLibrary();
-            DataGridView D = new DataGridView();
-            D.ColumnCount = 2;
-
-            //Act
-            R.ShowNewsSourcesInDataGrid(D);
-
-            //Assert
-            Assert.AreEqual(1, 1);
+            //Assert.AreEqual(Result1, true);
+            Assert.AreEqual(Result2, true);
         }
 
         [TestMethod()]
@@ -148,41 +124,6 @@ namespace ZanScore.Tests
 
             //Assert
             Assert.AreNotEqual(Result, null);
-        }
-
-        [TestMethod()]
-        public void ClearSourcesTest()
-        {
-            //Arrange
-            RSSSourcesLibrary R = new RSSSourcesLibrary();
-
-            //Act
-            R.ClearSources();
-
-            //Assert
-            Assert.AreEqual(1, 1);
-        }
-
-        [TestMethod()]
-        [DataTestMethod]
-        [DataRow(1, 1)]
-        [DataRow(1, 2)]
-        [DataRow(1, 3)]
-        [DataRow(1, 4)]
-        [DataRow(0, 1)]
-        [DataRow(0, 2)]
-        [DataRow(0, 3)]
-        [DataRow(0, 4)]
-        public void SortSourcesTest(int Pos, int Way)
-        {
-            //Arrange
-            RSSSourcesLibrary R = new RSSSourcesLibrary();
-
-            //Act
-            R.SortSources(Pos, Way);
-
-            //Assert
-            Assert.AreEqual(1, 1);
         }
     }
 }

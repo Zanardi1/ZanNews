@@ -46,10 +46,17 @@ namespace ZanScore
                 if (AllTheSources.Rows[i].Selected)
                     Positions.Add(i);
 
-            ((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions);
-            ((Form1)Owner).NewsSourcesCollection.SaveSources();
-
-            DeleteNewsFromGrid();
+            if (((Form1)Owner).NewsSourcesCollection.RemoveSource(Positions))
+            {
+                ((Form1)Owner).NewsSourcesCollection.SaveSources();
+                DeleteNewsFromGrid();
+            }
+            else
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show("The selected source(s) could not be deleted", "Error!", MB, MI);
+            }
         }
 
         private void DeleteSelectedNewsSources(object sender, EventArgs e)
@@ -92,10 +99,18 @@ namespace ZanScore
         private void SaveEditChanges(object sender, EventArgs e)
         //Procedura de salvare a modificarilor efectuate
         {
-            ((Form1)Owner).NewsSourcesCollection.EditSource(SelectedPositionInGrid, NewSourceNameText.Text, NewSourceURLText.Text);
-            AllTheSources.Rows[SelectedPositionInGrid].Cells[0].Value = NewSourceNameText.Text;
-            AllTheSources.Rows[SelectedPositionInGrid].Cells[1].Value = NewSourceURLText.Text;
-            DisableEditingControls();
+            if (((Form1)Owner).NewsSourcesCollection.EditSource(SelectedPositionInGrid, NewSourceNameText.Text, NewSourceURLText.Text))
+            {
+                AllTheSources.Rows[SelectedPositionInGrid].Cells[0].Value = NewSourceNameText.Text;
+                AllTheSources.Rows[SelectedPositionInGrid].Cells[1].Value = NewSourceURLText.Text;
+                DisableEditingControls();
+            }
+            else
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show("The changes could not be saved!", "Error!", MB, MI);
+            }
         }
 
         private void EnableEditingControls()

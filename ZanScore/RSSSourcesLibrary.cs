@@ -237,14 +237,25 @@ namespace ZanScore
             NumberofSources++;
         }
 
-        public void EditSource(int SourcePosition, string NewSourceName, string NewSourceURL)
+        public bool EditSource(int SourcePosition, string NewSourceName, string NewSourceURL)
         //Procedura de editare a sursei care se afla la pozitia SourcePosition
         {
-            SourceTitle[SourcePosition] = NewSourceName;
-            SourceURL[SourcePosition] = NewSourceURL;
+            try
+            {
+                SourceTitle[SourcePosition] = NewSourceName;
+                SourceURL[SourcePosition] = NewSourceURL;
+                return true;
+            }
+            catch (ArgumentOutOfRangeException A)
+            {
+                MessageBoxButtons MB = MessageBoxButtons.OK;
+                MessageBoxIcon MI = MessageBoxIcon.Error;
+                MessageBox.Show(A.Message, "Error!", MB, MI);
+                return false;
+            }
         }
 
-        public void RemoveSource(List<int> NewsNumbers)
+        public bool RemoveSource(List<int> NewsNumbers)
         //Elimina una sau mai multe surse de stiri. Numerele lor de ordine sunt transmise ca parametri
         {
             try
@@ -255,6 +266,7 @@ namespace ZanScore
                     SourceURL.RemoveAt(NewsNumbers[i]);
                     NumberofSources--;
                 }
+                return true;
             }
 
             catch (ArgumentOutOfRangeException A)
@@ -262,6 +274,7 @@ namespace ZanScore
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
                 MessageBox.Show(A.Message, "Error!", MB, MI);
+                return false;
             }
         }
 
