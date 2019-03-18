@@ -132,7 +132,13 @@
         private System.Windows.Forms.GroupBox NewDataSource;
         private System.Windows.Forms.Button SaveChanges;
         private System.Windows.Forms.Button DiscardChanges;
+        /// <summary>
+        /// Textbox for the user to enter the name of the news source
+        /// </summary>
         public System.Windows.Forms.TextBox SourceNameText;
+        /// <summary>
+        /// Textbox for the user to enter the URL of the news source
+        /// </summary>
         public System.Windows.Forms.TextBox SourceURLText;
     }
 }

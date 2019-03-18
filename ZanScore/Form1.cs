@@ -12,10 +12,23 @@ namespace ZanScore
         private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu (atunci e true)
         private static int InitialBrowserWidth; //retine latimea initiala a browserului
 
+        /// <summary>
+        /// Stores the entire data about the used news sources
+        /// </summary>
         public RSSSourceData NewsSourceData = new RSSSourceData();
+        /// <summary>
+        /// Stores the entire news sources collection, without any additional data
+        /// </summary>
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
+        /// <summary>
+        /// Class instance dealing with the program options
+        /// </summary>
         public OptionsHandling OH = new OptionsHandling();
 
+
+        /// <summary>
+        /// Stores the initial window width
+        /// </summary>
         static public int InitialWindowWidth
         {
             get
@@ -132,10 +145,12 @@ namespace ZanScore
             return Multiplier * OH.IntervalNumber * 1000;
         }
 
+        /// <summary>
+        /// The necessary actions of timer start or stop and, if it's started, to set the timer for automatically news download.
+        /// </summary>
+        /// <param name="DownloadAtInterval">Starts (value=1) or stops (value=0) the process</param>
+        /// <returns>true if news download at a certain interval is on. Else it returns false</returns>
         public bool SetAutomaticDownloadTimerEngine(int DownloadAtInterval)
-        //Actiunile necesare pornirii sau opririi cronometrului si, daca acesta e pornit, setarii cronometrului pentru descarcarea stirilor.
-        //DownloadAtInterval are rolul de a porni (cand are valoarea 1) sau de a opri acest proces (cand are valoarea 0)
-        //Functia intoarce true daca se porneste descarcarea la un anumit interval
         {
             if (DownloadAtInterval == 1)
             {
@@ -168,12 +183,18 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Checks to see if a network connection is available
+        /// </summary>
+        /// <returns>true if the program has access to a network, false if it doesn't</returns>
         public bool CheckForNetwork()
-        //Functia verifica daca exista sau nu retea
         {
             return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
         }
 
+        /// <summary>
+        /// Class constructor. 
+        /// </summary>
         public Form1()
         //Constructor
         {
@@ -199,8 +220,12 @@ namespace ZanScore
             return Result;
         }
 
+        /// <summary>
+        /// The news downloading engine.
+        /// </summary>
+        /// <param name="AreSources">If the news that will be downloaded come from the sources set by the user (true) or from the default library</param>
+        /// <returns>True, if the function raised no exceptions</returns>
         public bool DownloadingEngine(bool AreSources)
-        //Motorul de download a stirilor
         {
             if (AreSources)
             {
@@ -244,10 +269,15 @@ namespace ZanScore
             return true;
         }
 
+        /// <summary>
+        /// The entire news downloading process, which has three steps:
+        /// 1. Initialization;
+        /// 2. Running the engine;
+        /// 3. Finalization
+        /// </summary>
+        /// <param name="AreSources">Stores if the download should be made from the user specified sources (true) of from the default library</param>
+        /// <returns>True, if no exceptions were raised. Else, returns false</returns>
         public bool DownloadAllNewsProcess(bool AreSources)
-        //Intreg procesul de descarcare a stirilor. 
-        //Parametrul retine daca aceasta procedura a fost apelata pentru a citi din sursele de stiri (true) sau din biblioteca de surse (false)
-        //Functia este booleana deoarece rezultatul intors de catre aceasta este folosit in unitatea de testare. Intoarce true daca procesul s-a incheiat fara erori, false altfel
         {
             return DownloadAllNewsInitialization(AreSources) && DownloadingEngine(AreSources) && DownloadAllNewsFinalization();
         }
@@ -270,6 +300,11 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// The instructions for the selected news download
+        /// </summary>
+        /// <param name="URL">The news URL</param>
+        /// <returns>true if no exception was raised. Else it returns false</returns>
         public bool LoadingNewsEngine(string URL)
         //Instructiunile pentru incararea efectiva a stirii selectate
         {

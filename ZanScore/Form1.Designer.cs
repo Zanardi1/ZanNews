@@ -1,5 +1,8 @@
 ﻿namespace ZanScore
 {
+    /// <summary>
+    /// The main window class
+    /// </summary>
     partial class Form1
     {
         /// <summary>
@@ -287,8 +290,14 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsTitle;
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
         private System.Windows.Forms.NotifyIcon MinimizeToSystray;
+        /// <summary>
+        /// The timer that will be used when the automatical download option is enabled
+        /// </summary>
         public System.Windows.Forms.Timer DownloadNewsTimer;
         private System.Windows.Forms.ToolStripMenuItem AccessNewsLibraryOption;
+        /// <summary>
+        /// The web page that displays the news
+        /// </summary>
         public System.Windows.Forms.WebBrowser NewsWebPage;
     }
 }
