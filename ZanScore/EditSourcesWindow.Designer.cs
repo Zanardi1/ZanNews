@@ -286,6 +286,9 @@
         private System.Windows.Forms.Button MoveDownOnePositionButton;
         private System.Windows.Forms.Button MoveUpOnePositionButton;
         private System.Windows.Forms.Button FinishReorderingButton;
+        /// <summary>
+        /// Shows all the news sources entered by the user
+        /// </summary>
         public System.Windows.Forms.DataGridView AllTheSources;
     }
 }

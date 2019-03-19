@@ -32,6 +32,9 @@ Formatul fisierului:
 
 namespace ZanScore
 {
+    /// <summary>
+    /// Class that handles the program options
+    /// </summary>
     public class OptionsHandling
     {
         private int windowsstartup;
@@ -45,6 +48,9 @@ namespace ZanScore
         private int intervalnumber;
         private int intervaltime;
 
+        /// <summary>
+        /// Stores if the program should start with the OS boot. It equals 1 is the program starts with OS, else it's 0
+        /// </summary>
         public int WindowsStartup
         {
             get
@@ -60,6 +66,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores if the program should be minimized to tray (equals 1) or not (0)
+        /// </summary>
         public int MinimizeToTray
         {
             get
@@ -75,6 +84,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores the startup options:
+        /// 1. 0 - start minimized
+        /// 2. 1 - start normal
+        /// 3. 2 - start maximized
+        /// </summary>
         public int StartupOptions
         {
             get
@@ -90,6 +105,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores if the invalid news RSS files (those that, from one reason or another, cannot be read) should be marked as disabled and skipped the next time (stores 1) or not (0)
+        /// </summary>
         public int DisableInvalidNewsFiles
         {
             get
@@ -105,6 +123,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores the main window width
+        /// </summary>
         public int WindowWidth
         {
             get
@@ -120,6 +141,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores the main window height
+        /// </summary>
         public int WindowHeight
         {
             get
@@ -135,6 +159,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores if the news should be automatically downloaded at program startup (stores 1) or the user manually starts the downloading process (stores 0)
+        /// </summary>
         public int NewsDownloadAtStartup
         {
             get
@@ -150,6 +177,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores if the news should be automatically downloaded at a set interval (stores 1) or not (stores 0)
+        /// </summary>
         public int NewsDownloadAtInterval
         {
             get
@@ -165,6 +195,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores the numerical value of the download interval. Example: if the interval is 15 minutes, then this variable stores the value 15.
+        /// </summary>
         public int IntervalNumber
         {
             get
@@ -180,6 +213,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores the time unit for the automatical download interval:
+        /// 1. 0 - seconds
+        /// 2. 1 - minutes
+        /// 3. 2 - hours
+        /// </summary>
         public int IntervalTime
         {
             get
@@ -199,11 +238,20 @@ namespace ZanScore
         private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "NewsDownlAtStartup", "NewsDownlAtInterval", "IntervNumber", "IntervTime" };
         private readonly int[] OptionValues = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public OptionsHandling() //constructor
         {
             OpenOptionsFile();
         }
 
+        /// <summary>
+        /// Opens the options file. This functions has two parts:
+        /// 1. Check if the options file exists
+        /// 2. Reading the options from the options file
+        /// </summary>
+        /// <returns>true if the entire process ended without throwing exceptions. Else, it returns false</returns>
         public bool OpenOptionsFile() //deschiderea fisierului de optiuni
         {
             return CheckOptionsFileExistence() && ReadOptionsFromFile();
@@ -237,6 +285,10 @@ namespace ZanScore
             OptionValues[9] = IntervalTime;
         }
 
+        /// <summary>
+        /// Saves the stored options to the options file
+        /// </summary>
+        /// <returns>true, if the saving process ended without throwing any exceptions, otherwise it returns false</returns>
         public bool SaveOptionsToFile() //salvarea optiunilor in fisier
         {
             List<string> WriteBuffer = new List<string>() { };

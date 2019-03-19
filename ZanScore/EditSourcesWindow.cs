@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 namespace ZanScore
 {
+    /// <summary>
+    /// The class which implements the source editing window
+    /// </summary>
     public partial class EditSourcesWindow : Form
     {
         private int selectedpositioningrid = 0;
@@ -23,6 +26,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public EditSourcesWindow()
         {
             InitializeComponent();

@@ -6,15 +6,30 @@ using System;
 
 namespace ZanScore
 {
+    /// <summary>
+    /// Class that stores the news library window
+    /// </summary>
     public partial class NewsLibrary : Form
     {
         private static int absoluteindex = 0;
 
+        /// <summary>
+        /// List which stores the news sources from the news library
+        /// </summary>
         static public List<string> NewsSourcesList = new List<string>() { };
+        /// <summary>
+        /// List which stores the news categories from the news library
+        /// </summary>
         public List<string> NewsCategoriesList = new List<string>() { };
+        /// <summary>
+        /// List which stores the URL of the RSS feeds of the library news sources
+        /// </summary>
         static public List<string> NewsSourcesRSSList = new List<string>() { };
 
-        static public int AbsoluteIndex //calculeaza numarul de ordine al unei stiri din lista de stiri citita si stocata in cele trei liste declarate mai sus
+        /// <summary>
+        /// Computes the index of a news from the news list that is read and stored in the three lists declared above
+        /// </summary>
+        static public int AbsoluteIndex
         {
             get
             {
@@ -29,6 +44,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public NewsLibrary()
         {
             InitializeComponent();
@@ -43,8 +61,11 @@ namespace ZanScore
             NewsSourcesRSSList.Clear();
         }
 
+        /// <summary>
+        /// Reads the news library and fills the three lists. Set as public to be able to be unit tested
+        /// </summary>
+        /// <returns>true if no exceptions were thrown. Else, returns false</returns>
         public bool ReadFromLibrary()
-        //Procedura citeste din biblioteca si umple cele trei liste. Am setat-o ca publica pentru a putea fi testata.
         {
             string[] ReadBuffer = new string[] { };
             try

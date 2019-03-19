@@ -16,19 +16,41 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
  */
 
 {
+    /// <summary>
+    /// Class that handles the data read from an RSS file. Details about this file format are at: https://www.w3schools.com/xml/xml_rss.asp .
+    /// </summary>
     public class RSSSourceData
-    //O clasa ce retine datele dintr-un fisier RSS. Detalii despre acesta sunt la https://www.w3schools.com/xml/xml_rss.asp.
     {
-        public List<string> NewsChannelTitle = new List<string>(); //Titlurile canalelor de stiri
-        public List<string> NewsTitle = new List<string>(); //Titlurile stirilor
-        public List<string> NewsLink = new List<string>(); //Link-urile catre stiri
-        public List<string> NewsDescription = new List<string>(); //Descrierile stirilor
+        /// <summary>
+        /// List which stores the titles of the news channels
+        /// </summary>
+        public List<string> NewsChannelTitle = new List<string>(); 
+        /// <summary>
+        /// List which stores the nwes' titles
+        /// </summary>
+        public List<string> NewsTitle = new List<string>(); 
+        /// <summary>
+        /// List that stores the news' URLs
+        /// </summary>
+        public List<string> NewsLink = new List<string>(); 
+        /// <summary>
+        /// List that stores the news' descriptions
+        /// </summary>
+        public List<string> NewsDescription = new List<string>(); 
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public RSSSourceData()
         {
 
         }
 
+        /// <summary>
+        /// It loads a specified RSS file, in XML format, parses it and fills the class structures from the program with the required data from the file.
+        /// </summary>
+        /// <param name="FileToLoad">The RSS file that must be read</param>
+        /// <returns>true if no exception was thrown. Else it returns false</returns>
         public bool FillRSSData(string FileToLoad)
         //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         //todo de rescris astfel incat sa faca aceleasi lucruri si sa testeze aparitia exceptiilor pentru crearea variabilei reader
@@ -103,6 +125,9 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
             return true;
         }
 
+        /// <summary>
+        /// Clears the four lists which are class members
+        /// </summary>
         public void EmptyFields()
         {
             NewsChannelTitle.Clear();

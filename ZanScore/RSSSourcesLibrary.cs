@@ -6,6 +6,9 @@ using System.Security;
 
 namespace ZanScore
 {
+    /// <summary>
+    /// Class that handles the news sources
+    /// </summary>
     public class RSSSourcesLibrary
     //Aceasta clasa se ocupa de gestionarea surselor de stiri. 
     //Operatiuni:
@@ -19,10 +22,19 @@ namespace ZanScore
     {
         private int numberofsources = 0, numberofselectedsources = 0;
 
+        /// <summary>
+        /// List which stores the source titles
+        /// </summary>
         public List<string> SourceTitle = new List<string>();
         private List<string> SourceURL = new List<string>();
+        /// <summary>
+        /// List which stores if the source titles are selected or not
+        /// </summary>
         public List<bool> IsSourceSelected = new List<bool>();
 
+        /// <summary>
+        /// Stores the number of sources that are entered by the user
+        /// </summary>
         public int NumberofSources
         {
             get
@@ -38,6 +50,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores the number of selected sources by the user
+        /// </summary>
         public int NumberofSelectedSources
         {
             get
@@ -53,11 +68,19 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public RSSSourcesLibrary()
         {
             LoadSources(true);
         }
 
+        /// <summary>
+        /// Enables a certain, selected, news source
+        /// </summary>
+        /// <param name="SourceNo">The position of the news source to be enabled</param>
+        /// <returns>true if the function doesn't throw any exceptions. Else it returns false</returns>
         public bool EnableNewsSource(int SourceNo)
         {
             try
@@ -76,6 +99,11 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Disables a certain, selected, news source
+        /// </summary>
+        /// <param name="SourceNo">The position of the news source to be disabled</param>
+        /// <returns>true, if the function throws no exceptions. Else it returns false</returns>
         public bool DisableNewsSource(int SourceNo)
         {
             try
@@ -176,6 +204,11 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Loads the news sources from either the news sources entered by the user or the default news library
+        /// </summary>
+        /// <param name="AreSources">Signifies wether the news sources entered by the user should be loaded (true) or the default library (false)</param>
+        /// <returns>true if the loading process threw no exceptions. Otherwise it returns false</returns>
         public bool LoadSources(bool AreSources)
         {
             bool Result = true;

@@ -101,7 +101,13 @@
 
         #endregion
         private System.Windows.Forms.DataGridViewTextBoxColumn NewsSourceName;
+        /// <summary>
+        /// Shows the news library sources
+        /// </summary>
         public System.Windows.Forms.DataGridView NewsLibrarySourcesView;
+        /// <summary>
+        /// Shows the news categories
+        /// </summary>
         public System.Windows.Forms.ListBox CategoryListBox;
     }
 }

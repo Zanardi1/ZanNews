@@ -5,8 +5,14 @@ using System.IO;
 
 namespace ZanScore
 {
+    /// <summary>
+    /// Class that handles the options window
+    /// </summary>
     public partial class OptionsWindow : Form
     {
+        /// <summary>
+        /// Options window constructor
+        /// </summary>
         public OptionsWindow()
         {
             InitializeComponent();
