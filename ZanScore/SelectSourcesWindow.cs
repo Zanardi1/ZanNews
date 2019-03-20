@@ -3,9 +3,15 @@ using System.Windows.Forms;
 
 namespace ZanScore
 {
+    /// <summary>
+    /// Class that handles the source selecting window
+    /// </summary>
     public partial class SelectSourcesWindow : Form
     {
 
+        /// <summary>
+        /// Class constructor
+        /// </summary>
         public SelectSourcesWindow()
         {
             InitializeComponent();
@@ -24,6 +30,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Contains the instructions to display the source names.
+        /// </summary>
+        /// <remarks>It has two steps:
+        /// 1 - adding the rows on the data grid;
+        /// 2 - refreshing the data grid to display the updated sources</remarks>
         public void DisplaySourceNamesEngine()
         //Procedura afiseaza numele surselor de stiri. Am separat-o de handler pentru a fi mai usor de testat
         {
@@ -36,6 +48,12 @@ namespace ZanScore
             DisplaySourceNamesEngine();
         }
 
+        /// <summary>
+        /// Contains the instructions which update the selected sources
+        /// </summary>
+        /// <remarks>The updating engine has the following steps:
+        /// 1 - initializing the selected news sources count;
+        /// 2 - cycling through the data grid. If a news source is selected, then increase the count with 1 and mark that source as selected in the IsSourceSelected list</remarks>
         public void UpdateSelectedSourcesListEngine()
         //Procedura se ocupa de actualizarea listei cu surse selectate. Am separat-o de handler pentru a fi mai usor de testat
         {

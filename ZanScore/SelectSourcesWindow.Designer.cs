@@ -119,6 +119,9 @@
         private System.Windows.Forms.Button DiscardChanges;
         private System.Windows.Forms.DataGridViewCheckBoxColumn SelectedColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn SourceNameColumn;
+        /// <summary>
+        /// Datagrid which displays the news sources
+        /// </summary>
         public System.Windows.Forms.DataGridView NewsSourcesDataGrid;
     }
 }

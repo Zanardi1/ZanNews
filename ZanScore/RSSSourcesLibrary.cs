@@ -224,12 +224,15 @@ namespace ZanScore
             return Result;
         }
 
+        /// <summary>
+        /// Saves the news sources in a text file. 
+        /// The file format is:
+        /// name: source name (provided by the user)
+        /// URL: the web adress of the XML file
+        /// selected: if the news source is selected or nor
+        /// </summary>
+        /// <returns>true, if no exception was raised. Else it returns false</returns>
         public bool SaveSources()
-        /*Functia salveaza sursele de stiri in fisier. 
-        Forma fisierului este: 
-        name:numele sursei (dat de utilizator)
-        URL:Adresa fisierului XML
-        selected:Daca e selectat sau nu*/
         {
             List<string> TextToWrite = new List<string>(); //retine textele care vor fi scrise in fisier.
             for (int i = 0; i < SourceTitle.Count; i++)
@@ -261,7 +264,12 @@ namespace ZanScore
             }
         }
 
-       public void AddNewSource(string NewSourceName, string NewSourceURL)
+        /// <summary>
+        /// Adds a new news source.
+        /// </summary>
+        /// <param name="NewSourceName">The name of the added news source</param>
+        /// <param name="NewSourceURL">The URL of the XML file of the news source</param>
+        public void AddNewSource(string NewSourceName, string NewSourceURL)
         //Procedura de adaugare a unei noi surse de stiri
         {
             SourceTitle.Add(NewSourceName);
@@ -269,9 +277,14 @@ namespace ZanScore
             IsSourceSelected.Add(true);
             NumberofSources++;
         }
-
+        /// <summary>
+        /// Edits a selected news source
+        /// </summary>
+        /// <param name="SourcePosition">The position of the selected news source in the news sources window</param>
+        /// <param name="NewSourceName">The new name of the news source</param>
+        /// <param name="NewSourceURL">The new URL of the XML file for the news source</param>
+        /// <returns>true if no exception was thrown</returns>
         public bool EditSource(int SourcePosition, string NewSourceName, string NewSourceURL)
-        //Procedura de editare a sursei care se afla la pozitia SourcePosition
         {
             try
             {
@@ -288,8 +301,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Removes the news source(s) indicated by their position numbers
+        /// </summary>
+        /// <param name="NewsNumbers">A list containing the position number(s) of the selected source(s)</param>
+        /// <returns>true if the function doesn't throw any exceptions. Otherwise it returns false</returns>
         public bool RemoveSource(List<int> NewsNumbers)
-        //Elimina una sau mai multe surse de stiri. Numerele lor de ordine sunt transmise ca parametri
         {
             try
             {
@@ -311,6 +328,10 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Shows the selected news sources in the window datagrid
+        /// </summary>
+        /// <param name="Grid">The name of the grid component</param>
         public void ShowNewsSourcesInDataGrid(DataGridView Grid)
         //Afiseaza sursele de stiri in fereastra EditSources
         {
@@ -322,13 +343,19 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Returns the news source(s) URL(s)
+        /// </summary>
+        /// <returns>A list with the URL(s) of the news source(s)</returns>
         public List<string> GetNewsURL()
         {
             return SourceURL;
         }
 
+        /// <summary>
+        /// Clears the lists which have the data for the news sources. Useful if I don't want a news to appear twice.
+        /// </summary>
         public void ClearSources()
-        //Goleste datele legate de sursele de stiri. Utila in cazul in care nu vreau ca aceleasi stiri sa apara de 2+ ori
         {
             SourceTitle.Clear();
             SourceURL.Clear();
@@ -337,12 +364,17 @@ namespace ZanScore
             NumberofSelectedSources = 0;
         }
 
+        /// <summary>
+        /// Moves the news source on a new position, depending on what kind of sorting it is chosen
+        /// </summary>
+        /// <param name="Position">The position of the news source that will be moved</param>
+        /// <param name="SortingWay">Flag to determine on which position should the selected source be moved:</param>
+        /// <remarks>SortingWay can have one of these 4 values:
+        /// 1 - moves the news source one position higher (Up 1);
+        /// 2 - moves the news source one position lower (Down 1);
+        /// 3 - moves the news source on the first position (Move first);
+        /// 4 - moves the news source on the last posibion (Move last)</remarks>
         public void SortSources(int Position, int SortingWay)
-        /*Subrutina muta sursa de pe pozitia Position in functie de valoarea lui SortingWay:
-         1 - muta cu o pozitie mai sus (Up 1)
-         2 - muta cu o pozitie mai jos (Down 1)
-         3 - muta pe prima pozitie (Move first)
-         4 - muta pe ultima pozitie (Move last)*/
         {
             switch (SortingWay)
             {
