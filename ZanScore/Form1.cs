@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-//todo sa generez documentatia XML
-
 namespace ZanScore
 {
     public partial class Form1 : Form
