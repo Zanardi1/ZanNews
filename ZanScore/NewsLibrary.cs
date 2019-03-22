@@ -7,27 +7,27 @@ using System;
 namespace ZanScore
 {
     /// <summary>
-    /// Class that stores the news library window
+    /// Class that stores the news library window.
     /// </summary>
     public partial class NewsLibrary : Form
     {
         private static int absoluteindex = 0;
 
         /// <summary>
-        /// List which stores the news sources from the news library
+        /// List which stores the news sources from the news library.
         /// </summary>
         static public List<string> NewsSourcesList = new List<string>() { };
         /// <summary>
-        /// List which stores the news categories from the news library
+        /// List which stores the news categories from the news library.
         /// </summary>
         public List<string> NewsCategoriesList = new List<string>() { };
         /// <summary>
-        /// List which stores the URL of the RSS feeds of the library news sources
+        /// List which stores the URL of the RSS feeds of the library news sources.
         /// </summary>
         static public List<string> NewsSourcesRSSList = new List<string>() { };
 
         /// <summary>
-        /// Computes the index of a news from the news list that is read and stored in the three lists declared above
+        /// Computes the index of a news from the news list that is read and stored in the three lists declared above.
         /// </summary>
         static public int AbsoluteIndex
         {
@@ -45,7 +45,7 @@ namespace ZanScore
         }
 
         /// <summary>
-        /// Class constructor
+        /// Class constructor.
         /// </summary>
         public NewsLibrary()
         {
@@ -54,6 +54,9 @@ namespace ZanScore
             OpenLibraryFile();
         }
 
+        /// <summary>
+        /// Clears all the lists.
+        /// </summary>
         private void ClearLists()
         {
             NewsSourcesList.Clear();
@@ -62,9 +65,14 @@ namespace ZanScore
         }
 
         /// <summary>
-        /// Reads the news library and fills the three lists. Set as public to be able to be unit tested
+        /// Reads the news library and fills the three lists. Set as public to be able to be unit tested.
         /// </summary>
-        /// <returns>true if no exceptions were thrown. Else, returns false</returns>
+        /// <returns>true if no exceptions were thrown. Else, returns false.</returns>
+        /// <exception cref="FileNotFoundException">If the library file is not found.</exception>
+        /// <exception cref="FileLoadException">If the library file cannot be loaded.</exception>
+        /// <exception cref="IOException">Thrown when a I/O exception occurs.</exception>
+        /// <exception cref="SecurityException">Thrown when a security exception occurs.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown at substring operations. Very unlikely to happen, but just to be safe.</exception>
         public bool ReadFromLibrary()
         {
             string[] ReadBuffer = new string[] { };
@@ -121,7 +129,7 @@ namespace ZanScore
                 MessageBox.Show(S.Message, "Error!", MB, MI);
                 return false;
             }
-            catch (ArgumentOutOfRangeException A) //Exceptie pentru Substring. Ma indoiesc ca va fi ridicata vreodata, dar mai bine sa fiu precaut.
+            catch (ArgumentOutOfRangeException A) 
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;

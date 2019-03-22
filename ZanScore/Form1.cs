@@ -7,26 +7,36 @@ namespace ZanScore
     public partial class Form1 : Form
     {
         private static int initialwindowwidth = 0, initialwindowheight = 0;
-        private static bool WasMaximized; //retine daca fereastra a fost maximizata sau nu (atunci e true)
-        private static int InitialBrowserWidth; //retine latimea initiala a browserului
+        /// <summary>
+        /// Stores if the window was maximized (stores true) or not (false).
+        /// </summary>
+        private static bool WasMaximized;
+        /// <summary>
+        /// Stores the initial width of the browser.
+        /// </summary>
+        /// <remarks> The usefulness of this variable appears because on the else branch, on the ResizeControlsEngine() function the program can go in two ways: when the window is resized and when it automatically goes back to the initial sizes, after it was maximized (it was restored). In the second case, all the windows components must me resized, while in the first case, the resizing automatically occurs when the ResizeEnd event gets triggered</remarks>
+        private static int InitialBrowserWidth;
 
         /// <summary>
-        /// Stores the entire data about the used news sources
+        /// Stores the entire data about the used news sources.
         /// </summary>
         public RSSSourceData NewsSourceData = new RSSSourceData();
         /// <summary>
-        /// Stores the entire news sources collection, without any additional data
+        /// Stores the entire news sources collection, without any additional data.
         /// </summary>
         public RSSSourcesLibrary NewsSourcesCollection = new RSSSourcesLibrary();
         /// <summary>
-        /// Class instance dealing with the program options
+        /// Class instance dealing with the program options.
         /// </summary>
         public OptionsHandling OH = new OptionsHandling();
 
 
         /// <summary>
-        /// Stores the initial window width
+        /// Stores the initial window width.
         /// </summary>
+        /// <remarks>
+        /// Used to store the initial width of the window before beginning resizing.
+        /// </remarks>
         static public int InitialWindowWidth
         {
             get
@@ -42,7 +52,13 @@ namespace ZanScore
             }
         }
 
-        static int InitialWindowHeight //folosite la redimensionarea controalelor ferestrei. Retin dimensiunile initiale ale ferestrei
+        /// <summary>
+        /// Stores the initial window height.
+        /// </summary>
+        /// <remarks>
+        /// Used to store the initial height of the window before beginning resizing.
+        /// </remarks>
+        static int InitialWindowHeight 
         {
             get
             {
@@ -57,33 +73,58 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Stores with how many pixels the window width increased or decreased.
+        /// </summary>
         static int WidthDiff { get; set; }
-        static int HeightDiff { get; set; } //retin cu ce latime respectiv inaltime fereastra s-a marit sau s-a micsorat
+        /// <summary>
+        /// Stores with how many pixels the window height increased or decreased.
+        /// </summary>
+        static int HeightDiff { get; set; }
 
+        /// <summary>
+        /// Sets the news window grid.
+        /// </summary>
+        /// <remarks>
+        /// The distribution is equal: 1/3 for every column.
+        /// </remarks>
         private void SetColumnsWidth()
-        //Seteaza latimile grilei cu stiri
         {
             NewsChannel.Width = NewsDetailsGrid.Width / 3;
             NewsTitle.Width = NewsDetailsGrid.Width / 3;
             NewsDescription.Width = NewsDetailsGrid.Width / 3;
         }
 
+        /// <summary>
+        /// Stores the window sizes before the resizing process.
+        /// </summary>
         private void GetInitialWindowSizes()
         {
             Height = OH.WindowHeight;
             Width = OH.WindowWidth;
         }
 
+        /// <summary>
+        /// Loads the window sizes from the options file and adjusts the dimensions of the controls according to the set proportions.
+        /// </summary>
         private void LoadWindowSizes()
-        //Incarca dimensiunile ferestrei din fisierul de optiuni si ajusteaza dimensiunile controalelor in functie de proportiile stabilite
         {
             StoreInitialSizes();
             GetInitialWindowSizes();
             ApplyResizeEngine();
         }
 
+        /// <summary>
+        /// Sets the window state at startup: minimized, normal or maximized.
+        /// </summary>
+        /// <remarks>
+        /// It's done according to the StartupOptions variable:
+        /// 1 - window will start minimized;
+        /// 2 - window will start normal;
+        /// 3 - window will start maximized;
+        /// The function also has a default case. This is as a caution measure for the case if, somehow, the StartupOptions value is different than 1, 2 or 3.
+        /// </remarks>
         private void SetWindowMaximizationState()
-        //Stabileste cum va fi fereastra la pornirea programului: minimizata, normala sau maximizata
         {
             switch (OH.StartupOptions)
             {
@@ -105,7 +146,7 @@ namespace ZanScore
                         break;
                     }
 
-                default: //Pentru cazul in care, cumva, optiunea de pornire are o valoare diferita de 1, 2 sau 3.
+                default: 
                     {
                         WindowState = FormWindowState.Normal;
                         break;
@@ -113,10 +154,17 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Computes the time interval, in miliseconds, which will be passed as a parameter to the timer.
+        /// </summary>
+        /// <returns>The time converted in ms.</returns>
+        /// <remarks>
+        /// The function convets the IntervalNumber variable in seconds, then in ms.
+        /// The local variabile Multiplier converts hours, minutes or seconds into seconds.
+        /// </remarks>
         private int ComputeTimeInterval()
-        //Calculeaza intervalul de timp, in ms, care va fi transmis ca parametru Timerului
         {
-            int Multiplier = 1; //transforma din ore, minute, secunde in secunde
+            int Multiplier = 1; 
 
             switch (OH.IntervalTime)
             {
@@ -146,8 +194,8 @@ namespace ZanScore
         /// <summary>
         /// The necessary actions of timer start or stop and, if it's started, to set the timer for automatically news download.
         /// </summary>
-        /// <param name="DownloadAtInterval">Starts (value=1) or stops (value=0) the process</param>
-        /// <returns>true if news download at a certain interval is on. Else it returns false</returns>
+        /// <param name="DownloadAtInterval">Starts (value=1) or stops (value=0) the process.</param>
+        /// <returns>true if news download at a certain interval is on. Else it returns false.</returns>
         public bool SetAutomaticDownloadTimerEngine(int DownloadAtInterval)
         {
             if (DownloadAtInterval == 1)
@@ -161,8 +209,10 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Sets the initial values for the different window and its components characteristics.
+        /// </summary>
         private void SetInitialValues()
-        //Stabileste valorile initiale pentru diferite caracteristici ale ferestrei si ale componentelor ei
         {
             InitialBrowserWidth = NewsWebPage.Width;
             StatusLabel.Text = "Welcome";
@@ -172,8 +222,10 @@ namespace ZanScore
             DownloadNewsTimer.Enabled = SetAutomaticDownloadTimerEngine(OH.NewsDownloadAtInterval);
         }
 
+        /// <summary>
+        /// Automatically downloads the news at program startup, if the user wanted so.
+        /// </summary>
         private void AutomaticalNewsDownloadEngine()
-        //Se ocupa de descarcarea automata a stirilor, daca a fost stabilit acest lucru
         {
             if (OH.NewsDownloadAtStartup == 1)
             {
@@ -182,9 +234,9 @@ namespace ZanScore
         }
 
         /// <summary>
-        /// Checks to see if a network connection is available
+        /// Checks to see if a network connection is available.
         /// </summary>
-        /// <returns>true if the program has access to a network, false if it doesn't</returns>
+        /// <returns>true if the program has access to a network, false if it doesn't.</returns>
         public bool CheckForNetwork()
         {
             return System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable();
@@ -194,13 +246,16 @@ namespace ZanScore
         /// Class constructor. 
         /// </summary>
         public Form1()
-        //Constructor
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initializes the necessary variables for the news download.
+        /// </summary>
+        /// <param name="AreSources">Sets if the news come from the user defined sources (true) or from the default library (false).</param>
+        /// <returns>true if no exceptions where thrown.</returns>
         private bool DownloadAllNewsInitialization(bool AreSources)
-        //Initializarea variabilelor necesare pentru downloadul stirilor
         {
             bool Result = true;
 
@@ -221,8 +276,11 @@ namespace ZanScore
         /// <summary>
         /// The news downloading engine.
         /// </summary>
-        /// <param name="AreSources">If the news that will be downloaded come from the sources set by the user (true) or from the default library</param>
-        /// <returns>True, if the function raised no exceptions</returns>
+        /// <param name="AreSources">If the news that will be downloaded come from the sources set by the user (true) or from the default library.</param>
+        /// <returns>True, if the function raised no exceptions.</returns>
+        /// <exception cref="System.ArgumentOutOfRangeException">
+        /// Thrown if, somehow, the AbsoluteIndex local variable points to a non-existent position. I don't think it will be thrown, but better be sure.
+        /// </exception>
         public bool DownloadingEngine(bool AreSources)
         {
             if (AreSources)
@@ -248,7 +306,7 @@ namespace ZanScore
                     return true;
                 }
 
-                catch (ArgumentOutOfRangeException A) //In cazul in care AbsoluteIndex arata spre o pozitie inexistenta. Nu cred ca va aparea, dar sa fiu sigur
+                catch (ArgumentOutOfRangeException A) 
                 {
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     MessageBoxIcon icon = MessageBoxIcon.Error;
@@ -258,8 +316,11 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Shows the downloaded news.
+        /// </summary>
+        /// <returns>Always true. I need this to be able to write the DownloadAllNewsProcess function's result simpler and because nothing bad can happen so that an exception is thrown.</returns>
         private bool DownloadAllNewsFinalization()
-        //Functia afiseaza stirile descarcate in program. Va intoarce intotdeauna true pentru a scrie mai simplu rezultatul functiei DownloadAllNewsProcess si pentru ca nu poate avea loc nicio eroare, ca sa forteze aceasta functie sa intoarca false;
         {
             Cursor.Current = Cursors.Arrow;
             FillGrid();
@@ -271,23 +332,30 @@ namespace ZanScore
         /// The entire news downloading process, which has three steps:
         /// 1. Initialization;
         /// 2. Running the engine;
-        /// 3. Finalization
+        /// 3. Finalization.
         /// </summary>
-        /// <param name="AreSources">Stores if the download should be made from the user specified sources (true) of from the default library</param>
-        /// <returns>True, if no exceptions were raised. Else, returns false</returns>
+        /// <param name="AreSources">Stores if the download should be made from the user specified sources (true) of from the default library.</param>
+        /// <returns>True, if no exceptions were raised. Else, returns false.</returns>
         public bool DownloadAllNewsProcess(bool AreSources)
         {
             return DownloadAllNewsInitialization(AreSources) && DownloadingEngine(AreSources) && DownloadAllNewsFinalization();
         }
 
+        /// <summary>
+        /// Processing made with the download of the news from the chosen news sources.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The params used to trigger the event.</param>
+        /// <remarks>It's an event handler</remarks>
         private void DownloadAllNews(object sender, EventArgs e)
-        //Procesarea efectuata cu ocazia descarcarii stirilor din sursele alese
         {
             DownloadAllNewsProcess(true);
         }
 
+        /// <summary>
+        /// Fills the grid with the downloaded news.
+        /// </summary>
         private void FillGrid()
-        //Umple tabelul cu stirile citite
         {
             for (int i = 0; i < NewsSourceData.NewsTitle.Count; i++)
             {
@@ -299,12 +367,15 @@ namespace ZanScore
         }
 
         /// <summary>
-        /// The instructions for the selected news download
+        /// The instructions for the selected news download.
         /// </summary>
         /// <param name="URL">The news URL</param>
-        /// <returns>true if no exception was raised. Else it returns false</returns>
+        /// <returns>true if no exception was raised. Else it returns false.</returns>
+        /// <exception cref="System.ObjectDisposedException">Treats errors that appear while object disposing.</exception>
+        /// <exception cref="System.InvalidOperationException">Treats errors that appear because of invalid operations.</exception>
+        /// <exception cref="System.ArgumentException">Treats errors that appear because of invalid arguments.</exception>
+        /// <exception cref="System.UriFormatException">Treats errors that appear because of a invalid URI format.</exception>
         public bool LoadingNewsEngine(string URL)
-        //Instructiunile pentru incararea efectiva a stirii selectate
         {
             try
             {
@@ -345,12 +416,23 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Loads the selected news.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void LoadNewsURL(object sender, DataGridViewCellEventArgs e)
-        //Incarca stirea selectata
         {
             LoadingNewsEngine(NewsSourceData.NewsLink[NewsDetailsGrid.CurrentCell.RowIndex]);
         }
 
+        /// <summary>
+        /// Shows the news source selection window.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void SelectNewsSources(object sender, EventArgs e)
         //Afiseaza fereastra de selectie a surselor de stiri
         {
@@ -360,6 +442,12 @@ namespace ZanScore
                 NewsSourcesCollection.SaveSources();
         }
 
+        /// <summary>
+        /// Shows the news sources adding window.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ShowAddNewsSourcesWindow(object sender, EventArgs e)
         {
             AddSourceWindow A = new AddSourceWindow();
@@ -371,6 +459,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Shows the news sources editing window.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ShowEditSourcesWindow(object sender, EventArgs e)
         {
             EditSourcesWindow E = new EditSourcesWindow();
@@ -378,58 +472,121 @@ namespace ZanScore
             E.ShowDialog(owner: this);
         }
 
+        /// <summary>
+        /// Shows the program options window.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ShowOptionsWindow(object sender, EventArgs e)
         {
             OptionsWindow O = new OptionsWindow();
             O.ShowDialog(owner: this);
         }
 
+        /// <summary>
+        /// Shows the program about box.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ShowAboutBoxWindow(object sender, EventArgs e)
         {
             AboutBox A = new AboutBox();
             A.ShowDialog();
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "Download" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayDownloadHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "Options for downloading from news sources";
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "News Sources" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayNewsSourcesHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "News sources management";
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "All" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayAllHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "Download from all selected news sources";
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "Selected" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplaySelectedHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "Select the news sources that will be downloaded";
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "Add" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayAddHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "Add a new news source";
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "Edit" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayEditHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "Edit, delete or reorder news sources";
         }
 
+        /// <summary>
+        /// Displays a message when the cursor is over the "Options" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayOptionsHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "Options for customizing ZanNews";
         }
 
+        /// <summary>
+        /// Displays a message when thw cursor is over the "About" menu option.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DisplayAboutBoxHelpMessage(object sender, EventArgs e)
         {
             StatusLabel.Text = "About ZanNews";
         }
 
+        /// <summary>
+        /// Computes the difference between the initial window sizes and the window sizes after the user finishes dragging window borders.
+        /// </summary>
         private void ApplyResizeEngine()
         {
             if (Width > MinimumSize.Width)
@@ -443,18 +600,31 @@ namespace ZanScore
             WasMaximized = false;
         }
 
+        /// <summary>
+        /// Resizes the controls with the computed difference.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void EndResize(object sender, EventArgs e)
         //Rutina mareste sau micsoreaza controalele in cu diferenta calculata
         {
             ApplyResizeEngine();
         }
 
+        /// <summary>
+        /// Computes the size differences for the window.
+        /// </summary>
         private void ComputeSizeDifferences()
         {
             HeightDiff = Height - InitialWindowHeight;
             WidthDiff = Width - InitialWindowWidth;
         }
 
+        /// <summary>
+        /// Sets the controls size when the window is maximized.
+        /// </summary>
+        /// <remarks>Values .02 and .12 are taken approximatively, based on what I saw on my laptop. I think there is a better way here, though.</remarks>
         private void SetControlSizeWhenMaximized()
         {
             NewsWebPage.Width = Width - NewsWebPage.Left - (int)(Width * 0.02);
@@ -462,8 +632,10 @@ namespace ZanScore
             NewsDetailsGrid.Height = Screen.PrimaryScreen.Bounds.Height - statusStrip1.Height - MainMenu.Height - (int)(Height * 0.12);
         }
 
+        /// <summary>
+        /// Actually resizes the controls of the window.
+        /// </summary>
         private void ResizeControlsEngine()
-        //Procedura de redimensionare a controlalelor ferestrei
         {
             if (WindowState == FormWindowState.Maximized)
             {
@@ -475,14 +647,15 @@ namespace ZanScore
             else
             {
                 ComputeSizeDifferences();
-                /*Necesitatea variabilei WasMaximized apare deoarece pe ramura else se ajunge in doua feluri: atunci cand fereastra e redimensionata si atunci cand fereastra revine la dimensiunile sale initiale dupa ce a fost maximizata. In al doilea caz, trebuie redimensionate, efectiv, controalele ferestrei pe cand in primul caz, acest lucru se face automat prin declansarea evenimentului ResizeEnd*/
                 if (WasMaximized)
                     ApplyResizeEngine();
             }
         }
 
+        /// <summary>
+        /// Minimizes the program on Systray.
+        /// </summary>
         private void MinimizeToSystrayEngine()
-        //Instructiunile pentru minimizarea pe Systray
         {
             if ((OH.MinimizeToTray == 1) && (this.WindowState == FormWindowState.Minimized))
             {
@@ -492,23 +665,43 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Computes the widths and heights of the controls that will be resized.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ResizeEngine(object sender, EventArgs e)
-        //Rutina calculeaza valorile latimilor si ale inaltimilor cu care controalele vor fi marite sau micsorate
         {
             ResizeControlsEngine();
             MinimizeToSystrayEngine();
         }
 
+        /// <summary>
+        /// Actions performed at program shutdown.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void Bye(object sender, FormClosedEventArgs e)
-        //Actiuni efectuate la inchiderea programului
         {
             OH.WindowHeight = Height;
             OH.WindowWidth = Width;
             OH.SaveOptionsToFile();
         }
 
+        /// <summary>
+        /// Actions made after the main window is shown.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.
+        /// The actions are:
+        /// 1. Checking if there is an internet connection;
+        /// 2. Automatically download the news, if needed;
+        /// 3. Load the initial window values.
+        /// </remarks>
         private void StuffAfterFormIsShown(object sender, EventArgs e)
-        //Questii efectuate atunci cand fereastra este afisata
         {
             if (!CheckForNetwork())
             {
@@ -519,20 +712,36 @@ namespace ZanScore
             SetInitialValues();
         }
 
+        /// <summary>
+        /// Restores the application, if it was minimized to Systray.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void RestoreApplication(object sender, EventArgs e)
-        //Aduce aplicatia in prim-plan daca utilizatorul a facut click pe ea
         {
             Show();
             this.WindowState = FormWindowState.Normal;
             MinimizeToSystray.Visible = false;
         }
 
+        /// <summary>
+        /// Actions required to automatically download news from news sources.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void AutomaticalDownloadEngine(object sender, EventArgs e)
-        //Se ocupa de actiunile necesare descarcarii automate a stirilor
         {
             DownloadAllNewsProcess(true);
         }
 
+        /// <summary>
+        /// Shows the news library window.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ShowNewsLibraryWindow(object sender, EventArgs e)
         {
             NewsLibrary N = new NewsLibrary();
@@ -540,15 +749,25 @@ namespace ZanScore
                 N.ShowDialog(this);
         }
 
+        /// <summary>
+        /// Stores the initial sizes of the main window.
+        /// </summary>
+        /// <remarks>
+        /// Useful when the window is resized.
+        /// </remarks>
         private void StoreInitialSizes()
-        //Stocheaza dimensiunile initiale ale ferestrei. Utile la redimensionarea acesteia
         {
             InitialWindowHeight = Height;
             InitialWindowWidth = Width;
         }
 
+        /// <summary>
+        /// Stores the initial sizes of the controls, before window resizing begins.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void BeginResize(object sender, EventArgs e)
-        //Stocheaza valorile initiale ale dimensiunilor controlalelor, dinainte de redimensionarea ferestrei
         {
             StoreInitialSizes();
         }

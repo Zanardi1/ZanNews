@@ -18,6 +18,12 @@ namespace ZanScore
         /// </summary>
         public string NewURL { get; set; }
 
+        /// <summary>
+        /// Saves the data entered by the user.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void SaveNewData(object sender, EventArgs e)
         {
             NewName = SourceNameText.Text;

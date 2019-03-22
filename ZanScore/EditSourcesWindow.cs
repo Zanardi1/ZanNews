@@ -5,13 +5,16 @@ using System.Collections.Generic;
 namespace ZanScore
 {
     /// <summary>
-    /// The class which implements the source editing window
+    /// The class which implements the source editing window.
     /// </summary>
     public partial class EditSourcesWindow : Form
     {
         private int selectedpositioningrid = 0;
 
-        int SelectedPositionInGrid //retine pozitia selectata din grila
+        /// <summary>
+        /// Stores the selected position from the grid.
+        /// </summary>
+        private int SelectedPositionInGrid 
         {
             get
             {
@@ -27,8 +30,11 @@ namespace ZanScore
         }
 
         /// <summary>
-        /// Class constructor
+        /// Class constructor.
         /// </summary>
+        /// <remarks>
+        /// The source name column occupies 20% of the grid width. The source URL occupies 70%.
+        /// </remarks>
         public EditSourcesWindow()
         {
             InitializeComponent();
@@ -36,18 +42,25 @@ namespace ZanScore
             SourceURLToEdit.Width = 7 * AllTheSources.Width / 10;
         }
 
+        /// <summary>
+        /// Deletes all the selected news source(s) from the grid.
+        /// </summary>
         private void DeleteNewsFromGrid()
-        //Sterge stirile din grila
         {
             for (int i = 0; i < AllTheSources.Rows.Count; i++)
                 if (AllTheSources.Rows[i].Selected)
                     AllTheSources.Rows.RemoveAt(i);
         }
 
+        /// <summary>
+        /// Deletes the news source(s) from the internal variables which stores them.
+        /// </summary>
+        /// <remarks>
+        /// Positions is a list which stores the positions of the news that will be deleted.
+        /// </remarks>
         private void DeletingNewsEngine()
-        //instructiunile de stergere propriu-zisa a stirilor selectate
         {
-            List<int> Positions = new List<int>(); //retine pozitiile stirilor care vor fi sterse
+            List<int> Positions = new List<int>(); 
             for (int i = 0; i < AllTheSources.RowCount; i++)
                 if (AllTheSources.Rows[i].Selected)
                     Positions.Add(i);
@@ -65,6 +78,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// The procedure of deleting the selected news source(s).
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void DeleteSelectedNewsSources(object sender, EventArgs e)
         //procedura de stergere a stirilor selectate
         {
@@ -76,8 +95,11 @@ namespace ZanScore
                 DeletingNewsEngine();
         }
 
+        /// <summary>
+        /// The instructions of editing the selected news source.
+        /// </summary>
+        /// <param name="Pos">The position of the news source to be edited.</param>
         private void SouceEditingEngine(int Pos)
-        //Instructiunile de editare propriu-zisa a sursei selectate
         {
             NewSourceNameText.Text = AllTheSources.Rows[Pos].Cells[0].Value.ToString();
             NewSourceURLText.Text = AllTheSources.Rows[Pos].Cells[1].Value.ToString();
@@ -87,8 +109,13 @@ namespace ZanScore
             DisselectEverythingBelow(Pos);
         }
 
+        /// <summary>
+        /// The procedure of editing the selected news source.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void EditSelectedSource(object sender, EventArgs e)
-        //Procedura de editare a sursei selectate
         {
             int i = 0;
             EnableEditingControls();
@@ -99,11 +126,24 @@ namespace ZanScore
             }
         }
 
-        private void DiscardEditingChanges(object sender, EventArgs e) => DisableEditingControls();
-        //Procedura de renuntare la editare si de stergere a modificarilor aduse
+        /// <summary>
+        /// The procedure of editing discarding and undoing any changes.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
+        private void DiscardEditingChanges(object sender, EventArgs e)
+        {
+            DisableEditingControls();
+        }
 
+        /// <summary>
+        /// The procedure of saving the editing changes.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void SaveEditChanges(object sender, EventArgs e)
-        //Procedura de salvare a modificarilor efectuate
         {
             if (((Form1)Owner).NewsSourcesCollection.EditSource(SelectedPositionInGrid, NewSourceNameText.Text, NewSourceURLText.Text))
             {
@@ -119,8 +159,10 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Enables the source editing controls.
+        /// </summary>
         private void EnableEditingControls()
-        //Procedura de activare a controlalelor legate de editarea sursei
         {
             NewSourceNameLabel.Enabled = true;
             NewSourceURLLabel.Enabled = true;
@@ -132,8 +174,10 @@ namespace ZanScore
             DeleteNewsButton.Enabled = false;
         }
 
+        /// <summary>
+        /// Disables the source editing controls.
+        /// </summary>
         private void DisableEditingControls()
-        //Procedura de dezactivare a controlalelor legate de editarea sursei
         {
             NewSourceNameLabel.Enabled = false;
             NewSourceURLLabel.Enabled = false;
@@ -147,8 +191,10 @@ namespace ZanScore
             NewSourceURLText.Text = "";
         }
 
+        /// <summary>
+        /// Disables the news sources ordering controls.
+        /// </summary>
         private void DisableReorderingControls()
-        //Procedura de dezactivare a controlalelor legate de ordonarea surselor de stiri
         {
             MoveUpOnePositionButton.Enabled = false;
             MoveDownOnePositionButton.Enabled = false;
@@ -159,8 +205,10 @@ namespace ZanScore
             FinishReorderingButton.Enabled = false;
         }
 
+        /// <summary>
+        /// Enables the news sources ordering controls.
+        /// </summary>
         private void EnableReorderingControls()
-        //Activeaza controalele ce permit reordonarea surselor
         {
             MoveUpOnePositionButton.Enabled = true;
             MoveDownOnePositionButton.Enabled = true;
@@ -171,11 +219,23 @@ namespace ZanScore
             FinishReorderingButton.Enabled = true;
         }
 
-        private void ReorderSelectedNewsSources(object sender, EventArgs e) => EnableReorderingControls();
-        //Reordonarea surselor de stiri
+        /// <summary>
+        /// Reordering news sources.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
+        private void ReorderSelectedNewsSources(object sender, EventArgs e)
+        {
+            EnableReorderingControls();
+        }
 
+        /// <summary>
+        /// Moves the selected news one position upward in the grid.
+        /// </summary>
+        /// <param name="Position">The position of the news that will be reordered.</param>
+        /// <param name="Cell">The cell (column) of the grid whose content will be reordered.</param>
         private void MoveUpOnePositionInGrid(int Position, int Cell)
-        //Procedura de mutare cu o pozitie in sus a stirii selectate
         {
             string buffer;
 
@@ -184,8 +244,11 @@ namespace ZanScore
             AllTheSources.Rows[Position].Cells[Cell].Value = buffer;
         }
 
+        /// <summary>
+        /// Moves a selected news source one position above.
+        /// </summary>
+        /// <param name="Position">The position of the news that will be moved.</param>
         private void MoveUpOnePositionEngine(int Position)
-        //Logica de mutare a stirii selectate cu o pozitie mai sus
         {
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(Position, 1);
 
@@ -196,19 +259,28 @@ namespace ZanScore
             AllTheSources.Rows[Position].Selected = false;
         }
 
+        /// <summary>
+        /// The entire procedure of moving the selected news one position above plus the other actions required.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void MoveSelectedSourceUpOnePosition(object sender, EventArgs e)
-        //Subrutina muta sursa aleasa cu o pozitie mai sus
         {
             int i = 0;
             while (AllTheSources.Rows[i].Selected == false)
-                i++; //Cauta prima sursa selectata si-i retine pozitia
+                i++; 
             DisselectEverythingBelow(i);
             if (i > 0)
                 MoveUpOnePositionEngine(i);
         }
 
+        /// <summary>
+        ///  Moves the selected news one position downward in the grid.
+        /// </summary>
+        /// <param name="Position">The position of the news that will be reordered.</param>
+        /// <param name="Cell">The cell (column) of the grid whose content will be reordered.</param>
         private void MoveDownOnePositionInGrid(int Position, int Cell)
-        //Procedura de mutare cu o pozitie in jos a stirii selectate
         {
             string buffer;
 
@@ -217,8 +289,11 @@ namespace ZanScore
             AllTheSources.Rows[Position].Cells[Cell].Value = buffer;
         }
 
+        /// <summary>
+        /// Moves a selected news source one position below.
+        /// </summary>
+        /// <param name="Position">The position of the news that will be moved.</param>
         private void MoveDownOnePositionEngine(int Position)
-        //Logica de mutare a stirii selectate cu o pozitie mai jos
         {
             ((Form1)Owner).NewsSourcesCollection.SortSources(Position, 2);
 
@@ -229,19 +304,28 @@ namespace ZanScore
             AllTheSources.Rows[Position].Selected = false;
         }
 
+        /// <summary>
+        /// The entire procedure of moving the selected news one position below, plus the other actions required.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void MoveSelectedSourceDownOnePosition(object sender, EventArgs e)
-        //Subrutina muta sursa aleasa cu o pozitie mai jos
         {
             int i = 0;
             while (AllTheSources.Rows[i].Selected == false)
-                i++; //Cauta prima sursa selectata si-i retine pozitia
+                i++; 
             DisselectEverythingBelow(i);
             if (i < AllTheSources.RowCount - 1)
                 MoveDownOnePositionEngine(i);
         }
 
+        /// <summary>
+        /// Moves the selected news on the first position in the grid.
+        /// </summary>
+        /// <param name="Position">The position of the news that will be reordered.</param>
+        /// <param name="Cell">The cell (column) of the grid whose content will be reordered.</param>
         private void MoveToFirstPositionInGrid(int Position, int Cell)
-        //Procedura de mutare pe prima pozitie a stirii selectate
         {
             string buffer;
 
@@ -251,8 +335,11 @@ namespace ZanScore
             AllTheSources.Rows[0].Cells[0].Value = buffer;
         }
 
+        /// <summary>
+        /// The instructions that move the selected news on the first position.
+        /// </summary>
+        /// <param name="StartingPosition">The position of the news that will be moved.</param>
         private void MoveToFirstPositionEngine(int StartingPosition)
-        //Instructiunile de mutare propriu-zisa a stirii selectate pe prima pozitie 
         {
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(StartingPosition, 3);
 
@@ -260,6 +347,12 @@ namespace ZanScore
             MoveToFirstPositionInGrid(StartingPosition, 1);
         }
 
+        /// <summary>
+        /// Moving the source on the first position, plus the other actions required.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void MoveSelectedSourceToFirstPosition(object sender, EventArgs e)
         //Subrutina muta sursa aleasa pe prima pozitie
         {
@@ -270,8 +363,12 @@ namespace ZanScore
                 MoveToFirstPositionEngine(i);
         }
 
+        /// <summary>
+        /// Moves the selected news on the last position in the grid.
+        /// </summary>
+        /// <param name="Position">The position of the news that will be reordered.</param>
+        /// <param name="Cell">The cell (column) of the grid whose content will be reordered.</param>
         private void MoveToLastPositionInGrid(int Position, int Cell)
-        //Instructiunile de mutare propriu-zisa a stirii selectate pe ultima pozitie 
         {
             string buffer;
 
@@ -281,8 +378,11 @@ namespace ZanScore
             AllTheSources.Rows[AllTheSources.RowCount - 1].Cells[Cell].Value = buffer;
         }
 
+        /// <summary>
+        /// The instructions that move the selected news on the last position.
+        /// </summary>
+        /// <param name="StartingPosition">The position of the news that will be moved.</param>
         private void MovingToLastPositionEngine(int StartingPosition)
-        //Logica de mutare a stirii selectate pe ultima pozitie 
         {
             ((Form1)this.Owner).NewsSourcesCollection.SortSources(StartingPosition, 4);
 
@@ -290,13 +390,18 @@ namespace ZanScore
             MoveToLastPositionInGrid(StartingPosition, 1);
         }
 
+        /// <summary>
+        /// Moving the source on the last position, plus the other actions required.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void MoveSelectedSourceToLastPosition(object sender, EventArgs e)
-        //Subrutina muta sursa aleasa pe ultima pozitie
         {
             int i = 0;
 
             while (AllTheSources.Rows[i].Selected == false)
-                i++; //Cauta prima sursa selectata si-i retine pozitia
+                i++; 
 
             DisselectEverythingBelow(i);
 
@@ -304,15 +409,23 @@ namespace ZanScore
                 MovingToLastPositionEngine(i);
         }
 
+        /// <summary>
+        /// Saves the changes of the news sources reordering.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void FinishReorderingSelectedNewsSource(object sender, EventArgs e)
-        //Procedura de salvare a modificarilor stirii editate
         {
             DisableReorderingControls();
             ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
         }
 
+        /// <summary>
+        /// Disselects all the grid rows below a certain position.
+        /// </summary>
+        /// <param name="Position">The position from which all the rows will be disselected.</param>
         private void DisselectEverythingBelow(int Position)
-        //Subrutina deselecteaza toate randurile de sub randul cu numarul Position
         {
             int j = Position + 1;
             while (j < AllTheSources.RowCount)
@@ -322,21 +435,47 @@ namespace ZanScore
             }
         }
 
-        private void CloseWindow(object sender, FormClosedEventArgs e) => ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
-        //Procedura de inchidere a ferestrei
+        /// <summary>
+        /// Actions made at window closing.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
+        private void CloseWindow(object sender, FormClosedEventArgs e)
+        {
+            ((Form1)this.Owner).NewsSourcesCollection.SaveSources();
+        }
 
+        /// <summary>
+        /// Tests if the three buttons (editing, deleting and reordering news) are available, depending on the number of news sources from this window.
+        /// </summary>
         private void CheckForButtonAvailability()
-        //procedura testeaza daca cele trei butoane sunt activate sau nu, in functie de numarul de stiri din aceasta fereastra
         {
             EditNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             DeleteNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
             ReorderNewsButton.Enabled = AllTheSources.RowCount > 0 ? true : false;
         }
 
-        private void StuffAfterTheFormIsShown(object sender, EventArgs e) => CheckForButtonAvailability();
-        //Procesari efectuate dupa afisarea ferestrei
+        /// <summary>
+        /// Actions taken after the window is shown.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
+        private void StuffAfterTheFormIsShown(object sender, EventArgs e)
+        {
+            CheckForButtonAvailability();
+        }
 
-        private void CheckForEmptyGrid(object sender, DataGridViewRowsRemovedEventArgs e) => CheckForButtonAvailability();
-        //Procedura verifica daca, dupa eliminearea unei surse de stiri, grila devine goala, deoarece nu mai e nicio sursa de stiri
+        /// <summary>
+        /// Actions taken if the sources grid is empty.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
+        private void CheckForEmptyGrid(object sender, DataGridViewRowsRemovedEventArgs e)
+        {
+            CheckForButtonAvailability();
+        }
     }
 }
