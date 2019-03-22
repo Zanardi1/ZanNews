@@ -4,37 +4,37 @@ using System;
 using System.Windows.Forms;
 using System.Security;
 
-/*Clasa ce se ocupa de manipularea fisierului de optiuni si de punerea in aplicare a optiunilor citite.
- Proprietati:
- 
-     1. WindowsStartup. 1 daca aplicatia porneste odata cu Windows, 0 altfel
-     2. MinimizeToTray. 1 daca aplicatia se minimizeaza in SysTray, 0 altfel -- gata
-     3. StartupOptions. 1 daca aplicatia va porni cu fereastra minimizata, 2 daca va porni cu fereastra la dimensiunile implicite, 3 daca va porni cu fereastra maximizata -- gata
-     4. DisableInvalidNewsFiles. 1 daca dezactiveaza sursele de stiri care au fisiere RSS invalide, 0 altfel -- gata
-     5. WindowWidth. Retine latimea ferestrei atunci cand programul a fost inchis -- gata
-     6. WindowHeight. Acelasi lucru, dar pentru inaltimea ferestrei -- gata
-     7. NewsDownloadAtStartup. 1 daca aplicatia descarca automat stirile la pornirea ei, 0 daca descarcarea o face utilizatorul -- gata
-     8. NewsDownloadAtInterval. 1 daca aplicatia descarca automat stirile la un anumit interval, 0 altfel
-     9. IntervalNumber. Valoarea numerica a intervalului dupa care aplicatia descarca automat stirile. De exemplu, daca e programata sa descarce dupa 15 minute, aceasta variabila are valoarea 15.
-    10. IntervalTime. UM a intervalului de timp dupa care aplicatia descarca automat stirile. Are valoarea 0 daca UM e secunda, 1 daca UM e minutul si 2 daca UM este ora.
-     
-Metode:
-     
-     1. Deschiderea fisierului de optiuni
-     2. Verificarea existentei lui si, daca el nu exista, crearea unuia nou, cu optiuni implicite
-     3. Salvarea optiunilor in fisier
-     4. Citirea optiunilor din fisier (atribuirea valorilor citite din fisier catre proprietatile clasei 
-     5. Verificarea integritatii continutului fisierului de optiuni
-     6. Stabilirea unor optiuni prestabilite, in cazul in care nu exista fisierul de rezultate
-     
-Formatul fisierului:
-     proprietate=valoare*/
-
 namespace ZanScore
 {
     /// <summary>
-    /// Class that handles the program options
+    /// Class that handles the program options.
     /// </summary>
+    /// <remarks>
+    /// Class that handles the options file and applying the read options.
+    /// 
+    /// Properties:
+    /// 1. WindowsStartup. 1 if the application starts with Windows. 0 if it doesn't;
+    /// 2. MinimizeToTray. 1 if the application minimizez to Systray. 0 if it doesn't;
+    /// 3. StartupOptions. 1 if the application will start with minimized main window, 2 if it starts with normal window and 3 if it starts maximized;
+    /// 4. DisableInvalidNewsFiles. 1 if it disables the news sources with invalid RSS files (and skips them next time). 0 if it doesn't;
+    /// 5. WindowWidth. Stores the main window with at program shutdown;
+    /// 6. WindowHeight. Stores the main window height at program shutdown;
+    /// 7. NewsDownloadAtStartup. 1 if the application automatically downloads news at startup. 0 if the user manually downloads them;
+    /// 8. NewsDownloadAtInterval. 1 if the application automatically downloads news at a certain interval. 0 if it doesn't;
+    /// 9. IntervalNumber. The numerical value of the interval after which the application automatically downloads the news. Example: if it's set to download them after 15 minutes, this variable has the value 15;
+    /// 10. IntervalTime. The unit of measure of the time interval after which the application downloads automatically the news. It's 0 for seconds, 1 for minutes and 2 for hours.
+    /// 
+    /// Methods (the order doesn't matter):
+    /// 1. Opening the options file;
+    /// 2. Verifying the existence of the file. If it doesn't exist, create a new one, with default options;
+    /// 3. Saving the options in the file;
+    /// 4. Reading the options from a file;
+    /// 5. Verifying the options file integrity;
+    /// 6. Setting default options, in case the options file is missing.
+    /// 
+    /// File format:
+    /// property=value
+    /// </remarks>
     public class OptionsHandling
     {
         private int windowsstartup;
@@ -49,7 +49,7 @@ namespace ZanScore
         private int intervaltime;
 
         /// <summary>
-        /// Stores if the program should start with the OS boot. It equals 1 is the program starts with OS, else it's 0
+        /// Stores if the program should start with the OS boot. It equals 1 is the program starts with OS, else it's 0.
         /// </summary>
         public int WindowsStartup
         {
@@ -234,30 +234,43 @@ namespace ZanScore
             }
         }
 
-        private readonly int NumberOfOptions = 10; //retine numarul de optiuni. Daca mai apar sau dispar altele noi, acest numar se va modifica
+        /// <summary>
+        /// Stores the number of options. Will be modified if options appear or disappear.
+        /// </summary>
+        private readonly int NumberOfOptions = 10; 
+        /// <summary>
+        /// Stores the option's names.
+        /// </summary>
         private readonly string[] OptionNames = new string[] { "WindowsStartup", "MinimizeToTray", "StartupOptions", "DisableInvNews", "WindowW", "WindowH", "NewsDownlAtStartup", "NewsDownlAtInterval", "IntervNumber", "IntervTime" };
+        /// <summary>
+        /// Default values for the options above.
+        /// </summary>
         private readonly int[] OptionValues = new int[10] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
         /// <summary>
-        /// Class constructor
+        /// Class constructor.
         /// </summary>
-        public OptionsHandling() //constructor
+        public OptionsHandling() 
         {
             OpenOptionsFile();
         }
 
         /// <summary>
         /// Opens the options file. This functions has two parts:
-        /// 1. Check if the options file exists
-        /// 2. Reading the options from the options file
+        /// 1. Check if the options file exists;
+        /// 2. Reading the options from the options file.
         /// </summary>
         /// <returns>true if the entire process ended without throwing exceptions. Else, it returns false</returns>
-        public bool OpenOptionsFile() //deschiderea fisierului de optiuni
+        public bool OpenOptionsFile() 
         {
             return CheckOptionsFileExistence() && ReadOptionsFromFile();
         }
 
-        private bool CheckOptionsFileExistence() //verificarea existentei acestuia
+        /// <summary>
+        /// Checks if the options file exists.
+        /// </summary>
+        /// <returns>True, if the options file exists. Oterwise it returns false.</returns>
+        private bool CheckOptionsFileExistence() 
         {
             bool Result = true;
             if (!File.Exists("Options.txt"))

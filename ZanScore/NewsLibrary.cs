@@ -129,7 +129,7 @@ namespace ZanScore
                 MessageBox.Show(S.Message, "Error!", MB, MI);
                 return false;
             }
-            catch (ArgumentOutOfRangeException A) 
+            catch (ArgumentOutOfRangeException A)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
@@ -138,18 +138,24 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Ia datele din cele trei liste si umple data grid-ul in functie de categoria selectata.
+        /// </summary>
+        /// <param name="Category">Categoria selectata</param>
+        /// <remarks>Valorile pentru Category sunt:
+        /// 0 - National and World News;
+        /// 1 - Sports;
+        /// 2 - Gaming;
+        /// 3 - Lifestyle;
+        /// 4 - Music;
+        /// 5 - Science;
+        /// 6 - Technology;
+        /// 7 - Politics;
+        /// 8 - Entertainment;
+        /// 9 - Business;
+        /// </remarks>
+        /// <exception cref="InvalidOperationException">Thrown if an error happens in the filling stage.</exception>
         private void FillWindowDatagrid(int Category)
-        /*Procedura ia datele din cele trei liste si umple datagrid-ul in functie de categoria selectata. Valorile pentru Category sunt:
-         0 - National & World News;
-         1 - Sports;
-         2 - Gaming;
-         3 - Lifestyle;
-         4 - Music;
-         5 - Science;
-         6 - Technology;
-         7 - Politics;
-         8 - Entertainment;
-         9 - Business;*/
         {
             int LowerBound = 0, UpperBound = 0, j = 0;
             try
@@ -240,8 +246,10 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Opens the library file.
+        /// </summary>
         private void OpenLibraryFile()
-        //Instructiunile de deschidere a bibliotecii
         {
             if (ReadFromLibrary())
             {
@@ -254,14 +262,23 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Displays the sources on the selected category.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void ChangeNewsSourcesCategory(object sender, System.EventArgs e)
-        //Procedura afiseaza sursele in functie de categoria selectata
         {
             FillWindowDatagrid(CategoryListBox.SelectedIndex);
         }
 
+        /// <summary>
+        /// Return the first selected item from th grid.
+        /// </summary>
+        /// <param name="Grid">The grid in which the item will be searched.</param>
+        /// <returns>The position of the first selected item.</returns>
         private int ReturnFirstSelected(DataGridView Grid)
-        //Functia intoarce pozitia primului element selectat din grila.
         {
             int SelectedPosition = 0;
             for (int i = 0; i < Grid.RowCount; i++)
@@ -270,6 +287,11 @@ namespace ZanScore
             return SelectedPosition;
         }
 
+        /// <summary>
+        /// Calculeaza indexul absolut.
+        /// </summary>
+        /// <returns>Indexul absolut.</returns>
+        /// <remarks>Ideea din spatele acestui index este aceea de a calcula un indice, care nu tine cont de categoria de stire, la care sa se uite programul atunci cand alege una sau mai multe stiri. Deci trebuie calculat din numarul total de stiri de la categoriile anterioare si din numarul stirii selectate.</remarks>
         private int ComputeAbsoluteIndex()
         {
             int Category = 0, Place = 0;
@@ -330,6 +352,12 @@ namespace ZanScore
             return Category + Place;
         }
 
+        /// <summary>
+        /// Procedura de vizitare a sursei selectate.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The parameters used to trigger the event.</param>
+        /// <remarks>Event handler.</remarks>
         private void VisitTheSelectedSource(object sender, System.EventArgs e)
         //Procedura de vizitare a sursei selectate
         {
