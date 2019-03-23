@@ -17,8 +17,10 @@ namespace ZanScore
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Adds news to the Datagrid rows.
+        /// </summary>
         private void AddRows()
-        //Procedura adauga randurile in grila cu stiri
         {
             int NumberOfSources = ((Form1)Owner).NewsSourcesCollection.NumberofSources;
 
@@ -37,12 +39,17 @@ namespace ZanScore
         /// 1 - adding the rows on the data grid;
         /// 2 - refreshing the data grid to display the updated sources</remarks>
         public void DisplaySourceNamesEngine()
-        //Procedura afiseaza numele surselor de stiri. Am separat-o de handler pentru a fi mai usor de testat
         {
             AddRows();
             NewsSourcesDataGrid.RefreshEdit();
         }
 
+        /// <summary>
+        /// Displays source names.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The params used to trigger the event.</param>
+        /// <remarks>It's an event handler</remarks>
         private void DisplaySourceNames(object sender, EventArgs e)
         {
             DisplaySourceNamesEngine();
@@ -55,7 +62,6 @@ namespace ZanScore
         /// 1 - initializing the selected news sources count;
         /// 2 - cycling through the data grid. If a news source is selected, then increase the count with 1 and mark that source as selected in the IsSourceSelected list</remarks>
         public void UpdateSelectedSourcesListEngine()
-        //Procedura se ocupa de actualizarea listei cu surse selectate. Am separat-o de handler pentru a fi mai usor de testat
         {
             ((Form1)Owner).NewsSourcesCollection.NumberofSelectedSources = 0;
             for (int i = 0; i < NewsSourcesDataGrid.RowCount; i++)
@@ -70,6 +76,12 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Updates the selected sources list.
+        /// </summary>
+        /// <param name="sender">The object that triggers the event.</param>
+        /// <param name="e">The params used to trigger the event.</param>
+        /// <remarks>It's an event handler</remarks>
         private void UpdateSelectedSourcesList(object sender, EventArgs e)
         {
             UpdateSelectedSourcesListEngine();

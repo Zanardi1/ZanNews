@@ -359,7 +359,6 @@ namespace ZanScore
         /// <param name="e">The parameters used to trigger the event.</param>
         /// <remarks>Event handler.</remarks>
         private void VisitTheSelectedSource(object sender, System.EventArgs e)
-        //Procedura de vizitare a sursei selectate
         {
             AbsoluteIndex = ComputeAbsoluteIndex();
             ((Form1)Owner).DownloadAllNewsProcess(false);

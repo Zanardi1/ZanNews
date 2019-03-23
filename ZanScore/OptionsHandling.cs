@@ -283,8 +283,10 @@ namespace ZanScore
             return Result;
         }
 
+        /// <summary>
+        /// Fills the options' values array with corresponding values from the variables.
+        /// </summary>
         private void FillOptionValues()
-        //Procedura umple sirul valorilor pentru optiuni cu valorile variabilelor corespunzatoare
         {
             OptionValues[0] = WindowsStartup;
             OptionValues[1] = MinimizeToTray;
@@ -302,7 +304,9 @@ namespace ZanScore
         /// Saves the stored options to the options file
         /// </summary>
         /// <returns>true, if the saving process ended without throwing any exceptions, otherwise it returns false</returns>
-        public bool SaveOptionsToFile() //salvarea optiunilor in fisier
+        /// <exception cref="UnauthorizedAccessException">Handles this type of access.</exception>
+        /// <exception cref="SecurityException">Handles security exceptions.</exception>
+        public bool SaveOptionsToFile() 
         {
             List<string> WriteBuffer = new List<string>() { };
 
@@ -332,7 +336,19 @@ namespace ZanScore
             }
         }
 
-        private bool ReadOptionsFromFile() //citeste optiunile din fisier
+        /// <summary>
+        /// Reads the options from the options file.
+        /// </summary>
+        /// <returns>true if no exception was thrown.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the options file was not found.</exception>
+        /// <exception cref="FileLoadException">Thrown if the options file could not be loaded.</exception>
+        /// <exception cref="IOException">Thrown at any I/O exception.</exception>
+        /// <exception cref="SecurityException">Thrown when security exceptions occur.</exception>
+        /// <exception cref="ArgumentNullException">Thrown if integer parsing uses a null argument.</exception>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown at substring operations, if the argument exceeds string length.</exception>
+        /// <exception cref="FormatException">Thrown if parsing encounters an invalid format.</exception>
+        /// <exception cref="OverflowException">Thrown when an overflow occurs.</exception>
+        private bool ReadOptionsFromFile() 
         {
             string[] ReadBuffer = new string[] { };
             try
@@ -413,6 +429,9 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Sets the options variables to default values.
+        /// </summary>
         private void SetDefaultOptions() //setul de optiuni prestabilite
         {
             WindowsStartup = 0;

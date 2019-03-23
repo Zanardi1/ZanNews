@@ -9,16 +9,16 @@ namespace ZanScore
     /// <summary>
     /// Class that handles the news sources
     /// </summary>
+    /// <remarks>
+    /// Implemented functions:
+    /// 1 - reading the news sources from a file;
+    /// 2 - writing them to a file;
+    /// 3 - adding a source;
+    /// 4 - editing a source;
+    /// 5 - deleting a source;
+    /// 6 - sources sorting.
+    /// </remarks>
     public class RSSSourcesLibrary
-    //Aceasta clasa se ocupa de gestionarea surselor de stiri. 
-    //Operatiuni:
-    // 1. Citirea lor din fisier;
-    // 2. Scrierea lor in fisier;
-    // 3. Adaugarea unei surse;
-    // 4. Editarea unei surse;
-    // 5. Stergerea unei surse;
-    // 6. Sortarea surselor;
-
     {
         private int numberofsources = 0, numberofselectedsources = 0;
 
@@ -26,6 +26,9 @@ namespace ZanScore
         /// List which stores the source titles
         /// </summary>
         public List<string> SourceTitle = new List<string>();
+        /// <summary>
+        /// List which stores the source URLs
+        /// </summary>
         private List<string> SourceURL = new List<string>();
         /// <summary>
         /// List which stores if the source titles are selected or not
@@ -81,6 +84,7 @@ namespace ZanScore
         /// </summary>
         /// <param name="SourceNo">The position of the news source to be enabled</param>
         /// <returns>true if the function doesn't throw any exceptions. Else it returns false</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the parameter is outside the existent data scope. Unlikely, but better be sure.</exception>
         public bool EnableNewsSource(int SourceNo)
         {
             try
@@ -90,7 +94,7 @@ namespace ZanScore
                 return true;
             }
 
-            catch (ArgumentOutOfRangeException A) //Pentru cazul in care parametrul SourceNo e in afara intervalului de date existent. Nu cred ca va aparea aceasta exceptie, dar sa fiu sigur
+            catch (ArgumentOutOfRangeException A) 
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
@@ -104,6 +108,7 @@ namespace ZanScore
         /// </summary>
         /// <param name="SourceNo">The position of the news source to be disabled</param>
         /// <returns>true, if the function throws no exceptions. Else it returns false</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if the parameter is outside the existent data scope. Unlikely, but better be sure.</exception>
         public bool DisableNewsSource(int SourceNo)
         {
             try
@@ -113,7 +118,7 @@ namespace ZanScore
                 return true;
             }
 
-            catch (ArgumentOutOfRangeException A)//Pentru cazul in care parametrul SourceNo e in afara intervalului de date existent. Nu cred ca va aparea aceasta exceptie, dar sa fiu sigur
+            catch (ArgumentOutOfRangeException A)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
@@ -122,6 +127,14 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Reads from the news sources file.
+        /// </summary>
+        /// <returns>true if no exception was thrown.</returns>
+        /// <exception cref="FileNotFoundException">Thrown if the file is not found.</exception>
+        /// <exception cref="FileLoadException">Thrown if the news file cannot be loaded.</exception>
+        /// <exception cref="UnauthorizedAccessException">Thrown in case of unauthorized access.</exception>
+        /// <exception cref="SecurityException">Thrown in case of security exceptions.</exception>
         private bool ReadSourcesFile()
         {
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
@@ -186,6 +199,11 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Reads from library file and stores the information in the lists.
+        /// </summary>
+        /// <returns>true if no exception is thrown. Else, it returns false.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if AbsoluteIndex points to a non-existant position. Unlikely but better be sure.</exception>
         private bool ReadLibraryFile()
         {
             try
@@ -195,7 +213,7 @@ namespace ZanScore
                 IsSourceSelected.Add(true);
                 return true;
             }
-            catch (ArgumentOutOfRangeException A) //In cazul in care AbsoluteIndex arata spre o pozitie inexistenta. Nu cred ca va aparea, dar sa fiu sigur
+            catch (ArgumentOutOfRangeException A) 
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
@@ -229,9 +247,11 @@ namespace ZanScore
         /// The file format is:
         /// name: source name (provided by the user)
         /// URL: the web adress of the XML file
-        /// selected: if the news source is selected or nor
+        /// selected: if the news source is selected or not
         /// </summary>
         /// <returns>true, if no exception was raised. Else it returns false</returns>
+        /// <exception cref="UnauthorizedAccessException">Thrown if unauthorized access occurs.</exception>
+        /// <exception cref="SecurityException">Thrown in case of security exceptions.</exception>
         public bool SaveSources()
         {
             List<string> TextToWrite = new List<string>(); //retine textele care vor fi scrise in fisier.
@@ -284,6 +304,7 @@ namespace ZanScore
         /// <param name="NewSourceName">The new name of the news source</param>
         /// <param name="NewSourceURL">The new URL of the XML file for the news source</param>
         /// <returns>true if no exception was thrown</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if SourcePosition points to a non-existent position. Unlikely but better be sure.</exception>
         public bool EditSource(int SourcePosition, string NewSourceName, string NewSourceURL)
         {
             try
@@ -306,6 +327,7 @@ namespace ZanScore
         /// </summary>
         /// <param name="NewsNumbers">A list containing the position number(s) of the selected source(s)</param>
         /// <returns>true if the function doesn't throw any exceptions. Otherwise it returns false</returns>
+        /// <exception cref="ArgumentOutOfRangeException">Thrown if SourcePosition points to a non-existent position. Unlikely but better be sure.</exception>
         public bool RemoveSource(List<int> NewsNumbers)
         {
             try
@@ -333,7 +355,6 @@ namespace ZanScore
         /// </summary>
         /// <param name="Grid">The name of the grid component</param>
         public void ShowNewsSourcesInDataGrid(DataGridView Grid)
-        //Afiseaza sursele de stiri in fereastra EditSources
         {
             for (int i = 0; i < SourceTitle.Count; i++)
             {
@@ -424,24 +445,38 @@ namespace ZanScore
             }
         }
 
+        /// <summary>
+        /// Exchanges two strings from a string list.
+        /// </summary>
+        /// <param name="List">The list to work with.</param>
+        /// <param name="Pos1">The position of the first element to exchange.</param>
+        /// <param name="Pos2">The position of the second element to exchange.</param>
         private void ExchangeElementsString(List<string> List, int Pos1, int Pos2)
-        //Procedura interschimba doua elemente de tip string dintr-o lista de tip List<string>
         {
             string buffer = List[Pos1];
             List[Pos1] = List[Pos2];
             List[Pos2] = buffer;
         }
 
+        /// <summary>
+        /// Exchanges two strings from a boolean list.
+        /// </summary>
+        /// <param name="List">The list to work with.</param>
+        /// <param name="Pos1">The position of the first element to exchange.</param>
+        /// <param name="Pos2">The position of the second element to exchange.</param>
         private void ExchangeElementsBoolean(List<bool> List, int Pos1, int Pos2)
-        //Procedura interschimba doua elemente de tip boolean dintr-o lista de tip List<bool>
         {
             bool buffer = List[Pos1];
             List[Pos1] = List[Pos2];
             List[Pos2] = buffer;
         }
 
+        /// <summary>
+        /// Moves on the first position of a string list an element from a specified position.
+        /// </summary>
+        /// <param name="List">The list to work with.</param>
+        /// <param name="PosFrom">The position of the element that will go on the first position.</param>
         private void MoveToFirstPositionString(List<string> List, int PosFrom)
-        //Procedura muta pe prima pozitie a unei liste de tip List<string> elementul de pe pozitia PosFrom
         {
             string buffer = List[PosFrom];
             for (int i = PosFrom; i > 0; i--)
@@ -449,8 +484,12 @@ namespace ZanScore
             List[0] = buffer;
         }
 
+        /// <summary>
+        /// Moves on the first position of a boolean list an element from a specified position.
+        /// </summary>
+        /// <param name="List">The list to work with.</param>
+        /// <param name="PosFrom">The position of the element that will go on the first position.</param>
         private void MoveToFirstPositionBoolean(List<bool> List, int PosFrom)
-        //Procedura muta pe prima pozitie a unei liste de tip List<bool> elementul de pe pozitia PosFrom
         {
             bool buffer = List[PosFrom];
             for (int i = PosFrom; i > 0; i--)
@@ -458,8 +497,12 @@ namespace ZanScore
             List[0] = buffer;
         }
 
+        /// <summary>
+        /// Moves on the last position of a string list an element from a specified position.
+        /// </summary>
+        /// <param name="List">The list to work with.</param>
+        /// <param name="PosFrom">The position of the element that will go on the first position.</param>
         private void MoveToLastPositionString(List<string> List, int PosFrom)
-        //Procedura muta pe ultima pozitie a unei liste de tip List<string> elementul de pe pozitia PosFrom
         {
             string buffer = List[PosFrom];
             for (int i = PosFrom; i < List.Count - 1; i++)
@@ -467,8 +510,12 @@ namespace ZanScore
             List[List.Count - 1] = buffer;
         }
 
+        /// <summary>
+        /// Moves on the last position of a boolean list an element from a specified position.
+        /// </summary>
+        /// <param name="List">The list to work with.</param>
+        /// <param name="PosFrom">The position of the element that will go on the first position.</param>
         private void MoveToLastPositionBoolean(List<bool> List, int PosFrom)
-        //Procedura muta pe ultima pozitie a unei liste de tip List<bool> elementul de pe pozitia PosFrom
         {
             bool buffer = List[PosFrom];
             for (int i = PosFrom; i < List.Count - 1; i++)

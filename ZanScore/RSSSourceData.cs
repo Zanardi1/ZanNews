@@ -5,20 +5,17 @@ using System.ServiceModel.Syndication;
 using System.IO;
 
 namespace ZanScore
-/*
-O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
-1. Deschiderea unui fisier RSS;
-2. Validarea acestuia;
-3. Citirea si interpretarea lui;
-4. Extragerea informatiilor din el si punerea lor in program;
-5. 
-
- */
-
 {
     /// <summary>
     /// Class that handles the data read from an RSS file. Details about this file format are at: https://www.w3schools.com/xml/xml_rss.asp .
     /// </summary>
+    /// <remarks>
+    /// Functions provided by this class:
+    /// 1 - opening an RSS file;
+    /// 2 - validating an RSS file;
+    /// 3 - parsing and interpreting a RSS file;
+    /// 4 - reading the informations from the RSS file and filling the appropriate program variables.
+    /// </remarks>
     public class RSSSourceData
     {
         /// <summary>
@@ -51,8 +48,12 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
         /// </summary>
         /// <param name="FileToLoad">The RSS file that must be read</param>
         /// <returns>true if no exception was thrown. Else it returns false</returns>
+        /// <remarks>Idea taken from https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp </remarks>
+        /// <exception cref="XmlException">Raised when an XML exception occurs.</exception>
+        /// <exception cref="FileNotFoundException">In case the RSS file is not found on the server. I don't think this will happen, but better be sure.</exception>
+        /// <exception cref="IOException">For I/O exceptions.</exception>
+        /// <exception cref="System.Net.WebException">For browsing exceptions.</exception>
         public bool FillRSSData(string FileToLoad)
-        //Ideea si metoda am luat-o de la: https://stackoverflow.com/questions/10399400/best-way-to-read-rss-feed-in-net-using-c-sharp
         //todo de rescris astfel incat sa faca aceleasi lucruri si sa testeze aparitia exceptiilor pentru crearea variabilei reader
         {
             if (!System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable())
@@ -85,7 +86,7 @@ O biblioteca ce contine toate functiile necesare prelucrarii unui fisier RSS:
                 return false;
             }
 
-            catch (FileNotFoundException F) //In cazul in care nu gaseste fisierul XML. Nu cred ca va aparea vreodata exceptia asta, avand in vedere ca lucreaza online, dar sa fiu sigur
+            catch (FileNotFoundException F) 
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
