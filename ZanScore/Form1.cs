@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-//bug Daca citesc stiri dintr-o sursa din biblioteca predefinita si am activata descarcarea automata a stirilor, apare o exceptie;
 //bug Daca citesc stiri dintr-o sursa din biblioteca predefinita si apas CTRL+D (descarcarea stirilor din lista facuta de utilizator) apare o exceptie;
 
 namespace ZanScore
@@ -84,6 +83,11 @@ namespace ZanScore
         /// Stores with how many pixels the window height increased or decreased.
         /// </summary>
         static int HeightDiff { get; set; }
+
+        /// <summary>
+        /// Stoes if, at the moment of automarical news download, it will download them from a library source (true) or from a source mentioned by the user (false). 
+        /// </summary>
+        public bool AutomaticalDownloadFromSources = true;
 
         /// <summary>
         /// Sets the news window grid.
@@ -352,6 +356,8 @@ namespace ZanScore
         /// <remarks>It's an event handler</remarks>
         private void DownloadAllNews(object sender, EventArgs e)
         {
+            AutomaticalDownloadFromSources = true;
+            NewsSourcesCollection.LoadSources(true);
             DownloadAllNewsProcess(true);
         }
 
@@ -736,7 +742,7 @@ namespace ZanScore
         /// <remarks>Event handler.</remarks>
         private void AutomaticalDownloadEngine(object sender, EventArgs e)
         {
-            DownloadAllNewsProcess(true);
+            DownloadAllNewsProcess(AutomaticalDownloadFromSources);
         }
 
         /// <summary>

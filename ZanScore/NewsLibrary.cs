@@ -358,10 +358,11 @@ namespace ZanScore
         /// <param name="sender">The object that triggers the event.</param>
         /// <param name="e">The parameters used to trigger the event.</param>
         /// <remarks>Event handler.</remarks>
-        private void VisitTheSelectedSource(object sender, System.EventArgs e)
+        public void VisitTheSelectedSource(object sender, System.EventArgs e)
         {
             AbsoluteIndex = ComputeAbsoluteIndex();
             ((Form1)Owner).DownloadAllNewsProcess(false);
+            ((Form1)Owner).AutomaticalDownloadFromSources = false;
             Close();
         }
     }
