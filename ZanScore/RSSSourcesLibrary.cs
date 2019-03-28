@@ -94,7 +94,7 @@ namespace ZanScore
                 return true;
             }
 
-            catch (ArgumentOutOfRangeException A) 
+            catch (ArgumentOutOfRangeException A)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
@@ -173,9 +173,10 @@ namespace ZanScore
             catch (FileNotFoundException)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
-                MessageBoxIcon MI = MessageBoxIcon.Error;
-                MessageBox.Show("Sources file not found. The program created an empty file, automatically", "Error!", MB, MI);
-                File.Create("Sources.txt");
+                MessageBoxIcon MI = MessageBoxIcon.Warning;
+                MessageBox.Show("Sources file not found. The program created an empty file, automatically", "Warning!", MB, MI);
+                FileStream f = File.Create("Sources.txt");
+                f.Close();
                 return false;
             }
             catch (FileLoadException F)
@@ -215,7 +216,7 @@ namespace ZanScore
                 IsSourceSelected.Add(true);
                 return true;
             }
-            catch (ArgumentOutOfRangeException A) 
+            catch (ArgumentOutOfRangeException A)
             {
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 MessageBoxIcon icon = MessageBoxIcon.Error;
