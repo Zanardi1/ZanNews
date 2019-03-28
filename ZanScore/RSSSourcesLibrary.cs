@@ -137,6 +137,7 @@ namespace ZanScore
         /// <exception cref="SecurityException">Thrown in case of security exceptions.</exception>
         private bool ReadSourcesFile()
         {
+            ClearSources();
             string[] TextToRead = new string[] { }; //retine textele care vor fi citite din fisier. 
             int j = 0, found = 0;
             try

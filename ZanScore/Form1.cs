@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-//bug Daca citesc stiri dintr-o sursa din biblioteca predefinita si apas CTRL+D (descarcarea stirilor din lista facuta de utilizator) apare o exceptie;
-
 namespace ZanScore
 {
     public partial class Form1 : Form
