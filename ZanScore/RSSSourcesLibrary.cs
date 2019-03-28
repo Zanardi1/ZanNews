@@ -170,11 +170,12 @@ namespace ZanScore
                 }
                 return true;
             }
-            catch (FileNotFoundException F)
+            catch (FileNotFoundException)
             {
                 MessageBoxButtons MB = MessageBoxButtons.OK;
                 MessageBoxIcon MI = MessageBoxIcon.Error;
-                MessageBox.Show(F.Message, "Error!", MB, MI);
+                MessageBox.Show("Sources file not found. The program created an empty file, automatically", "Error!", MB, MI);
+                File.Create("Sources.txt");
                 return false;
             }
             catch (FileLoadException F)
