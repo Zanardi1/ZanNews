@@ -89,6 +89,7 @@
             this.ClientSize = new System.Drawing.Size(706, 450);
             this.Controls.Add(this.CategoryListBox);
             this.Controls.Add(this.NewsLibrarySourcesView);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewsLibrary";

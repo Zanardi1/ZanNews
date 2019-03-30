@@ -191,5 +191,17 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Wiki pics\About Window.PNG" />
+    <Content Include="Wiki pics\Add News.PNG" />
+    <Content Include="Wiki pics\Edit News Sources.PNG" />
+    <Content Include="Wiki pics\Main Menu.PNG" />
+    <Content Include="Wiki pics\Main Window.PNG" />
+    <Content Include="Wiki pics\News Download.PNG" />
+    <Content Include="Wiki pics\News Library.PNG" />
+    <Content Include="Wiki pics\News Sources.PNG" />
+    <Content Include="Wiki pics\Startup.PNG" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
