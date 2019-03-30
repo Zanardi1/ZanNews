@@ -35,9 +35,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.NewsWebPage = new System.Windows.Forms.WebBrowser();
             this.NewsDetailsGrid = new System.Windows.Forms.DataGridView();
-            this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewsTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NewsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.StatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.DownloadProgressBar = new System.Windows.Forms.ToolStripProgressBar();
@@ -53,6 +50,9 @@
             this.AboutProgramOption = new System.Windows.Forms.ToolStripMenuItem();
             this.MinimizeToSystray = new System.Windows.Forms.NotifyIcon(this.components);
             this.DownloadNewsTimer = new System.Windows.Forms.Timer(this.components);
+            this.NewsChannel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsTitle = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NewsDescription = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.NewsDetailsGrid)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
@@ -88,27 +88,6 @@
             this.NewsDetailsGrid.Size = new System.Drawing.Size(451, 429);
             this.NewsDetailsGrid.TabIndex = 2;
             this.NewsDetailsGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.LoadNewsURL);
-            // 
-            // NewsChannel
-            // 
-            this.NewsChannel.HeaderText = "Channel";
-            this.NewsChannel.Name = "NewsChannel";
-            this.NewsChannel.ReadOnly = true;
-            this.NewsChannel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NewsTitle
-            // 
-            this.NewsTitle.HeaderText = "Title";
-            this.NewsTitle.Name = "NewsTitle";
-            this.NewsTitle.ReadOnly = true;
-            this.NewsTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // NewsDescription
-            // 
-            this.NewsDescription.HeaderText = "Description";
-            this.NewsDescription.Name = "NewsDescription";
-            this.NewsDescription.ReadOnly = true;
-            this.NewsDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // statusStrip1
             // 
@@ -244,6 +223,27 @@
             // 
             this.DownloadNewsTimer.Tick += new System.EventHandler(this.AutomaticalDownloadEngine);
             // 
+            // NewsChannel
+            // 
+            this.NewsChannel.HeaderText = "News Source";
+            this.NewsChannel.Name = "NewsChannel";
+            this.NewsChannel.ReadOnly = true;
+            this.NewsChannel.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NewsTitle
+            // 
+            this.NewsTitle.HeaderText = "Title";
+            this.NewsTitle.Name = "NewsTitle";
+            this.NewsTitle.ReadOnly = true;
+            this.NewsTitle.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // NewsDescription
+            // 
+            this.NewsDescription.HeaderText = "Description";
+            this.NewsDescription.Name = "NewsDescription";
+            this.NewsDescription.ReadOnly = true;
+            this.NewsDescription.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -286,9 +286,6 @@
         private System.Windows.Forms.ToolStripMenuItem DownloadFromSelectedSourcesOption;
         private System.Windows.Forms.ToolStripMenuItem AboutProgramOption;
         private System.Windows.Forms.ToolStripProgressBar DownloadProgressBar;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewsChannel;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewsTitle;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
         private System.Windows.Forms.NotifyIcon MinimizeToSystray;
         /// <summary>
         /// The timer that will be used when the automatical download option is enabled
@@ -299,6 +296,9 @@
         /// The web page that displays the news
         /// </summary>
         public System.Windows.Forms.WebBrowser NewsWebPage;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsChannel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsTitle;
+        private System.Windows.Forms.DataGridViewTextBoxColumn NewsDescription;
     }
 }
 
